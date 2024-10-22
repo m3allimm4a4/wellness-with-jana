@@ -6,6 +6,7 @@
   ],
   "version": "1.0.0",
   "scripts": {
+    "format": "prettier --write --cache .",
     "start:front": "npm run start -w front"
   },
   "author": "Bechara Rammouz",
