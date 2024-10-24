@@ -1,0 +1,40 @@
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 2rem 1rem;
+  height: 100%;
+  color: #ffffff;
+
+  .image-container {
+    width: 30%;
+    position: relative;
+  }
+
+  .content {
+    padding: 4rem 4rem 4rem 150px;
+    width: 50%;
+    background-color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (max-width: 767px) {
+    height: auto;
+
+    .image-container {
+      width: 95%;
+
+      img {
+        max-width: 100%;
+      }
+    }
+
+    .content {
+      width: 95%;
+      padding: 2rem 1rem;
+    }
+  }
+}
