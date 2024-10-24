@@ -1,0 +1,22 @@
+.home-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  text-align: center;
+
+  .title {
+    color: var(--primary-color);
+  }
+
+  .content {
+    max-width: 50%;
+    line-height: 2rem;
+    @media (max-width: 767px) {
+      max-width: 100%;
+      line-height: 1.5rem;
+    }
+  }
+}
