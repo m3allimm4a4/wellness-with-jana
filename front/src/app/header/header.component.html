@@ -1,1 +1,8 @@
-<p-menubar [model]="items" />
+<p-menubar [model]="items">
+  <ng-template pTemplate="end">
+    <div class="end">
+      <div><b>Wellness by </b> <b style="color: var(--primary-color)">JANA</b></div>
+      <p-button size="small" label="BOOK A SESSION" />
+    </div>
+  </ng-template>
+</p-menubar>
