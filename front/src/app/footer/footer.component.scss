@@ -1,0 +1,22 @@
+.footer {
+  padding: 1rem;
+  background-color: #2e2e2e;
+  color: #ffffff;
+  text-align: center;
+  width: 100%;
+
+  .social {
+    a {
+      color: #ffffff;
+
+      &:hover {
+        color: var(--primary-color);
+      }
+    }
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+}
