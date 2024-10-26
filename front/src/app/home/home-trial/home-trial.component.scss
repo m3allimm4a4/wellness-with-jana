@@ -1,0 +1,22 @@
+.section {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  text-align: center;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  > * {
+    max-width: 50%;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+    > * {
+      max-width: 100%;
+    }
+  }
+}
