@@ -1,0 +1,31 @@
+.home-marketing {
+  min-height: 95vh;
+  height: 100%;
+  background-image: url('/cute-girl-doing-yoga-in-a-summer-forest.webp');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: flex-end;
+
+  div {
+    margin: auto 0;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    h3 {
+      background-color: #ffffff;
+      width: fit-content;
+    }
+
+    @media (max-width: 767px) {
+      width: 65%;
+      h3 {
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+      }
+    }
+  }
+}
