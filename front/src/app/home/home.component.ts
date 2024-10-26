@@ -4,11 +4,19 @@ import { Button } from 'primeng/button';
 import { HomeBannerComponent } from './home-banner/home-banner.component';
 import { HomeSummaryComponent } from './home-summary/home-summary.component';
 import { HomeHighlightedServiceComponent } from './home-highlighted-service/home-highlighted-service.component';
+import { HomeServicesListComponent } from './home-services-list/home-services-list.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, Button, HomeBannerComponent, HomeSummaryComponent, HomeHighlightedServiceComponent],
+  imports: [
+    HeaderComponent,
+    Button,
+    HomeBannerComponent,
+    HomeSummaryComponent,
+    HomeHighlightedServiceComponent,
+    HomeServicesListComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

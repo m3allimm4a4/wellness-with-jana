@@ -1,0 +1,27 @@
+.section {
+  padding: 100px 150px;
+  background-color: #d3a245;
+
+  @media (max-width: 767px) {
+    padding: 60px 2rem;
+  }
+}
+
+.text-container {
+  color: #ffffff;
+  padding-bottom: 2rem;
+}
+
+.list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+
+  > app-home-services-list-item {
+    width: 30%;
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+  }
+}
