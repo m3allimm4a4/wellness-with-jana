@@ -1,0 +1,32 @@
+.section {
+  padding: 60px 150px;
+  text-align: center;
+
+  .ig-link {
+    text-decoration: none;
+  }
+
+  .images-container {
+    padding-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+
+    > img {
+      width: 100%;
+      max-height: 170px;
+      max-width: 170px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    padding: 2rem 1rem;
+    .images-container {
+      > img {
+        max-height: 100px;
+        max-width: 100px;
+      }
+    }
+  }
+}

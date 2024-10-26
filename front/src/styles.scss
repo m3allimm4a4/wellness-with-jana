@@ -93,3 +93,11 @@ p {
     font-size: 1rem;
   }
 }
+
+a {
+  color: var(--primary-color);
+
+  &:hover {
+    color: var(--highlight-text-color);
+  }
+}

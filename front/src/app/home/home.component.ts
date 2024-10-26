@@ -9,6 +9,7 @@ import { HomeHighlightedGuideComponent } from './home-highlighted-guide/home-hig
 import { HomeClientTestemonialsComponent } from './home-client-testemonials/home-client-testemonials.component';
 import { HomeMarketingMessageComponent } from './home-marketing-message/home-marketing-message.component';
 import { HomeTrialComponent } from './home-trial/home-trial.component';
+import { HomeSocialShowcaseComponent } from './home-social-showcase/home-social-showcase.component';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,7 @@ import { HomeTrialComponent } from './home-trial/home-trial.component';
     HomeClientTestemonialsComponent,
     HomeMarketingMessageComponent,
     HomeTrialComponent,
+    HomeSocialShowcaseComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
