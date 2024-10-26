@@ -1,0 +1,12 @@
+.card-container {
+  text-align: start;
+  border: 1px solid var(--primary-color);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+
+  .name {
+    padding-top: 1rem;
+    color: var(--primary-color);
+  }
+}

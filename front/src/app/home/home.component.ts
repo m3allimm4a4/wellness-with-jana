@@ -6,6 +6,7 @@ import { HomeSummaryComponent } from './home-summary/home-summary.component';
 import { HomeHighlightedServiceComponent } from './home-highlighted-service/home-highlighted-service.component';
 import { HomeServicesListComponent } from './home-services-list/home-services-list.component';
 import { HomeHighlightedGuideComponent } from './home-highlighted-guide/home-highlighted-guide.component';
+import { HomeClientTestemonialsComponent } from './home-client-testemonials/home-client-testemonials.component';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ import { HomeHighlightedGuideComponent } from './home-highlighted-guide/home-hig
     HomeHighlightedServiceComponent,
     HomeServicesListComponent,
     HomeHighlightedGuideComponent,
+    HomeClientTestemonialsComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

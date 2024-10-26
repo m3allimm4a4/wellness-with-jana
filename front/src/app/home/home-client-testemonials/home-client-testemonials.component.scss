@@ -1,0 +1,31 @@
+.section {
+  padding: 60px 150px;
+  text-align: center;
+
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+
+    > app-home-client-testemonial-card {
+      width: 30%;
+
+      &.with-pt {
+        padding-top: 4rem;
+      }
+
+      @media (max-width: 767px) {
+        width: 100%;
+
+        &.with-pt {
+          padding-top: 0;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    padding: 2rem 1rem;
+  }
+}
