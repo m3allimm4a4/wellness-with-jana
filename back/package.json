@@ -3,7 +3,23 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon",
+    "build": "ts-node --project tsconfig.json build.api.ts"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "express-fileupload": "^1.5.1",
+    "mongoose": "^8.8.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/express-fileupload": "^1.5.1",
+    "@types/node": "^18.19.63",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
 }

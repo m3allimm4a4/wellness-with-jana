@@ -8,7 +8,9 @@
   "scripts": {
     "format": "prettier --write --cache .",
     "start:front": "npm run start -w front",
-    "build:front": "npm run build -w front"
+    "build:front": "npm run build -w front",
+    "start:back": "npm run start -w back",
+    "build:back": "npm run build -w back"
   },
   "author": "Bechara Rammouz",
   "license": "MIT",
