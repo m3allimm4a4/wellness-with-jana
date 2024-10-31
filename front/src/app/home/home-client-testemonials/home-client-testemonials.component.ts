@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  HomeClientTestemonialCardComponent
-} from './home-client-testemonial-card/home-client-testemonial-card.component';
+import { HomeClientTestemonialCardComponent } from './home-client-testemonial-card/home-client-testemonial-card.component';
 
 @Component({
   selector: 'app-home-client-testemonials',
