@@ -16,6 +16,10 @@ const run = async () => {
 
   server.use(cors());
 
+  server.use(express.json());
+
+  server.use(express.static('public'));
+
   server.use(
     fileUpload({
       createParentPath: true,
@@ -39,7 +43,7 @@ const run = async () => {
   const port = Number(process.env.PORT) || 3000;
   server.listen(port, () => {
     const prod = process.env.PROD === 'true';
-    if (prod) {
+    if (!prod) {
       console.log(`Node Express server listening on http://localhost:${port}/api`);
     }
   });
