@@ -33,11 +33,11 @@ export const createTranslationFiles = async (languages: Language[]) => {
   await Promise.all(writePromises);
 };
 
-export const updateTranslationFile = async (labels: { id: string; label: string }[], language: Language) => {
+export const updateTranslationFile = async (labels: { name: string; label: string }[], language: Language) => {
   const data = await readFile(getFilePath(language), 'utf8');
   const jsonData: Record<string, string> = JSON.parse(data);
-  labels.forEach(({ id, label }) => {
-    jsonData[id] = label;
+  labels.forEach(({ name, label }) => {
+    jsonData[name] = label;
   });
   await writeJson(language, jsonData);
 };

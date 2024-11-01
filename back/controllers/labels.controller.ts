@@ -38,7 +38,7 @@ export const createOrUpdateLabel: RequestHandler = catchAsync(async (req, res): 
     label.en = req.body.en;
     label.save();
   }
-  await updateTranslationFile([{ id: label.name, label: label.en }], 'en');
+  await updateTranslationFile([{ name: label.name, label: label.en }], 'en');
   res.status(200).json(label.toObject());
 });
 
@@ -56,7 +56,7 @@ export const createOrUpdateLabels: RequestHandler = catchAsync(async (req, res):
   }));
 
   const result = await Label.bulkWrite(bulkOps);
-  const updatedLabels = labels.map(label => ({ id: label.name, label: label.en }));
+  const updatedLabels = labels.map(label => ({ name: label.name, label: label.en }));
   await updateTranslationFile(updatedLabels, 'en');
   res.status(200).json(result);
 });
