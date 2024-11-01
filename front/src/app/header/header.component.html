@@ -1,7 +1,7 @@
 <p-menubar [model]="items">
   <ng-template pTemplate="end">
     <div class="end">
-      <div><b>Wellness with </b> <b style="color: var(--primary-color)">Jana</b></div>
+      <div><b>Wellness with </b> <b style="color: var(--primary-color)" (click)="showLogin()">Jana</b></div>
       <p-button size="small" label="BOOK A SESSION" />
     </div>
   </ng-template>

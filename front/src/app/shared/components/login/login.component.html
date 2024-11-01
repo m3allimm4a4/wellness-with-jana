@@ -1,0 +1,21 @@
+<form [formGroup]="loginForm" class="grid grid-nogutter gap-2">
+  <div class="col-12">
+    <div>
+      <label for="username">Username</label>
+    </div>
+    <div>
+      <input pInputText id="username" type="text" formControlName="username" style="width: 100%" />
+    </div>
+  </div>
+  <div class="col-12">
+    <div>
+      <label for="password">Password</label>
+    </div>
+    <div>
+      <input pInputText id="password" type="password" formControlName="password" style="width: 100%" />
+    </div>
+  </div>
+  <div class="col-12">
+    <p-button label="LOGIN" [disabled]="!loginForm.valid" (onClick)="onLogin()" />
+  </div>
+</form>

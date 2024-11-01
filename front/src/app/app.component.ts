@@ -4,19 +4,27 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
+import { ToastModule, ToastPositionType } from 'primeng/toast';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, ToastModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor(translate: TranslateService) {
+  toastPosition: ToastPositionType = 'top-right';
+
+  constructor(translate: TranslateService, deviceService: DeviceDetectorService) {
     translate.addLangs(environment.languages);
     translate.setDefaultLang('en');
     translate.use(this.getUserLanguage());
+
+    if (deviceService.isMobile()) {
+      this.toastPosition = 'bottom-right';
+    }
   }
 
   private getUserLanguage() {

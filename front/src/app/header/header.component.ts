@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { Button } from 'primeng/button';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -16,4 +17,10 @@ export class HeaderComponent {
     { label: 'About', routerLink: '/about' },
     { label: 'Contact', routerLink: '/contact' },
   ];
+
+  constructor(private authService: AuthService) {}
+
+  showLogin() {
+    this.authService.openLoginDialog();
+  }
 }
