@@ -3,11 +3,11 @@ import { Language } from '../types/language.type';
 import { mkdir, readFile, rename, writeFile } from 'fs/promises';
 
 const getFilePath = (language: Language) => {
-  return `./public/${language}.json`;
+  return `./public/i18n/${language}.json`;
 };
 
 const getTmpFilePath = (language: Language) => {
-  return `./public/${language}.tmp.json`;
+  return `./public/i18n/${language}.tmp.json`;
 };
 
 const writeJson = async (language: Language, data: Record<string, string>) => {
@@ -18,7 +18,7 @@ const writeJson = async (language: Language, data: Record<string, string>) => {
 };
 
 export const createTranslationFiles = async (languages: Language[]) => {
-  await mkdir('./public', { recursive: true });
+  await mkdir('./public/i18n/', { recursive: true });
 
   const labels = await Label.find();
 
@@ -39,7 +39,6 @@ export const updateTranslationFile = async (id: string, label: string, language:
   jsonData[id] = label;
   await writeJson(language, jsonData);
 };
-
 
 export const removeLabelFromTranslationFile = async (id: string, language: Language) => {
   const data = await readFile(getFilePath(language), 'utf8');
