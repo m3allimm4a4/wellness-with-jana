@@ -4,6 +4,7 @@ import { Label } from '../models/label.model';
 import { InvalidIdError } from '../errors/invalid-id.error';
 import { NotFoundError } from '../errors/not-found.error';
 import { removeLabelFromTranslationFile, updateTranslationFile } from '../shared/translation-file-manager';
+import { BadRequestError } from '../errors/bad-request.error';
 
 export const getLabels: RequestHandler = catchAsync(async (_req, res): Promise<void> => {
   const labels = await Label.find();
@@ -37,8 +38,27 @@ export const createOrUpdateLabel: RequestHandler = catchAsync(async (req, res): 
     label.en = req.body.en;
     label.save();
   }
-  await updateTranslationFile(label.name, label.en, 'en');
+  await updateTranslationFile([{ id: label.name, label: label.en }], 'en');
   res.status(200).json(label.toObject());
+});
+
+export const createOrUpdateLabels: RequestHandler = catchAsync(async (req, res): Promise<void> => {
+  const labels: { name: string; en: string }[] = req.body;
+  if (!labels || !labels?.length) {
+    throw new BadRequestError();
+  }
+  const bulkOps = labels.map(({ name, en }) => ({
+    updateOne: {
+      filter: { name },
+      update: { $set: { en } },
+      upsert: true,
+    },
+  }));
+
+  const result = await Label.bulkWrite(bulkOps);
+  const updatedLabels = labels.map(label => ({ id: label.name, label: label.en }));
+  await updateTranslationFile(updatedLabels, 'en');
+  res.status(200).json(result);
 });
 
 export const deleteLabel: RequestHandler = catchAsync(async (req, res): Promise<void> => {

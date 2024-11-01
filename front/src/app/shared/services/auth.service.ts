@@ -39,7 +39,7 @@ export class AuthService {
       return;
     }
     this.closeLoginDialog();
-    this.router.navigate(['/admin']).then();
+    this.router.navigate(['/admin', 'home']).then();
     this.messageService.add({
       key: 'toast',
       severity: 'success',
