@@ -1,11 +1,11 @@
 import { model, Schema } from 'mongoose';
 
 interface ILabel extends Document {
+  id: string;
   name: string;
   en: string;
   createdAt: Date;
   updatedAt: Date;
-  id: string;
 }
 
 export const LabelSchema = new Schema<ILabel>(

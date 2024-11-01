@@ -1,2 +1,8 @@
 <app-admin-header />
-<router-outlet></router-outlet>
+<div class="container">
+  @defer (when doneLoading()) {
+    <router-outlet></router-outlet>
+  } @placeholder (minimum 0) {
+    Loading...
+  }
+</div>
