@@ -4,12 +4,16 @@ import { environment } from '../../../environments/environment';
 import { Label } from '../../shared/interfaces/label.interface';
 import { BulkWriteResponse } from '../../shared/interfaces/bulk-write-response.interface';
 import { BehaviorSubject, iif, map, take, tap } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class LabelsService {
   private labels = new BehaviorSubject<Map<string, string>>(new Map());
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService,
+  ) {}
 
   public getLabels() {
     return iif(() => this.labels.value.size === 0, this.refreshLabels(), this.labels.asObservable().pipe(take(1)));
@@ -23,7 +27,16 @@ export class LabelsService {
   }
 
   public createOrUpdateLabels(labels: Partial<Label>[]) {
-    return this.http.post<BulkWriteResponse>(`${environment.apiUrl}/labels`, labels);
+    return this.http.post<BulkWriteResponse>(`${environment.apiUrl}/labels`, labels).pipe(
+      tap(() =>
+        this.messageService.add({
+          key: 'toast',
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Saved Successfully !',
+        }),
+      ),
+    );
   }
 
   private convertLabelsListToMap(labels: Label[]) {
