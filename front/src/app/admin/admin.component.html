@@ -4,5 +4,10 @@
     <router-outlet></router-outlet>
   } @placeholder (minimum 0) {
     Loading...
+  } @error {
+    <p-messages
+      [value]="[{ severity: 'error', detail: 'Failed to load admin page. Try again later.' }]"
+      [enableService]="false"
+      [closable]="false" />
   }
 </div>

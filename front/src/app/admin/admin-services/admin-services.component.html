@@ -1,0 +1,43 @@
+<p-table styleClass="p-datatable-striped" [value]="services()">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Name</th>
+      <th>Image</th>
+      <th>Price</th>
+      <th style="text-align: center">
+        <a [routerLink]="['admin', 'services', 'new']">
+          <p-button icon="pi pi-plus" size="small" styleClass="table-action-button" [text]="true" [rounded]="true" />
+        </a>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-service>
+    <tr>
+      <td style="width: 32%">{{ service.name }}</td>
+      <td style="width: 32%"><img [src]="service.imagePath" alt="service-image" /></td>
+      <td style="width: 31%">{{ service.price }}</td>
+      <td style="width: 5%">
+        <div class="flex justify-content-end">
+          <a [routerLink]="['admin', 'services', service.id]">
+            <p-button
+              icon="pi pi-pencil"
+              size="small"
+              styleClass="table-action-button"
+              severity="info"
+              [text]="true"
+              [rounded]="true" />
+          </a>
+          <p-button
+            icon="pi pi-trash"
+            size="small"
+            styleClass="table-action-button"
+            severity="danger"
+            [text]="true"
+            [rounded]="true"
+            (onClick)="onDeleteClick(service.id)" />
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

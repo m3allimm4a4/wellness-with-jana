@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { LabelsService } from './services/labels.service';
 import { finalize, Subscription } from 'rxjs';
+import { MessagesModule } from 'primeng/messages';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [RouterOutlet, AdminHeaderComponent],
+  imports: [RouterOutlet, AdminHeaderComponent, MessagesModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
   providers: [LabelsService],

@@ -12,6 +12,7 @@ import { MenuItem } from 'primeng/api';
 export class AdminHeaderComponent {
   items: MenuItem[] = [
     { label: 'Home', routerLink: '/admin/home' },
+    { label: 'Services', routerLink: '/admin/services' },
     { label: 'About', routerLink: '/admin/about' },
     { label: 'Contact', routerLink: '/admin/contact' },
   ];

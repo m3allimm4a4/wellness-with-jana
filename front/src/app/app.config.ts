@@ -8,7 +8,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../environments/environment';
 import { DialogService } from 'primeng/dynamicdialog';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 const HttpLoaderFactory = (http: HttpClient) => {
   return new TranslateHttpLoader(http, environment.translationEndpoint);
@@ -35,5 +35,6 @@ export const appConfig: ApplicationConfig = {
     ),
     DialogService,
     MessageService,
+    ConfirmationService,
   ],
 };
