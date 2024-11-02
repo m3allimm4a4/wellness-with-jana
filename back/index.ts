@@ -2,12 +2,13 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
+import mongoose from 'mongoose';
 import { NotFoundError } from './errors/not-found.error';
 import { errorHandler } from './middlewares/error.handler';
-import mongoose from 'mongoose';
 import { labelRoutes } from './routes/labelRoutes';
 import { createTranslationFiles } from './shared/translation-file-manager';
 import { Language } from './types/language.type';
+import { serviceRoutes } from './routes/serviceRoutes';
 
 const run = async () => {
   const env = process.env.NODE_ENV || 'dev';
@@ -40,6 +41,7 @@ const run = async () => {
   );
 
   server.use('/api/labels', labelRoutes);
+  server.use('/api/services', serviceRoutes);
 
   server.get('/api/test', (_req, res) => {
     res.status(200).send('API is running');

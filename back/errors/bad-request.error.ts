@@ -1,5 +1,5 @@
 export class BadRequestError extends Error {
   constructor() {
-    super('Bad Request Error');
+    super('Bad Request');
   }
 }
