@@ -15,6 +15,14 @@ export const adminRoutes: Routes = [
         title: 'Admin Services',
         loadComponent: () => import('./admin-services/admin-services.component').then(m => m.AdminServicesComponent),
       },
+      {
+        path: 'services/:id',
+        title: 'Admin Service Details',
+        loadComponent: () =>
+          import('./admin-services/admin-services-details/admin-services-details.component').then(
+            m => m.AdminServicesDetailsComponent,
+          ),
+      },
     ],
   },
 ];

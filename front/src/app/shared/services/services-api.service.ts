@@ -19,7 +19,7 @@ export class ServicesApiService {
     return iif(() => this.loaded, this.services.asObservable(), this.refreshServices());
   }
 
-  public refreshServices() {
+  private refreshServices() {
     return this.http.get<Service[]>(`${environment.apiUrl}/services`).pipe(
       switchMap(services => {
         this.loaded = true;
@@ -29,17 +29,48 @@ export class ServicesApiService {
     );
   }
 
+  public getService(id: string) {
+    return this.http.get<Service>(`${environment.apiUrl}/services/${id}`);
+  }
+
+  public createService(service: Service) {
+    return this.http.post<Service>(`${environment.apiUrl}/services`, service).pipe(
+      tap(() => {
+        this.createSuccessToast('Service created successfully');
+        this.invalidateCache();
+      }),
+    );
+  }
+
+  public updateService(id: string, service: Service) {
+    return this.http.put<Service>(`${environment.apiUrl}/services/${id}`, service).pipe(
+      tap(() => {
+        this.createSuccessToast('Service updated successfully');
+        this.invalidateCache();
+      }),
+    );
+  }
+
   public deleteService(id: string) {
     return this.http.delete<void>(`${environment.apiUrl}/services/${id}`).pipe(
       switchMap(() => this.refreshServices()),
-      tap(() => {
-        this.messageService.add({
-          key: 'toast',
-          severity: 'success',
-          summary: 'Service deleted successfully !',
-        });
-      }),
+      tap(() => this.createSuccessToast('Service deleted successfully !')),
       map(() => of(null)),
     );
+  }
+
+  private createSuccessToast(message: string): void {
+    this.messageService.add({
+      key: 'toast',
+      severity: 'success',
+      summary: message,
+    });
+  }
+
+  private invalidateCache() {
+    if (this.loaded) {
+      this.loaded = false;
+      this.services.next([]);
+    }
   }
 }

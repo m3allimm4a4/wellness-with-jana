@@ -5,7 +5,7 @@
       <th>Image</th>
       <th>Price</th>
       <th style="text-align: center">
-        <a [routerLink]="['admin', 'services', 'new']">
+        <a [routerLink]="['new']">
           <p-button icon="pi pi-plus" size="small" styleClass="table-action-button" [text]="true" [rounded]="true" />
         </a>
       </th>
@@ -19,7 +19,7 @@
       <td style="width: 31%">{{ service.price }}</td>
       <td style="width: 5%">
         <div class="flex justify-content-end">
-          <a [routerLink]="['admin', 'services', service.id]">
+          <a [routerLink]="[service.id]">
             <p-button
               icon="pi pi-pencil"
               size="small"
