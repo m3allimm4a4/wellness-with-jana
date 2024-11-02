@@ -3,16 +3,13 @@
     <h4
       class="col-12 md:col-4 animation-duration-1000 animation-iteration-1 animation-ease-in-out"
       appLazyAnimate
-      lazyAnimateClass="fadeindown">
-      How I work with clients…
-    </h4>
-    <p
+      lazyAnimateClass="fadeindown"
+      [innerHTML]="'home-services-list-title' | translate"></h4>
+    <div
       class="col-12 md:col-6 animation-duration-1000 animation-iteration-1 animation-ease-in-out"
       appLazyAnimate
-      lazyAnimateClass="fadeindown">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum faucibus lectus quis facilisis ultrices.
-      Aenean blandit leo.
-    </p>
+      lazyAnimateClass="fadeindown"
+      [innerHTML]="'home-services-list-description' | translate"></div>
   </div>
   <div class="list-container">
     <app-home-services-list-item
