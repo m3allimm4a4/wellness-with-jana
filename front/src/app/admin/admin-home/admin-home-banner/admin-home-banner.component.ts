@@ -5,11 +5,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
+import { EditorModule } from 'primeng/editor';
 
 @Component({
   selector: 'app-admin-home-banner',
   standalone: true,
-  imports: [Button, CardModule, InputTextModule, ReactiveFormsModule],
+  imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, EditorModule],
   templateUrl: './admin-home-banner.component.html',
   styleUrl: './admin-home-banner.component.scss',
 })

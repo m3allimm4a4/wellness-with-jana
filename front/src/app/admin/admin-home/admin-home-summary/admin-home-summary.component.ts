@@ -5,11 +5,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { LabelsService } from '../../services/labels.service';
+import { EditorModule } from 'primeng/editor';
 
 @Component({
   selector: 'app-admin-home-summary',
   standalone: true,
-  imports: [Button, CardModule, InputTextModule, ReactiveFormsModule],
+  imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, EditorModule],
   templateUrl: './admin-home-summary.component.html',
   styleUrl: './admin-home-summary.component.scss',
 })

@@ -11,7 +11,7 @@
     </div>
     <div>
       <label style="width: 100%">Description:</label>
-      <input pInputText type="text" style="width: 100%" formControlName="description" />
+      <p-editor formControlName="description" [style]="{ height: '10rem' }" />
     </div>
     <p-button label="SAVE" type="submit" [disabled]="!bannerForm.valid" (onClick)="saveBanner()" />
   </form>
