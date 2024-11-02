@@ -12,28 +12,14 @@
       [innerHTML]="'home-services-list-description' | translate"></div>
   </div>
   <div class="list-container">
-    <app-home-services-list-item
-      class="animation-duration-1000 animation-iteration-1 animation-ease-in-out"
-      appLazyAnimate
-      lazyAnimateClass="fadeindown"
-      image="woman-recording-cooking-video.webp"
-      header="1:1 Consultation"
-      content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum this faucibus lectus quis facilisis not the ultrices." />
-
-    <app-home-services-list-item
-      class="animation-duration-2000 animation-iteration-1 animation-ease-in-out"
-      appLazyAnimate
-      lazyAnimateClass="fadeindown"
-      image="group-of-people-doing-yoga-warrior-pose-at-studio.webp"
-      header="Group Coaching"
-      content="Maecenas condimentum eros we in eros, tempus eleifend the sapien porttitor ac. Aliquam our own varius neque nunc." />
-
-    <app-home-services-list-item
-      class="animation-duration-3000 animation-iteration-1 animation-ease-in-out"
-      appLazyAnimate
-      lazyAnimateClass="fadeindown"
-      image="woman-with-fitness-tracker-crouches-and-watches-at.webp"
-      header="30 Day Challenge"
-      content="Sed consequat accu we are msan turpis, quis vulputate metus pulvinar eu. Mauris a rutrum ligula, et porta nunc." />
+    @for (service of services(); track service.id) {
+      <app-home-services-list-item
+        class="animation-duration-1000 animation-iteration-1 animation-ease-in-out"
+        appLazyAnimate
+        lazyAnimateClass="fadeindown"
+        image="woman-recording-cooking-video.webp"
+        [header]="service.name"
+        [content]="service.title" />
+    }
   </div>
 </section>

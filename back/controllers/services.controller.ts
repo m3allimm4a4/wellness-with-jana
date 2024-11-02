@@ -42,6 +42,7 @@ export const createService: RequestHandler = catchAsync(async (req, res): Promis
     price: service.price,
     title: service.title,
     description: service.description,
+    checkList: service.checkList,
     tags: service.tags || [],
   });
 
@@ -61,6 +62,7 @@ export const updateService: RequestHandler = catchAsync(async (req, res): Promis
     price: service.price,
     title: service.title,
     description: service.description,
+    checkList: service.checkList,
     tags: service.tags || [],
   });
 
