@@ -5,6 +5,9 @@ import { Button } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AdminHomeBannerComponent } from './admin-home-banner/admin-home-banner.component';
 import { AdminHomeSummaryComponent } from './admin-home-summary/admin-home-summary.component';
+import {
+  AdminHomeHighlightedServiceComponent
+} from './admin-home-highlighted-service/admin-home-highlighted-service.component';
 
 @Component({
   selector: 'app-admin-home',
@@ -16,6 +19,7 @@ import { AdminHomeSummaryComponent } from './admin-home-summary/admin-home-summa
     ReactiveFormsModule,
     AdminHomeBannerComponent,
     AdminHomeSummaryComponent,
+    AdminHomeHighlightedServiceComponent,
   ],
   templateUrl: './admin-home.component.html',
   styleUrl: './admin-home.component.scss',

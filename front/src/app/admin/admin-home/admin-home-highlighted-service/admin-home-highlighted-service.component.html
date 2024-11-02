@@ -1,0 +1,18 @@
+<p-card>
+  <h5 class="pb-4">Home Highlighted Service</h5>
+  <form class="flex flex-column gap-2" [formGroup]="highlightedServiceForm">
+    <div>
+      <label style="width: 100%">Title:</label>
+      <input pInputText type="text" style="width: 100%" formControlName="title" />
+    </div>
+    <div>
+      <label style="width: 100%">Description:</label>
+      <p-editor formControlName="description" [style]="{ height: '10rem' }" />
+    </div>
+    <p-button
+      label="SAVE"
+      type="submit"
+      [disabled]="!highlightedServiceForm.valid"
+      (onClick)="saveHighlightedService()" />
+  </form>
+</p-card>
