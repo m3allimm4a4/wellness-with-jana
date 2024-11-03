@@ -4,11 +4,15 @@ import { Testemonial } from '../../shared/interfaces/testemonial.interface';
 import { Subscription } from 'rxjs';
 import { TestemonialsApiService } from '../../shared/services/testemonials-api.service';
 import { NgClass } from '@angular/common';
+import {
+  HomeServicesListItemComponent
+} from '../home-services-list/home-services-list-item/home-services-list-item.component';
+import { LazyAnimateDirective } from '../../shared/directives/lazy-animate.directive';
 
 @Component({
   selector: 'app-home-client-testemonials',
   standalone: true,
-  imports: [HomeClientTestemonialCardComponent, NgClass],
+  imports: [HomeClientTestemonialCardComponent, NgClass, HomeServicesListItemComponent, LazyAnimateDirective],
   templateUrl: './home-client-testemonials.component.html',
   styleUrl: './home-client-testemonials.component.scss',
 })

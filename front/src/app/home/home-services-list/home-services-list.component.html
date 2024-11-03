@@ -14,7 +14,7 @@
   <div class="list-container">
     @for (service of services(); track service.id) {
       <app-home-services-list-item
-        class="animation-duration-1000 animation-iteration-1 animation-ease-in-out"
+        [class]="'animation-iteration-1 animation-ease-in-out animation-duration-' + ($index + 1) * 1000"
         appLazyAnimate
         lazyAnimateClass="fadeindown"
         image="woman-recording-cooking-video.webp"

@@ -3,7 +3,14 @@
   <div class="cards-container">
     @for (testemonial of testemonials(); track testemonial.id) {
       <app-home-client-testemonial-card
-        [ngClass]="{ 'with-pt': $index % 2 }"
+        class="animation-iteration-1 animation-ease-in-out"
+        appLazyAnimate
+        [lazyAnimateClass]="$index % 3 === 0 ? 'fadeinleft' : $index % 3 === 1 ? 'fadeindown' : 'fadeinright'"
+        [ngClass]="{
+          'with-pt': $index % 3 === 1,
+          'animation-duration-2000': $index % 3 === 1,
+          'animation-duration-1000': $index % 3 === 0 || $index % 3 === 2,
+        }"
         [name]="testemonial.clientName"
         [address]="testemonial.city + ', ' + testemonial.country"
         [comment]="testemonial.description" />
