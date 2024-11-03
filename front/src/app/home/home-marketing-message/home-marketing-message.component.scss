@@ -15,16 +15,18 @@
     flex-direction: column;
     gap: 0.5rem;
 
-    h3 {
+    > ::ng-deep * {
       background-color: #ffffff;
       width: fit-content;
       padding: 0.5rem;
+      font-size: 3rem;
+      line-height: 3rem;
       font-weight: 700;
     }
 
     @media (max-width: 767px) {
       width: 65%;
-      h3 {
+      > ::ng-deep * {
         font-size: 1.5rem;
         line-height: 1.5rem;
       }
