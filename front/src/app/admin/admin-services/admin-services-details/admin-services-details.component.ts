@@ -12,7 +12,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { Button } from 'primeng/button';
 
 @Component({
-  selector: 'app-admin-services-details',
+  selector: 'app-admin-testemonials-details',
   standalone: true,
   imports: [CardModule, ReactiveFormsModule, InputTextModule, EditorModule, ChipsModule, CheckboxModule, Button],
   templateUrl: './admin-services-details.component.html',

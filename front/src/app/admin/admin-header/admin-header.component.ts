@@ -13,6 +13,7 @@ export class AdminHeaderComponent {
   items: MenuItem[] = [
     { label: 'Home', routerLink: '/admin/home' },
     { label: 'Services', routerLink: '/admin/services' },
+    { label: 'Testemonials', routerLink: '/admin/testemonials' },
     { label: 'About', routerLink: '/admin/about' },
     { label: 'Contact', routerLink: '/admin/contact' },
   ];

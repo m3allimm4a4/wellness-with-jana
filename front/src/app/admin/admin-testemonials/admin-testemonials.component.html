@@ -1,9 +1,10 @@
-<p-table styleClass="p-datatable-striped" [scrollable]="true" [value]="services()">
+<p-table styleClass="p-datatable-striped" [scrollable]="true" [value]="testemonials()">
   <ng-template pTemplate="header">
     <tr>
-      <th>Name</th>
-      <th>Image</th>
-      <th>Price</th>
+      <th>Client Name</th>
+      <th>City</th>
+      <th>Country</th>
+      <th>Description</th>
       <th style="text-align: center" pFrozenColumn alignFrozen="right">
         <a [routerLink]="['new']">
           <p-button icon="pi pi-plus" size="small" styleClass="table-action-button" [text]="true" [rounded]="true" />
@@ -12,14 +13,19 @@
     </tr>
   </ng-template>
 
-  <ng-template pTemplate="body" let-service>
+  <ng-template pTemplate="body" let-testemonial>
     <tr>
-      <td style="width: 32%">{{ service.name }}</td>
-      <td style="width: 32%"><img [src]="service.imagePath" alt="service-image" /></td>
-      <td style="width: 31%">{{ service.price }}</td>
-      <td style="width: 5%">
-        <div class="flex justify-content-end" pFrozenColumn alignFrozen="right">
-          <a [routerLink]="[service.id]">
+      <td style="width: 21%">{{ testemonial.clientName }}</td>
+      <td style="width: 21%">{{ testemonial.city }}</td>
+      <td style="width: 21%">{{ testemonial.country }}</td>
+      <td style="width: 22%">
+        <div class="description">
+          {{ testemonial.description }}
+        </div>
+      </td>
+      <td style="width: 5%" pFrozenColumn alignFrozen="right">
+        <div class="flex justify-content-end">
+          <a [routerLink]="[testemonial.id]">
             <p-button
               icon="pi pi-pencil"
               size="small"
@@ -35,7 +41,7 @@
             severity="danger"
             [text]="true"
             [rounded]="true"
-            (onClick)="onDeleteClick(service.id)" />
+            (onClick)="onDeleteClick(testemonial.id)" />
         </div>
       </td>
     </tr>

@@ -23,6 +23,20 @@ export const adminRoutes: Routes = [
             m => m.AdminServicesDetailsComponent,
           ),
       },
+      {
+        path: 'testemonials',
+        title: 'Admin Testemonials',
+        loadComponent: () =>
+          import('./admin-testemonials/admin-testemonials.component').then(m => m.AdminTestemonialsComponent),
+      },
+      {
+        path: 'testemonials/:id',
+        title: 'Admin Testemonial Details',
+        loadComponent: () =>
+          import('./admin-testemonials/admin-testemonials-details/admin-testemonials-details.component').then(
+            m => m.AdminTestemonialsDetailsComponent,
+          ),
+      },
     ],
   },
 ];
