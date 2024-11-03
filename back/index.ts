@@ -43,7 +43,7 @@ const run = async () => {
 
   server.use('/api/labels', labelRoutes);
   server.use('/api/services', serviceRoutes);
-  server.use('/api/testemonals', testemonialRoutes);
+  server.use('/api/testemonials', testemonialRoutes);
 
   server.get('/api/test', (_req, res) => {
     res.status(200).send('API is running');
