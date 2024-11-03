@@ -21,7 +21,7 @@ const run = async () => {
 
   const prod = process.env.PROD === 'true';
   if (prod) {
-    const languages = (process.env.languages || '').split(',') as Language[];
+    const languages = (process.env.LANGUAGES || '').split(',') as Language[];
     await createTranslationFiles(languages);
   }
 

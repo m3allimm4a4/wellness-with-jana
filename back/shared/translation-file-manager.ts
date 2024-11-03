@@ -27,10 +27,12 @@ export const createTranslationFiles = async (languages: Language[]) => {
     labels.forEach(label => {
       res[label.name] = label[language];
     });
+    console.log(`Writing ${language}.json ...`);
     return writeJson(language, res);
   });
 
   await Promise.all(writePromises);
+  console.log(`Translation files written successfully.`);
 };
 
 export const updateTranslationFile = async (labels: { name: string; label: string }[], language: Language) => {
