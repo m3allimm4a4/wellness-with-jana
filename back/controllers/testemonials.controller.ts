@@ -13,6 +13,10 @@ export const getTestemonials: RequestHandler = catchAsync(async (req, res): Prom
     const tags = tagsFilter.split(',');
     query = query.find({ tags: { $in: tags } });
   }
+  const size = req.query.size;
+  if (typeof size === 'string' && +size > 0) {
+    query = query.limit(+size);
+  }
 
   const testemonials = await query;
   res.status(200).json(testemonials.map(testemonial => testemonial.toObject()));
