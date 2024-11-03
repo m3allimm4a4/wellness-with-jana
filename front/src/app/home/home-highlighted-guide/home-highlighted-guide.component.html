@@ -4,17 +4,13 @@
       <h4
         class="animation-duration-1000 animation-iteration-1 animation-ease-in-out"
         appLazyAnimate
-        lazyAnimateClass="fadeindown">
-        Start your body love journey with these FREE guides!
-      </h4>
-      <p
+        lazyAnimateClass="fadeindown"
+        [innerHTML]="'home-guide-title' | translate"></h4>
+      <div
         class="animation-duration-2000 animation-iteration-1 animation-ease-in-out"
         appLazyAnimate
-        lazyAnimateClass="fadeindown">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque arcu ante, egestas ut ullamcorper sed, aliquam
-        et odio. Sed ac interdum eros, ac semper lorem. Praesent at ipsum molestie, facilisis lacus porta, vulputate
-        purus. Maecenas id neque ut turpis faucibus porta.
-      </p>
+        lazyAnimateClass="fadeindown"
+        [innerHTML]="'home-guide-description' | translate"></div>
       <p-button
         class="animation-duration-3000 animation-iteration-1 animation-ease-in-out"
         appLazyAnimate

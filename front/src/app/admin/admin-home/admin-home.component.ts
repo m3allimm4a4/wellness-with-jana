@@ -9,6 +9,9 @@ import {
   AdminHomeHighlightedServiceComponent
 } from './admin-home-highlighted-service/admin-home-highlighted-service.component';
 import { AdminHomeServicesListComponent } from './admin-home-services-list/admin-home-services-list.component';
+import {
+  AdminHomeHighlightedGuideComponent
+} from './admin-home-highlighted-guide/admin-home-highlighted-guide.component';
 
 @Component({
   selector: 'app-admin-home',
@@ -22,6 +25,7 @@ import { AdminHomeServicesListComponent } from './admin-home-services-list/admin
     AdminHomeSummaryComponent,
     AdminHomeHighlightedServiceComponent,
     AdminHomeServicesListComponent,
+    AdminHomeHighlightedGuideComponent,
   ],
   templateUrl: './admin-home.component.html',
   styleUrl: './admin-home.component.scss',
