@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:3000/api',
-  translationEndpoint: 'http://localhost:3000/i18n/',
+  apiUrl: 'https://back-2e4ji.ondigitalocean.app/api',
+  translationEndpoint: 'https://back-2e4ji.ondigitalocean.app/i18n/',
   languages: ['en'],
 };
