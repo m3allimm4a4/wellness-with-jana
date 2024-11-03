@@ -1,8 +1,5 @@
 <section class="section">
-  <h5>Want 3 days health coaching for free?</h5>
-  <p>
-    Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry’s
-    standard dummy text ever.
-  </p>
+  <h5 [innerHTML]="'home-trial-title' | translate"></h5>
+  <div [innerHTML]="'home-trial-description' | translate"></div>
   <p-button severity="contrast" label="GET STARTED HERE!" [outlined]="true" />
 </section>

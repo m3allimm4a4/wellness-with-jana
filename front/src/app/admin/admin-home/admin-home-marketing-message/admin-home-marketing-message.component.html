@@ -4,7 +4,6 @@
     <div>
       <label style="width: 100%">Description:</label>
       <p-editor formControlName="description" [style]="{ height: '10rem' }" />
-      {{ marketingForm.controls.description.value }}
     </div>
     <p-button label="SAVE" type="submit" [disabled]="!marketingForm.valid" (onClick)="saveMarketingMessage()" />
   </form>
