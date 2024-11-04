@@ -7,6 +7,7 @@ import { NotFoundError } from '../errors/not-found.error';
 import { BadRequestError } from '../errors/bad-request.error';
 import { Asset, IAsset } from '../models/asset.model';
 import { deleteObject, putObject } from '../clients/object-storage.client';
+import { convertToWebp } from '../shared/file-converter';
 
 export const getAssets: RequestHandler = catchAsync(async (_req, res): Promise<void> => {
   const assets = await Asset.find();
@@ -33,7 +34,16 @@ export const createOrUpdateAsset: RequestHandler = catchAsync(async (req, res): 
     throw new BadRequestError();
   }
   const file = req.files?.file as UploadedFile;
-  const uploadPath = `${asset.path}/${id}${extname(file.name)}`;
+
+  let data: Buffer;
+  let uploadPath = `${asset.path}/${id}`;
+  if (asset.type === 'IMAGE') {
+    uploadPath += '.webp';
+    data = await convertToWebp(file.data);
+  } else {
+    uploadPath += extname(file.name);
+    data = file.data;
+  }
 
   let newAsset = await Asset.findOne({ name: id });
   if (!newAsset) {
@@ -43,7 +53,7 @@ export const createOrUpdateAsset: RequestHandler = catchAsync(async (req, res): 
       path: asset.path,
     });
     try {
-      await putObject(file.data, uploadPath, 'public-read');
+      await putObject(data, uploadPath, 'public-read');
       newAsset.path = uploadPath;
       newAsset.save();
     } catch (e) {
