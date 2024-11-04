@@ -2,5 +2,5 @@
   "watch": ["."],
   "ext": "ts,json",
   "ignore": ["*.spec.ts", "/public/*"],
-  "exec": "ts-node --project tsconfig.json index.ts --env-file=/environment/.env.dev"
+  "exec": "ts-node --project tsconfig.json index.ts"
 }
