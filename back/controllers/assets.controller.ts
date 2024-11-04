@@ -39,7 +39,7 @@ export const createOrUpdateAsset: RequestHandler = catchAsync(async (req, res): 
   let uploadPath = `${asset.path}/${id}`;
   if (asset.type === 'IMAGE') {
     uploadPath += '.webp';
-    data = await convertToWebp(file.data);
+    data = extname(file.name) === '.webp' ? file.data : await convertToWebp(file.data);
   } else {
     uploadPath += extname(file.name);
     data = file.data;
