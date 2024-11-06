@@ -1,13 +1,22 @@
 .home-banner {
   min-height: 95vh;
   height: 100%;
-  background-image: url('/home-banner.webp');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
 
   .content {
     width: 40%;

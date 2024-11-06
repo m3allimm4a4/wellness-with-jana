@@ -49,7 +49,7 @@ export class AssetsService {
   private convertLabelsListToMap(assets: Asset[]) {
     const res = new Map<string, Asset>();
     assets.forEach(asset => {
-      res.set(asset.name, asset);
+      res.set(asset.name, { ...asset, path: `${environment.assetsUrl}/${asset.path}` });
     });
     return res;
   }

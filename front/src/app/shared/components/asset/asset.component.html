@@ -1,0 +1,10 @@
+@switch (asset()?.type) {
+  @case (AssetType.IMAGE) {
+    <img loading="lazy" [src]="asset()?.path" [alt]="asset()?.name" />
+  }
+  @case (AssetType.VIDEO) {
+    <video [autoplay]="true" [muted]="true" [loop]="true">
+      <source [src]="asset()?.path" />
+    </video>
+  }
+}
