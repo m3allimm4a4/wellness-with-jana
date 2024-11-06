@@ -17,15 +17,13 @@
     <div>
       <label>Upload Image/Video:</label>
       <p-fileUpload
-        #bannerUploader
         accept="image/*,video/*"
         mode="advanced"
         name="file"
         method="post"
-        [customUpload]="true"
+        [url]="url"
         [maxFileSize]="20000000"
-        [multiple]="false"
-        (uploadHandler)="onUpload($event)" />
+        [multiple]="false" />
     </div>
   </form>
 </p-card>

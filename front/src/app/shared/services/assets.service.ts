@@ -32,9 +32,8 @@ export class AssetsService {
   public createOrUpdateAsset(name: string, path: string, file: File) {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('path', path);
 
-    return this.http.post<Asset>(`${environment.apiUrl}/assets/${name}`, formData).pipe(
+    return this.http.post<Asset>(`${environment.apiUrl}/assets/${path}/${name}`, formData).pipe(
       tap(() =>
         this.messageService.add({
           key: 'toast',

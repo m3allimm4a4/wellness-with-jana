@@ -5,9 +5,10 @@ import { RequestHandler } from 'express';
 import { InvalidIdError } from '../errors/invalid-id.error';
 import { NotFoundError } from '../errors/not-found.error';
 import { BadRequestError } from '../errors/bad-request.error';
-import { Asset, AssetType, IAsset } from '../models/asset.model';
+import { Asset, AssetType } from '../models/asset.model';
 import { deleteObject, putObject } from '../clients/object-storage.client';
 import { convertToWebp } from '../shared/file-converter';
+import { randomUUID } from 'crypto';
 
 export const getAssets: RequestHandler = catchAsync(async (_req, res): Promise<void> => {
   const assets = await Asset.find();
@@ -28,21 +29,22 @@ export const getAsset: RequestHandler = catchAsync(async (req, res): Promise<voi
 
 export const createOrUpdateAsset: RequestHandler = catchAsync(async (req, res): Promise<void> => {
   const id = req.params['id'];
-  const asset = req.body as IAsset;
+  const path = req.params['path'];
 
-  if (!id || !asset.path || !req.files?.file || req.files?.file instanceof Array) {
+  if (!id || !path || !req.files?.file || req.files?.file instanceof Array) {
     throw new BadRequestError();
   }
   const file = req.files?.file as UploadedFile;
 
   let data: Buffer;
-  let uploadPath = `${asset.path}/${id}`;
+  let uploadPath = `${path}/${id}-${randomUUID()}`;
+  let type: AssetType;
   if (file.mimetype.startsWith('image/')) {
-    asset.type = AssetType.IMAGE;
+    type = AssetType.IMAGE;
     uploadPath += '.webp';
     data = file.mimetype === 'image/webp' ? file.data : await convertToWebp(file.data);
   } else if (file.mimetype.startsWith('video/')) {
-    asset.type = AssetType.VIDEO;
+    type = AssetType.VIDEO;
     uploadPath += extname(file.name);
     data = file.data;
   } else {
@@ -53,8 +55,8 @@ export const createOrUpdateAsset: RequestHandler = catchAsync(async (req, res): 
   if (!newAsset) {
     newAsset = await Asset.create({
       name: id,
-      type: req.body.type,
-      path: asset.path,
+      type: type,
+      path: path,
     });
     try {
       await putObject(data, uploadPath, 'public-read');
@@ -67,7 +69,7 @@ export const createOrUpdateAsset: RequestHandler = catchAsync(async (req, res): 
   } else {
     await deleteObject(newAsset.path);
     await putObject(file.data, uploadPath, 'public-read');
-    newAsset.type = req.body.type;
+    newAsset.type = type;
     newAsset.path = uploadPath;
     newAsset.save();
   }

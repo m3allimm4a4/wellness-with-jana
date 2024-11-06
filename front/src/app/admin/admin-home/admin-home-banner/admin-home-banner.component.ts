@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, viewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LabelsService } from '../../services/labels.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -6,8 +6,8 @@ import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { EditorModule } from 'primeng/editor';
-import { FileUpload, FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload';
-import { AssetsService } from '../../../shared/services/assets.service';
+import { FileUploadModule } from 'primeng/fileupload';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-home-banner',
@@ -17,20 +17,17 @@ import { AssetsService } from '../../../shared/services/assets.service';
   styleUrl: './admin-home-banner.component.scss',
 })
 export class AdminHomeBannerComponent implements OnInit, OnDestroy {
-  bannerUploader = viewChild<FileUpload>('bannerUploader');
-
   bannerForm = new FormGroup({
     title1: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     title2: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     description: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
   });
 
+  url = `${environment.apiUrl}/assets/home/home-banner-background`;
+
   private subscription = new Subscription();
 
-  constructor(
-    private labelsService: LabelsService,
-    private assetsService: AssetsService,
-  ) {}
+  constructor(private labelsService: LabelsService) {}
 
   ngOnInit() {
     this.subscription.add(
@@ -64,15 +61,5 @@ export class AdminHomeBannerComponent implements OnInit, OnDestroy {
         ])
         .subscribe(),
     );
-  }
-
-  onUpload(event: FileUploadHandlerEvent) {
-    if (event?.files[0]) {
-      this.subscription.add(
-        this.assetsService.createOrUpdateAsset('home-banner-background', 'home', event.files[0]).subscribe(() => {
-          this.bannerUploader()?.clear();
-        }),
-      );
-    }
   }
 }

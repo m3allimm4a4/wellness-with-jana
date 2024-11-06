@@ -5,6 +5,8 @@ const router = Router();
 
 router.route('/').get(getAssets);
 
-router.route('/:id').get(getAsset).post(createOrUpdateAsset).delete(deleteAsset);
+router.route('/:path/:id').post(createOrUpdateAsset);
+
+router.route('/:id').get(getAsset).delete(deleteAsset);
 
 export const assetRoutes = router;
