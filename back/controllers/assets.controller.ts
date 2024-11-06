@@ -5,7 +5,7 @@ import { RequestHandler } from 'express';
 import { InvalidIdError } from '../errors/invalid-id.error';
 import { NotFoundError } from '../errors/not-found.error';
 import { BadRequestError } from '../errors/bad-request.error';
-import { Asset, IAsset } from '../models/asset.model';
+import { Asset, AssetType, IAsset } from '../models/asset.model';
 import { deleteObject, putObject } from '../clients/object-storage.client';
 import { convertToWebp } from '../shared/file-converter';
 
@@ -30,19 +30,23 @@ export const createOrUpdateAsset: RequestHandler = catchAsync(async (req, res): 
   const id = req.params['id'];
   const asset = req.body as IAsset;
 
-  if (!id || !asset.path || !asset.type || !req.files?.file || req.files?.file instanceof Array) {
+  if (!id || !asset.path || !req.files?.file || req.files?.file instanceof Array) {
     throw new BadRequestError();
   }
   const file = req.files?.file as UploadedFile;
 
   let data: Buffer;
   let uploadPath = `${asset.path}/${id}`;
-  if (asset.type === 'IMAGE') {
+  if (file.mimetype.startsWith('image/')) {
+    asset.type = AssetType.IMAGE;
     uploadPath += '.webp';
-    data = extname(file.name) === '.webp' ? file.data : await convertToWebp(file.data);
-  } else {
+    data = file.mimetype === 'image/webp' ? file.data : await convertToWebp(file.data);
+  } else if (file.mimetype.startsWith('video/')) {
+    asset.type = AssetType.VIDEO;
     uploadPath += extname(file.name);
     data = file.data;
+  } else {
+    throw new BadRequestError();
   }
 
   let newAsset = await Asset.findOne({ name: id });
