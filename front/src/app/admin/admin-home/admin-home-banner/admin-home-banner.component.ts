@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LabelsService } from '../../services/labels.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -6,7 +6,7 @@ import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { EditorModule } from 'primeng/editor';
-import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload';
+import { FileUpload, FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload';
 import { AssetsService } from '../../../shared/services/assets.service';
 
 @Component({
@@ -17,6 +17,8 @@ import { AssetsService } from '../../../shared/services/assets.service';
   styleUrl: './admin-home-banner.component.scss',
 })
 export class AdminHomeBannerComponent implements OnInit, OnDestroy {
+  bannerUploader = viewChild<FileUpload>('bannerUploader');
+
   bannerForm = new FormGroup({
     title1: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     title2: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
@@ -67,7 +69,9 @@ export class AdminHomeBannerComponent implements OnInit, OnDestroy {
   onUpload(event: FileUploadHandlerEvent) {
     if (event?.files[0]) {
       this.subscription.add(
-        this.assetsService.createOrUpdateAsset('home-banner-background', 'home', event.files[0]).subscribe(),
+        this.assetsService.createOrUpdateAsset('home-banner-background', 'home', event.files[0]).subscribe(() => {
+          this.bannerUploader()?.clear();
+        }),
       );
     }
   }
