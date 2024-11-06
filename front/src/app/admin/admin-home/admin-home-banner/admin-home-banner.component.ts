@@ -6,11 +6,13 @@ import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { EditorModule } from 'primeng/editor';
+import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload';
+import { AssetsService } from '../../../shared/services/assets.service';
 
 @Component({
   selector: 'app-admin-home-banner',
   standalone: true,
-  imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, EditorModule],
+  imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, EditorModule, FileUploadModule],
   templateUrl: './admin-home-banner.component.html',
   styleUrl: './admin-home-banner.component.scss',
 })
@@ -23,7 +25,10 @@ export class AdminHomeBannerComponent implements OnInit, OnDestroy {
 
   private subscription = new Subscription();
 
-  constructor(private labelsService: LabelsService) {}
+  constructor(
+    private labelsService: LabelsService,
+    private assetsService: AssetsService,
+  ) {}
 
   ngOnInit() {
     this.subscription.add(
@@ -57,5 +62,13 @@ export class AdminHomeBannerComponent implements OnInit, OnDestroy {
         ])
         .subscribe(),
     );
+  }
+
+  onUpload(event: FileUploadHandlerEvent) {
+    if (event?.files[0]) {
+      this.subscription.add(
+        this.assetsService.createOrUpdateAsset('home-banner-background', 'home', event.files[0]).subscribe(),
+      );
+    }
   }
 }

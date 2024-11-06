@@ -14,5 +14,17 @@
       <p-editor formControlName="description" [style]="{ height: '10rem' }" />
     </div>
     <p-button label="SAVE" type="submit" [disabled]="!bannerForm.valid" (onClick)="saveBanner()" />
+    <div>
+      <label>Upload Image/Video:</label>
+      <p-fileUpload
+        accept="image/*,video/*"
+        mode="advanced"
+        name="file"
+        method="post"
+        [customUpload]="true"
+        [maxFileSize]="20000000"
+        [multiple]="false"
+        (uploadHandler)="onUpload($event)" />
+    </div>
   </form>
 </p-card>
