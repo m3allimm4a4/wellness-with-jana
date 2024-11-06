@@ -14,5 +14,13 @@
       type="submit"
       [disabled]="!highlightedServiceForm.valid"
       (onClick)="saveHighlightedService()" />
+    <p-fileUpload
+      accept="image/*,video/*"
+      mode="advanced"
+      name="file"
+      method="post"
+      [url]="url"
+      [maxFileSize]="20000000"
+      [multiple]="false" />
   </form>
 </p-card>

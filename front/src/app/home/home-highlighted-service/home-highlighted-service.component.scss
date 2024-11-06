@@ -11,6 +11,11 @@
     width: 30%;
     position: relative;
     z-index: 1;
+
+    img, video {
+      max-height: 100%;
+      max-width: 130%;
+    }
   }
 
   .content {
@@ -28,7 +33,7 @@
     .image-container {
       width: 95%;
 
-      img {
+      img, video {
         max-width: 100%;
       }
     }

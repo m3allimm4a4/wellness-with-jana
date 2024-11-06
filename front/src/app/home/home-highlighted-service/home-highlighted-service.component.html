@@ -3,7 +3,13 @@
     class="image-container animation-duration-1000 animation-iteration-1 animation-ease-in-out"
     appLazyAnimate
     lazyAnimateClass="fadeinleft">
-    <img loading="lazy" src="woman-practicing-yoga-at-home.webp" alt="" />
+    @if (asset()?.type === AssetType.IMAGE) {
+      <img loading="lazy" [src]="asset()?.path" [alt]="asset()?.name" />
+    } @else if (asset()?.type === AssetType.VIDEO) {
+      <video [autoplay]="true" [muted]="true" [loop]="true">
+        <source [src]="asset()?.path" />
+      </video>
+    }
   </div>
   <div
     class="content animation-duration-1000 animation-iteration-1 animation-ease-in-out"

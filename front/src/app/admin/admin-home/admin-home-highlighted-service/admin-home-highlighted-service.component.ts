@@ -6,11 +6,13 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Subscription } from 'rxjs';
 import { LabelsService } from '../../services/labels.service';
 import { EditorModule } from 'primeng/editor';
+import { FileUploadModule } from 'primeng/fileupload';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-home-highlighted-service',
   standalone: true,
-  imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, EditorModule],
+  imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, EditorModule, FileUploadModule],
   templateUrl: './admin-home-highlighted-service.component.html',
   styleUrl: './admin-home-highlighted-service.component.scss',
 })
@@ -19,6 +21,8 @@ export class AdminHomeHighlightedServiceComponent implements OnInit, OnDestroy {
     title: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     description: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
   });
+
+  url = `${environment.apiUrl}/assets/home/home-highlighted-service`;
 
   private subscription = new Subscription();
 
