@@ -1,16 +1,17 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
+import { Asset, IAsset } from './asset.model';
 
 export interface IService extends Document {
   id: string;
   name: string;
   title: string;
   description: string;
-  imagePath: string;
   price: number;
   checkList: string[];
   tags: string[];
   createdAt: Date;
   updatedAt: Date;
+  asset?: IAsset | string;
 }
 
 export const ServiceSchema = new Schema<IService>(
@@ -19,9 +20,9 @@ export const ServiceSchema = new Schema<IService>(
     title: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
-    imagePath: { type: String, default: '' },
     checkList: { type: [String], default: [] },
     tags: { type: [String], default: [] },
+    asset: { type: Types.ObjectId, ref: Asset },
   },
   {
     timestamps: true,

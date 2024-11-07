@@ -4,6 +4,8 @@ import { IService, Service } from '../models/service.model';
 import { InvalidIdError } from '../errors/invalid-id.error';
 import { NotFoundError } from '../errors/not-found.error';
 import { BadRequestError } from '../errors/bad-request.error';
+import { UploadedFile } from 'express-fileupload';
+import { addOrUpdateAsset } from '../shared/asset-manager';
 
 export const getServices: RequestHandler = catchAsync(async (req, res): Promise<void> => {
   let query = Service.find();
@@ -14,7 +16,7 @@ export const getServices: RequestHandler = catchAsync(async (req, res): Promise<
     query = query.find({ tags: { $in: tags } });
   }
 
-  const services = await query;
+  const services = await query.populate('asset');
   res.status(200).json(services.map(service => service.toObject()));
 });
 
@@ -23,7 +25,7 @@ export const getService: RequestHandler = catchAsync(async (req, res): Promise<v
   if (!id) {
     throw new InvalidIdError();
   }
-  const service = await Service.findById(id);
+  const service = await Service.findById(id).populate('asset');
   if (!service) {
     throw new NotFoundError();
   }
@@ -71,6 +73,23 @@ export const updateService: RequestHandler = catchAsync(async (req, res): Promis
   }
 
   res.status(200).json(newService.toObject());
+});
+
+export const updateServiceAsset: RequestHandler = catchAsync(async (req, res): Promise<void> => {
+  const id = req.params['id'];
+
+  if (!id || !req.files?.file || req.files?.file instanceof Array) {
+    throw new BadRequestError();
+  }
+  const file = req.files?.file as UploadedFile;
+  const service = await Service.findById(id).populate('asset');
+  if (!service) {
+    throw new NotFoundError();
+  }
+  const newAsset = await addOrUpdateAsset('service-' + service._id.toString(), 'services', file);
+  service.asset = newAsset.id;
+  await service.save();
+  res.status(200).json(await service.populate('asset'));
 });
 
 export const deleteService: RequestHandler = catchAsync(async (req, res): Promise<void> => {

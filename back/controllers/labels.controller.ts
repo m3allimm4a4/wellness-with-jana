@@ -36,7 +36,7 @@ export const createOrUpdateLabel: RequestHandler = catchAsync(async (req, res): 
     });
   } else {
     label.en = req.body.en;
-    label.save();
+    await label.save();
   }
   await updateTranslationFile([{ name: label.name, label: label.en }], 'en');
   res.status(200).json(label.toObject());
