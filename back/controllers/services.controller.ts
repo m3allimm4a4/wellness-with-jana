@@ -5,7 +5,7 @@ import { InvalidIdError } from '../errors/invalid-id.error';
 import { NotFoundError } from '../errors/not-found.error';
 import { BadRequestError } from '../errors/bad-request.error';
 import { UploadedFile } from 'express-fileupload';
-import { addOrUpdateAsset } from '../shared/asset-manager';
+import { addOrUpdateAsset, removeAsset } from '../shared/asset-manager';
 
 export const getServices: RequestHandler = catchAsync(async (req, res): Promise<void> => {
   let query = Service.find();
@@ -103,6 +103,8 @@ export const deleteService: RequestHandler = catchAsync(async (req, res): Promis
   if (!result) {
     throw new NotFoundError();
   }
+
+  await removeAsset('service-' + id);
 
   res.status(204).send();
 });
