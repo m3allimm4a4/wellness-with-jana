@@ -1,3 +1,8 @@
-<section class="home-marketing">
+<section class="home-marketing" [ngStyle]="{ 'background-image': isImage() ? 'url(' + asset()?.path + ')' : '' }">
+  @if (isVideo()) {
+    <video class="background-video" [autoplay]="true" [muted]="true" [loop]="true">
+      <source [src]="asset()?.path" />
+    </video>
+  }
   <div [innerHTML]="'home-marketing-description' | translate"></div>
 </section>

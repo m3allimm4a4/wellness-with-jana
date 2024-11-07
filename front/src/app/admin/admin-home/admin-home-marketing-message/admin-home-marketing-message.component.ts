@@ -6,11 +6,13 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { InputTextModule } from 'primeng/inputtext';
 import { Subscription } from 'rxjs';
 import { LabelsService } from '../../services/labels.service';
+import { environment } from '../../../../environments/environment';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-admin-home-marketing-message',
   standalone: true,
-  imports: [Button, CardModule, EditorModule, FormsModule, InputTextModule, ReactiveFormsModule],
+  imports: [Button, CardModule, EditorModule, FormsModule, InputTextModule, ReactiveFormsModule, FileUploadModule],
   templateUrl: './admin-home-marketing-message.component.html',
   styleUrl: './admin-home-marketing-message.component.scss',
 })
@@ -18,6 +20,8 @@ export class AdminHomeMarketingMessageComponent implements OnInit, OnDestroy {
   marketingForm = new FormGroup({
     description: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
   });
+
+  url = `${environment.apiUrl}/assets/home/home-marketing-background`;
 
   private subscription = new Subscription();
 
