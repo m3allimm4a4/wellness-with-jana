@@ -12,8 +12,7 @@
     position: relative;
     z-index: 1;
 
-    img,
-    video {
+    ::ng-deep .asset-dimensions {
       max-height: 100%;
       max-width: 130%;
     }
@@ -34,8 +33,7 @@
     .image-container {
       width: 95%;
 
-      img,
-      video {
+      ::ng-deep .asset-dimensions {
         max-width: 100%;
       }
     }

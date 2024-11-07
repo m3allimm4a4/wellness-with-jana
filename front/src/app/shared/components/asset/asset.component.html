@@ -1,9 +1,9 @@
 @switch (asset()?.type) {
   @case (AssetType.IMAGE) {
-    <img loading="lazy" [src]="asset()?.path" [alt]="asset()?.name" [ngStyle]="style()" />
+    <img loading="lazy" [src]="asset()?.path" [alt]="asset()?.name" [ngClass]="styleClasses()" [ngStyle]="style()" />
   }
   @case (AssetType.VIDEO) {
-    <video [autoplay]="true" [muted]="true" [loop]="true">
+    <video [autoplay]="true" [muted]="true" [loop]="true" [ngClass]="styleClasses()" [ngStyle]="style()">
       <source [src]="asset()?.path" />
     </video>
   }

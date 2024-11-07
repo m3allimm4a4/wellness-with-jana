@@ -3,13 +3,7 @@
     class="image-container animation-duration-1000 animation-iteration-1 animation-ease-in-out"
     appLazyAnimate
     lazyAnimateClass="fadeinleft">
-    @if (asset()?.type === AssetType.IMAGE) {
-      <img loading="lazy" [src]="asset()?.path" [alt]="asset()?.name" />
-    } @else if (asset()?.type === AssetType.VIDEO) {
-      <video [autoplay]="true" [muted]="true" [loop]="true">
-        <source [src]="asset()?.path" />
-      </video>
-    }
+    <app-asset styleClasses="asset-dimensions" assetId="home-highlighted-service" />
   </div>
   <div
     class="content animation-duration-1000 animation-iteration-1 animation-ease-in-out"
