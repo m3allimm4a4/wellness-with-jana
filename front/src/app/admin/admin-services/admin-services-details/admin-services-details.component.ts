@@ -67,7 +67,6 @@ export class AdminServicesDetailsComponent implements OnInit, OnDestroy {
                 title: '',
                 description: '',
                 price: 0,
-                imagePath: '',
                 tags: [],
                 checkList: [],
               }),
@@ -111,7 +110,6 @@ export class AdminServicesDetailsComponent implements OnInit, OnDestroy {
       price: this.serviceForm.controls.price.value,
       checkList: this.serviceForm.controls.checkList.value,
       tags: tags,
-      imagePath: '',
     };
 
     if (this.service()?.id) {

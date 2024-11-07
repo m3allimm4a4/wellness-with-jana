@@ -16,7 +16,7 @@
     <tr>
       <td style="width: 32%">{{ service.name }}</td>
       <td style="width: 32%">
-        <app-asset [assetId]="'service-' + service.id" [style]="{ 'max-width': '10rem', 'max-height': '10rem' }" />
+        <app-asset [assetId]="service.asset?.name" [style]="{ 'max-width': '10rem', 'max-height': '10rem' }" />
       </td>
       <td style="width: 31%">{{ service.price }}</td>
       <td style="width: 5%">

@@ -1,4 +1,10 @@
-img {
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+img, video {
   max-width: 100%;
   max-height: 100%;
 }

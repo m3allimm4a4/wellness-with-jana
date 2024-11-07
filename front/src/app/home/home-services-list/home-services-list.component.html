@@ -17,7 +17,7 @@
         [class]="'animation-iteration-1 animation-ease-in-out animation-duration-' + ($index + 1) * 1000"
         appLazyAnimate
         lazyAnimateClass="fadeindown"
-        image="woman-recording-cooking-video.webp"
+        [assetId]="service.asset?.name || ''"
         [header]="service.name"
         [content]="service.title" />
     }
