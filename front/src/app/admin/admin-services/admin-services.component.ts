@@ -6,11 +6,12 @@ import { Subscription } from 'rxjs';
 import { Button } from 'primeng/button';
 import { RouterLink } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
+import { AssetComponent } from '../../shared/components/asset/asset.component';
 
 @Component({
   selector: 'app-admin-services',
   standalone: true,
-  imports: [TableModule, Button, RouterLink],
+  imports: [TableModule, Button, RouterLink, AssetComponent],
   templateUrl: './admin-services.component.html',
   styleUrl: './admin-services.component.scss',
 })

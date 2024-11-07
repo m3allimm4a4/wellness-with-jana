@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
 import { Service } from '../../../shared/interfaces/service.interface';
 import { iif, of, Subscription, switchMap, throwError } from 'rxjs';
 import { ServicesApiService } from '../../../shared/services/services-api.service';
@@ -10,11 +10,22 @@ import { EditorModule } from 'primeng/editor';
 import { ChipsModule } from 'primeng/chips';
 import { CheckboxModule } from 'primeng/checkbox';
 import { Button } from 'primeng/button';
+import { FileUploadModule } from 'primeng/fileupload';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-testemonials-details',
   standalone: true,
-  imports: [CardModule, ReactiveFormsModule, InputTextModule, EditorModule, ChipsModule, CheckboxModule, Button],
+  imports: [
+    CardModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    EditorModule,
+    ChipsModule,
+    CheckboxModule,
+    Button,
+    FileUploadModule,
+  ],
   templateUrl: './admin-services-details.component.html',
   styleUrl: './admin-services-details.component.scss',
 })
@@ -28,7 +39,9 @@ export class AdminServicesDetailsComponent implements OnInit, OnDestroy {
     checkList: new FormControl<string[]>([], { nonNullable: true }),
   });
 
-  private service: Service | undefined;
+  service = signal<Service | undefined>(undefined);
+  uploadUrl = computed(() => `${environment.apiUrl}/services/${this.service()?.id}`);
+
   private subscription = new Subscription();
 
   constructor(
@@ -63,7 +76,7 @@ export class AdminServicesDetailsComponent implements OnInit, OnDestroy {
           }),
         )
         .subscribe(service => {
-          this.service = service;
+          this.service.set(service);
           this.serviceForm.patchValue({
             name: service.name,
             title: service.title,
@@ -84,7 +97,7 @@ export class AdminServicesDetailsComponent implements OnInit, OnDestroy {
     if (!this.serviceForm.valid) {
       return;
     }
-    let tags = this.service?.tags || [];
+    let tags = this.service()?.tags || [];
     if (this.serviceForm.controls.showOnHome.value && !tags.includes('home')) {
       tags.push('home');
     }
@@ -101,14 +114,16 @@ export class AdminServicesDetailsComponent implements OnInit, OnDestroy {
       imagePath: '',
     };
 
-    if (this.service?.id) {
-      this.subscription.add(this.servicesApiService.updateService(this.service.id, updatedService).subscribe());
+    if (this.service()?.id) {
+      this.subscription.add(
+        this.servicesApiService.updateService(this.service()?.id || '', updatedService).subscribe(),
+      );
       return;
     }
 
     this.subscription.add(
       this.servicesApiService.createService(updatedService).subscribe(service => {
-        this.service = service;
+        this.service.set(service);
         this.router.navigateByUrl(this.router.url.replace('new', service?.id || 'new')).then();
       }),
     );

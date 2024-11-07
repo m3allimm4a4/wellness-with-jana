@@ -24,6 +24,21 @@
           <p-chips styleClass="p-chips-w-100" formControlName="checkList" placeholder="Maximum 6 items" [max]="6" />
         </div>
       </div>
+      @if (service()?.id) {
+        <div class="col-12 md:col-6 p-2">
+          <label>Upload Asset:</label>
+          <div>
+            <p-fileUpload
+              accept="image/*,video/*"
+              mode="advanced"
+              name="file"
+              method="post"
+              [url]="uploadUrl()"
+              [maxFileSize]="20000000"
+              [multiple]="false" />
+          </div>
+        </div>
+      }
       <div class="col-12 md:col-2 p-2">
         <p-checkbox formControlName="showOnHome" inputId="binary" [binary]="true" />
         <label class="pl-1">Show On Home Page</label>
