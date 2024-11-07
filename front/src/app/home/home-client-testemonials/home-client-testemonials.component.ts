@@ -4,9 +4,7 @@ import { Testemonial } from '../../shared/interfaces/testemonial.interface';
 import { Subscription } from 'rxjs';
 import { TestemonialsApiService } from '../../shared/services/testemonials-api.service';
 import { NgClass } from '@angular/common';
-import {
-  HomeServicesListItemComponent
-} from '../home-services-list/home-services-list-item/home-services-list-item.component';
+import { HomeServicesListItemComponent } from '../home-services-list/home-services-list-item/home-services-list-item.component';
 import { LazyAnimateDirective } from '../../shared/directives/lazy-animate.directive';
 
 @Component({

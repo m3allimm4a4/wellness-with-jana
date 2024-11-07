@@ -8,9 +8,8 @@ describe('AdminHomeBannerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminHomeBannerComponent]
-    })
-    .compileComponents();
+      imports: [AdminHomeBannerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AdminHomeBannerComponent);
     component = fixture.componentInstance;

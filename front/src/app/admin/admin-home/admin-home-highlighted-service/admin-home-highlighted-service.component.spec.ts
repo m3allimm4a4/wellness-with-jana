@@ -8,9 +8,8 @@ describe('AdminHomeHighlightedServiceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminHomeHighlightedServiceComponent]
-    })
-    .compileComponents();
+      imports: [AdminHomeHighlightedServiceComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AdminHomeHighlightedServiceComponent);
     component = fixture.componentInstance;

@@ -4,7 +4,7 @@ import {
   createOrUpdateLabels,
   deleteLabel,
   getLabel,
-  getLabels
+  getLabels,
 } from '../controllers/labels.controller';
 
 const router = Router();
