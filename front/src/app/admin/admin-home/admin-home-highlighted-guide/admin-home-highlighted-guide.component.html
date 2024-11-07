@@ -10,5 +10,13 @@
       <p-editor formControlName="description" [style]="{ height: '10rem' }" />
     </div>
     <p-button label="SAVE" type="submit" [disabled]="!guideForm.valid" (onClick)="saveGuide()" />
+    <p-fileUpload
+      accept="image/*,video/*"
+      mode="advanced"
+      name="file"
+      method="post"
+      [url]="url"
+      [maxFileSize]="20000000"
+      [multiple]="false" />
   </form>
 </p-card>

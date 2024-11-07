@@ -6,11 +6,13 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { InputTextModule } from 'primeng/inputtext';
 import { Subscription } from 'rxjs';
 import { LabelsService } from '../../services/labels.service';
+import { FileUploadModule } from 'primeng/fileupload';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-home-highlighted-guide',
   standalone: true,
-  imports: [Button, CardModule, EditorModule, FormsModule, InputTextModule, ReactiveFormsModule],
+  imports: [Button, CardModule, EditorModule, FormsModule, InputTextModule, ReactiveFormsModule, FileUploadModule],
   templateUrl: './admin-home-highlighted-guide.component.html',
   styleUrl: './admin-home-highlighted-guide.component.scss',
 })
@@ -19,6 +21,8 @@ export class AdminHomeHighlightedGuideComponent implements OnInit, OnDestroy {
     title: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     description: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
   });
+
+  url = `${environment.apiUrl}/assets/home/home-highlighted-guide`;
 
   private subscription = new Subscription();
 

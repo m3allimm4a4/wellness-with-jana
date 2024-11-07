@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { LazyAnimateDirective } from '../../shared/directives/lazy-animate.directive';
 import { TranslateModule } from '@ngx-translate/core';
+import { AssetComponent } from '../../shared/components/asset/asset.component';
 
 @Component({
   selector: 'app-home-highlighted-guide',
   standalone: true,
-  imports: [Button, LazyAnimateDirective, TranslateModule],
+  imports: [Button, LazyAnimateDirective, TranslateModule, AssetComponent],
   templateUrl: './home-highlighted-guide.component.html',
   styleUrl: './home-highlighted-guide.component.scss',
 })
