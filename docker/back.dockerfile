@@ -13,6 +13,6 @@ RUN cp -r /src/back/dist /publish
 
 FROM base as final
 COPY --from=publish /publish/* /app
-RUN npm i --omit=dev
+RUN npm ci --omit=dev
 EXPOSE 80
 ENTRYPOINT ["node","index.js"]
