@@ -3,19 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, iif, map, take, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Asset } from '../interfaces/asset.interface';
-import { MessageService } from 'primeng/api';
 
 @Injectable({ providedIn: 'root' })
 export class AssetsService {
   private assets = new BehaviorSubject<Map<string, Asset>>(new Map());
 
-  constructor(
-    private http: HttpClient,
-    private messageService: MessageService,
-  ) {}
+  constructor(private http: HttpClient) {}
 
   public getAssets() {
-    return iif(() => this.assets.value.size === 0, this.refreshAssets(), this.assets.asObservable().pipe(take(1)));
+    return iif(() => this.assets.value.size === 0, this.refreshAssets(), this.assets.pipe(take(1)));
   }
 
   public getAssetById(id: string) {
@@ -26,22 +22,6 @@ export class AssetsService {
     return this.http.get<Asset[]>(`${environment.apiUrl}/assets`).pipe(
       map(assets => this.convertLabelsListToMap(assets)),
       tap(assets => this.assets.next(assets)),
-    );
-  }
-
-  public createOrUpdateAsset(name: string, path: string, file: File) {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    return this.http.post<Asset>(`${environment.apiUrl}/assets/${path}/${name}`, formData).pipe(
-      tap(() =>
-        this.messageService.add({
-          key: 'toast',
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Saved Successfully !',
-        }),
-      ),
     );
   }
 
