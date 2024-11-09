@@ -1,8 +1,10 @@
 <section class="section">
   <h6>Follow Along - <a href="#" target="_blank" class="ig-link">&#64;wellnesswithjana</a></h6>
   <div class="images-container">
-    @for (src of images; track $index) {
-      <img [src]="src" alt="" />
+    @for (post of igPosts(); track post.id) {
+      <a [href]="post.url" target="_blank">
+        <app-asset styleClasses="asset-style" [assetId]="post.asset?.name || ''" />
+      </a>
     }
   </div>
 </section>

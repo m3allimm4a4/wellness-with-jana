@@ -1,25 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { IgPost } from '../../shared/interfaces/ig-post.interface';
+import { IgPostsApiService } from '../../shared/services/ig-posts-api.service';
+import { Subscription } from 'rxjs';
+import { AssetComponent } from '../../shared/components/asset/asset.component';
 
 @Component({
   selector: 'app-home-social-showcase',
   standalone: true,
-  imports: [],
+  imports: [AssetComponent],
   templateUrl: './home-social-showcase.component.html',
   styleUrl: './home-social-showcase.component.scss',
 })
-export class HomeSocialShowcaseComponent {
-  protected images = [
-    'ig-showcase/ig1.webp',
-    'ig-showcase/ig2.webp',
-    'ig-showcase/ig3.webp',
-    'ig-showcase/ig4.webp',
-    'ig-showcase/ig5.webp',
-    'ig-showcase/ig6.webp',
-    'ig-showcase/ig5.webp',
-    'ig-showcase/ig8.webp',
-    'ig-showcase/ig6.webp',
-    'ig-showcase/ig1.webp',
-    'ig-showcase/ig10.webp',
-    'ig-showcase/ig4.webp',
-  ];
+export class HomeSocialShowcaseComponent implements OnInit, OnDestroy {
+  igPosts = signal<IgPost[]>([]);
+
+  private subscription = new Subscription();
+
+  constructor(private igPostsApiService: IgPostsApiService) {}
+
+  ngOnInit() {
+    this.subscription.add(this.igPostsApiService.getIgPosts().subscribe(igPosts => this.igPosts.set(igPosts)));
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
