@@ -5,20 +5,45 @@ import { InputTextModule } from 'primeng/inputtext';
 import { NgStyle } from '@angular/common';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { Button } from 'primeng/button';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ContactMessage } from '../../shared/interfaces/contact-message.interface';
 
 @Component({
   selector: 'app-contact-form',
   standalone: true,
-  imports: [InputTextModule, NgStyle, InputTextareaModule, Button],
+  imports: [InputTextModule, NgStyle, InputTextareaModule, Button, ReactiveFormsModule],
   templateUrl: './contact-form.component.html',
   styleUrl: './contact-form.component.scss',
 })
 export class ContactFormComponent implements OnInit {
   contactInfo = signal<ContactInfo | undefined>(undefined);
 
+  contactForm = new FormGroup({
+    name: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    email: new FormControl<string>('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+    phone: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    subject: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    message: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+  });
+
   constructor(private contactInfoService: ContactInfoService) {}
 
   ngOnInit() {
     this.contactInfoService.getContactInfo().subscribe(contactInfo => this.contactInfo.set(contactInfo));
+  }
+
+  onSendMessage() {
+    if (!this.contactForm.valid) {
+    }
+    const message: ContactMessage = {
+      name: this.contactForm.controls.name.value,
+      email: this.contactForm.controls.email.value,
+      phone: this.contactForm.controls.phone.value,
+      subject: this.contactForm.controls.subject.value,
+      message: this.contactForm.controls.message.value,
+    };
+    this.contactInfoService.sendMessage(message).subscribe(() => {
+      this.contactForm.reset();
+    });
   }
 }

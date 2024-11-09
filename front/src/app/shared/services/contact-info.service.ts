@@ -3,7 +3,8 @@ import { BehaviorSubject, iif, take, tap } from 'rxjs';
 import { ContactInfo } from '../interfaces/contact-info.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ContactMessage } from '../interfaces/contact-message.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ContactInfoService {
@@ -13,6 +14,7 @@ export class ContactInfoService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
+    private confirmationService: ConfirmationService,
   ) {}
 
   getContactInfo() {
@@ -24,6 +26,21 @@ export class ContactInfoService {
       tap(res => {
         this.contactInfo.next(res);
         this.createSuccessToast('Contact info saved successfully');
+      }),
+    );
+  }
+
+  sendMessage(message: ContactMessage) {
+    return this.http.post<void>(`${environment.apiUrl}/contact-info/send-message`, message).pipe(
+      tap(() => {
+        this.confirmationService.confirm({
+          key: 'confirmDialog',
+          message: 'Message sent successfully, we will get back to you as soon as possble!',
+          header: 'Confirmation',
+          rejectVisible: false,
+          acceptLabel: 'OK',
+          acceptIcon: 'none',
+        });
       }),
     );
   }
