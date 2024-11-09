@@ -6,6 +6,7 @@ import { NotFoundError } from '../errors/not-found.error';
 import { BadRequestError } from '../errors/bad-request.error';
 import { UploadedFile } from 'express-fileupload';
 import { addOrUpdateAsset, removeAsset } from '../shared/asset-manager';
+import { IAsset } from '../models/asset.model';
 
 export const getServices: RequestHandler = catchAsync(async (req, res): Promise<void> => {
   let query = Service.find();
@@ -98,13 +99,16 @@ export const deleteService: RequestHandler = catchAsync(async (req, res): Promis
     throw new InvalidIdError();
   }
 
-  const result = await Service.findByIdAndDelete(id);
+  const result = await Service.findById(id).populate('asset');
 
   if (!result) {
     throw new NotFoundError();
   }
 
-  await removeAsset('service-' + id);
+  if ((result?.asset as IAsset)?.name) {
+    await removeAsset((result?.asset as IAsset)?.name);
+  }
+  await result.deleteOne();
 
   res.status(204).send();
 });
