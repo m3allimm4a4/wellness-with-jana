@@ -65,7 +65,7 @@ export const updateIgPostAsset: RequestHandler = catchAsync(async (req, res): Pr
   if (!igPost) {
     throw new NotFoundError();
   }
-  const newAsset = await addOrUpdateAsset('ig-posts-' + igPost._id.toString(), 'services', file);
+  const newAsset = await addOrUpdateAsset('ig-posts-' + igPost._id.toString(), 'ig-posts', file);
   igPost.asset = newAsset.id;
   await igPost.save();
   const result = await igPost.populate('asset');
