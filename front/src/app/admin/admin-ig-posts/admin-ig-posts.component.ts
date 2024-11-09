@@ -40,7 +40,7 @@ export class AdminIgPostsComponent implements OnInit, OnDestroy {
   onDeleteClick(id: string) {
     this.confirmationService.confirm({
       key: 'confirmDialog',
-      message: 'Are you sure you want to delete this service?',
+      message: 'Are you sure you want to delete this ig post?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
