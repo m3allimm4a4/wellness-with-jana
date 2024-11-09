@@ -1,0 +1,45 @@
+<p-table styleClass="p-datatable-striped" [scrollable]="true" [value]="igPosts()">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>URL</th>
+      <th>Asset</th>
+      <th style="text-align: center" pFrozenColumn alignFrozen="right">
+        <a [routerLink]="['new']">
+          <p-button icon="pi pi-plus" size="small" styleClass="table-action-button" [text]="true" [rounded]="true" />
+        </a>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-post>
+    <tr>
+      <td style="width: 32%">
+        <a [href]="post.url" target="_blank">{{ post.url }}</a>
+      </td>
+      <td style="width: 32%">
+        <app-asset [assetId]="post.asset?.name" [style]="{ 'max-width': '10rem', 'max-height': '10rem' }" />
+      </td>
+      <td style="width: 5%">
+        <div class="flex justify-content-end" pFrozenColumn alignFrozen="right">
+          <a [routerLink]="[post.id]">
+            <p-button
+              icon="pi pi-pencil"
+              size="small"
+              styleClass="table-action-button"
+              severity="info"
+              [text]="true"
+              [rounded]="true" />
+          </a>
+          <p-button
+            icon="pi pi-trash"
+            size="small"
+            styleClass="table-action-button"
+            severity="danger"
+            [text]="true"
+            [rounded]="true"
+            (onClick)="onDeleteClick(post.id)" />
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

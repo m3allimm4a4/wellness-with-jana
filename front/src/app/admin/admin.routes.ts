@@ -37,6 +37,19 @@ export const adminRoutes: Routes = [
             m => m.AdminTestemonialsDetailsComponent,
           ),
       },
+      {
+        path: 'ig-posts',
+        title: 'Admin IG Posts',
+        loadComponent: () => import('./admin-ig-posts/admin-ig-posts.component').then(m => m.AdminIgPostsComponent),
+      },
+      {
+        path: 'ig-posts/:id',
+        title: 'Admin IG Post Details',
+        loadComponent: () =>
+          import('./admin-ig-posts/admin-ig-post-details/admin-ig-post-details.component').then(
+            m => m.AdminIgPostDetailsComponent,
+          ),
+      },
     ],
   },
 ];
