@@ -1,1 +1,29 @@
-<p>admin-ig-post-details works!</p>
+<p-card>
+  <div class="flex flex-column gap-2">
+    <h5 class="px-2">Edit IG Post</h5>
+    <form class="grid grid-nogutter" [formGroup]="igPostForm">
+      <div class="col-12 md:col-6 p-2">
+        <label>Url:</label>
+        <input pInputText type="text" formControlName="url" [style]="{ width: '100%' }" />
+      </div>
+      @if (igPost()?.id) {
+        <div class="col-12 md:col-6 p-2">
+          <label>Upload Asset:</label>
+          <div>
+            <p-fileUpload
+              accept="image/*,video/*"
+              mode="advanced"
+              name="file"
+              method="post"
+              [url]="uploadUrl()"
+              [maxFileSize]="20000000"
+              [multiple]="false" />
+          </div>
+        </div>
+      }
+      <div style="text-align: end" class="col-12 md:col-12 p-2">
+        <p-button label="SAVE" type="submit" [disabled]="!igPostForm.valid" (onClick)="saveService()" />
+      </div>
+    </form>
+  </div>
+</p-card>
