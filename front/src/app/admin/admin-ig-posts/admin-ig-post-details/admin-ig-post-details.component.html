@@ -8,17 +8,15 @@
       </div>
       @if (igPost()?.id) {
         <div class="col-12 md:col-6 p-2">
-          <label>Upload Asset:</label>
-          <div>
-            <p-fileUpload
-              accept="image/*,video/*"
-              mode="advanced"
-              name="file"
-              method="post"
-              [url]="uploadUrl()"
-              [maxFileSize]="20000000"
-              [multiple]="false" />
-          </div>
+          <label>Choose or drop a file:</label>
+          <p-fileUpload
+            accept="image/*,video/*"
+            mode="advanced"
+            name="file"
+            method="post"
+            [url]="uploadUrl()"
+            [maxFileSize]="20000000"
+            [multiple]="false" />
         </div>
       }
       <div style="text-align: end" class="col-12 md:col-12 p-2">

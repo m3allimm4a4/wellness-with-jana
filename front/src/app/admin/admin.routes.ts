@@ -50,6 +50,11 @@ export const adminRoutes: Routes = [
             m => m.AdminIgPostDetailsComponent,
           ),
       },
+      {
+        path: 'contact',
+        title: 'Admin Contact',
+        loadComponent: () => import('./admin-contact/admin-contact.component').then(m => m.AdminContactComponent),
+      },
     ],
   },
 ];

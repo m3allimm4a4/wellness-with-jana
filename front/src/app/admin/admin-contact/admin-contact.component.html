@@ -1,0 +1,47 @@
+<p-card>
+  <h5 class="pb-4">Contact</h5>
+  <form class="grid grid-nogutter" [formGroup]="contactForm">
+    <div class="col-6 md:col-3 p-2">
+      <label>Phone:</label>
+      <input pInputText type="text" formControlName="phone" [style]="{ width: '100%' }" />
+    </div>
+    <div class="col-6 md:col-3 p-2">
+      <label>Whatsapp:</label>
+      <input pInputText type="email" formControlName="whatsapp" [style]="{ width: '100%' }" />
+    </div>
+    <div class="col-6 md:col-3 p-2">
+      <label>Email:</label>
+      <input pInputText type="email" formControlName="email" [style]="{ width: '100%' }" />
+    </div>
+    <div class="col-6 md:col-3 p-2">
+      <label>Address:</label>
+      <input pInputText type="email" formControlName="address" [style]="{ width: '100%' }" />
+    </div>
+    <div class="col-6 md:col-3 p-2">
+      <label>Instagram:</label>
+      <input pInputText type="email" formControlName="ig" [style]="{ width: '100%' }" />
+    </div>
+    <div class="col-6 md:col-3 p-2">
+      <label>Facebook:</label>
+      <input pInputText type="email" formControlName="facebook" [style]="{ width: '100%' }" />
+    </div>
+    <div class="col-6 md:col-3 p-2">
+      <label>Youtube:</label>
+      <input pInputText type="email" formControlName="youtube" [style]="{ width: '100%' }" />
+    </div>
+    <div class="col-12 md:col-6 p-2">
+      <label>Choose or drop a file:</label>
+      <p-fileUpload
+        accept="image/*,video/*"
+        mode="advanced"
+        name="file"
+        method="post"
+        [url]="url"
+        [maxFileSize]="20000000"
+        [multiple]="false" />
+    </div>
+    <div class="col-12 p-2" style="text-align: end">
+      <p-button type="submit" label="SAVE" (onClick)="onContactSave()" />
+    </div>
+  </form>
+</p-card>
