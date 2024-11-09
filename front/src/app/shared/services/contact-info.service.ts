@@ -20,7 +20,7 @@ export class ContactInfoService {
   }
 
   saveContactInfo(contactInfo: ContactInfo) {
-    return this.http.post<ContactInfo>(`${environment.apiUrl}/contacts`, contactInfo).pipe(
+    return this.http.post<ContactInfo>(`${environment.apiUrl}/contact-info`, contactInfo).pipe(
       tap(res => {
         this.contactInfo.next(res);
         this.createSuccessToast('Contact info saved successfully');
@@ -29,20 +29,10 @@ export class ContactInfoService {
   }
 
   private refreshContactInfo() {
-    return this.http.get<ContactInfo>(`${environment.apiUrl}/contacts`).pipe(
+    return this.http.get<ContactInfo>(`${environment.apiUrl}/contact-info`).pipe(
       tap(res => {
         this.loaded = true;
         this.contactInfo.next(res);
-        // }));
-        // this.contactInfo.next({
-        //   phone: '96103123123',
-        //   email: 'test@test.com',
-        //   address: '102 Street, New York, USA',
-        //   ig: 'https://instagram.com/',
-        //   facebook: 'https://facebook.com/',
-        //   youtube: 'https://youtube.com/',
-        //   whatsapp: 'https://wa.me/96103123123',
-        // });
       }),
     );
   }

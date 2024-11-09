@@ -12,6 +12,7 @@ import { serviceRoutes } from './routes/serviceRoutes';
 import { testemonialRoutes } from './routes/testemonialRoutes';
 import { assetRoutes } from './routes/assetRoutes';
 import { igPostRoutes } from './routes/igPostRoutes';
+import { contactInfoRoutes } from './routes/contact-info.routes';
 
 const run = async () => {
   const env = process.env.NODE_ENV || 'dev';
@@ -48,6 +49,7 @@ const run = async () => {
   server.use('/api/testemonials', testemonialRoutes);
   server.use('/api/assets', assetRoutes);
   server.use('/api/ig-posts', igPostRoutes);
+  server.use('/api/contact-info', contactInfoRoutes);
 
   server.get('/api/test', (_req, res) => {
     res.status(200).send('API is running');
