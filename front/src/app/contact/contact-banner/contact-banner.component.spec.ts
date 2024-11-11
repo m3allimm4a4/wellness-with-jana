@@ -8,9 +8,8 @@ describe('ContactBannerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContactBannerComponent]
-    })
-    .compileComponents();
+      imports: [ContactBannerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ContactBannerComponent);
     component = fixture.componentInstance;
