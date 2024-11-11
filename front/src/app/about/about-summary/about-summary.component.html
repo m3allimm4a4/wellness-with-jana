@@ -1,1 +1,17 @@
-<p>about-summary works!</p>
+<section class="about-summary">
+  <h5
+    class="title animation-duration-1000 animation-iteration-1 animation-ease-in-out"
+    appLazyAnimate
+    lazyAnimateClass="fadeindown"
+    [innerHTML]="'about-summary-title' | translate"></h5>
+  <h4
+    class="animation-duration-1000 animation-iteration-1 animation-ease-in-out"
+    appLazyAnimate
+    lazyAnimateClass="fadeindown"
+    [innerHTML]="'about-summary-subtitle' | translate"></h4>
+  <div
+    class="content animation-duration-1000 animation-iteration-1 animation-ease-in-out"
+    appLazyAnimate
+    lazyAnimateClass="fadeindown"
+    [innerHTML]="'about-summary-description' | translate"></div>
+</section>
