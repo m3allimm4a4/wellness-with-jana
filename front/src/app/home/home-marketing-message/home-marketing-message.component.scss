@@ -41,4 +41,9 @@
       }
     }
   }
+
+  @media (max-width: 767px) {
+    min-height: 70vh;
+    background-position: 45% 0;
+  }
 }

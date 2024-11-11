@@ -1,0 +1,15 @@
+<section class="about-banner" [ngStyle]="{ 'background-image': isImage() ? 'url(' + asset()?.path + ')' : '' }">
+  @if (isVideo()) {
+    <video class="background-video" [autoplay]="true" [muted]="true" [loop]="true">
+      <source [src]="asset()?.path" />
+    </video>
+  }
+  <div class="spacer"></div>
+  <div class="content">
+    <div>
+      <h2 class="title-1">Meet Your Holistic</h2>
+      <h2 class="title-2">HEALTH COACH</h2>
+    </div>
+    <div class="subtitle">I’m the ideal holistic health coach for women ready to embrace and rebuild their Homemade Health.</div>
+  </div>
+</section>
