@@ -4,11 +4,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AssetsService } from '../../shared/services/assets.service';
 import { Asset, AssetType } from '../../shared/interfaces/asset.interface';
 import { NgStyle } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home-banner',
   standalone: true,
-  imports: [Button, TranslateModule, NgStyle],
+  imports: [Button, TranslateModule, NgStyle, RouterLink],
   templateUrl: './home-banner.component.html',
   styleUrl: './home-banner.component.scss',
 })

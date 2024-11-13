@@ -1,5 +1,7 @@
 <section class="section">
   <h5 [innerHTML]="'home-trial-title' | translate"></h5>
   <div [innerHTML]="'home-trial-description' | translate"></div>
-  <p-button severity="contrast" label="GET STARTED HERE!" [outlined]="true" />
+  <a routerLink="/contact">
+    <p-button severity="contrast" label="GET STARTED HERE!" [outlined]="true" />
+  </a>
 </section>

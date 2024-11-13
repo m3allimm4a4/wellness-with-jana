@@ -11,14 +11,16 @@
         appLazyAnimate
         lazyAnimateClass="fadeindown"
         [innerHTML]="'home-guide-description' | translate"></div>
-      <p-button
-        class="animation-duration-3000 animation-iteration-1 animation-ease-in-out"
-        appLazyAnimate
-        lazyAnimateClass="fadeindown"
-        label="GET STARTED HERE!"
-        size="large"
-        severity="contrast"
-        [outlined]="true" />
+      <a routerLink="/contact">
+        <p-button
+          class="animation-duration-3000 animation-iteration-1 animation-ease-in-out"
+          appLazyAnimate
+          lazyAnimateClass="fadeindown"
+          label="GET STARTED HERE!"
+          size="large"
+          severity="contrast"
+          [outlined]="true" />
+      </a>
     </div>
     <div
       class="image-container animation-duration-3000 animation-iteration-1 animation-ease-in-out"
