@@ -14,6 +14,7 @@ import { AuthService } from '../shared/services/auth.service';
 export class HeaderComponent {
   items: MenuItem[] = [
     { label: 'Home', routerLink: '/' },
+    { label: 'Services', routerLink: '/services' },
     { label: 'About', routerLink: '/about' },
     { label: 'Contact', routerLink: '/contact' },
   ];
