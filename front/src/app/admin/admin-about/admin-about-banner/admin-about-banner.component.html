@@ -1,0 +1,22 @@
+<p-card>
+  <h5 class="pb-4">About Banner</h5>
+
+  <form class="flex flex-column gap-2" [formGroup]="bannerForm">
+    <div>
+      <label style="width: 100%">Description:</label>
+      <p-editor formControlName="description" [style]="{ height: '10rem' }" />
+    </div>
+    <p-button label="SAVE" type="submit" [disabled]="!bannerForm.valid" (onClick)="saveBanner()" />
+    <div>
+      <label>Choose or drop a file:</label>
+      <p-fileUpload
+        accept="image/*,video/*"
+        mode="advanced"
+        name="file"
+        method="post"
+        [url]="url"
+        [maxFileSize]="20000000"
+        [multiple]="false" />
+    </div>
+  </form>
+</p-card>

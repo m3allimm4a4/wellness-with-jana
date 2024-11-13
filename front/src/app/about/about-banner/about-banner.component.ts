@@ -20,7 +20,7 @@ export class AboutBannerComponent implements OnInit {
   constructor(private assetsService: AssetsService) {}
 
   ngOnInit() {
-    this.assetsService.getAssetById('home-banner-background').subscribe(asset => {
+    this.assetsService.getAssetById('about-banner-background').subscribe(asset => {
       this.asset.set(asset);
     });
   }
