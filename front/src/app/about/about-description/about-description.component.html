@@ -3,28 +3,19 @@
     class="image-container animation-duration-1000 animation-iteration-1 animation-ease-in-out"
     appLazyAnimate
     lazyAnimateClass="fadeinleft">
-    <img src="woman-doing-yoga-and-pilates-outdoor-with-her-mat.webp" alt="" />
+    <app-asset [style]="{ 'max-width': '100%' }" assetId="about-description" />
   </div>
   <div class="content">
     <h5
       class="animation-duration-1000 animation-iteration-1 animation-ease-in-out"
       appLazyAnimate
-      lazyAnimateClass="fadeindown">
-      I help busy women lose weight or clear up their acne by developing healthier eating habits.
-    </h5>
+      lazyAnimateClass="fadeindown"
+      [innerHTML]="'about-description-title' | translate"></h5>
     <p
       class="description animation-duration-2000 animation-iteration-1 animation-ease-in-out"
       appLazyAnimate
-      lazyAnimateClass="fadeindown">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet turpis non justo elementum fringilla eu
-      at felis. Cras id tortor commodo, vestibulum nisi vitae, maximus nibh. Aliquam iaculis nec arcu vel ullamcorper.
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta interdum pulvinar. Nulla eget ligula id arcu
-      ultrices volutpat. Aenean tempus ut lectus ut pulvinar. Sed pellentesque pretium libero. Nam a ex mollis, sodales
-      est quis, tempus nisi. Cras vitae enim condimentum, blandit augue nec, suscipit ligula. In hac habitasse platea
-      dictumst. Mauris dignissim tristique urna pulvinar eleifend. Vestibulum ut justo convallis, vulputate sem eget,
-      egestas lectus. Etiam condimentum ut orci nec sodales. Aenean malesuada tortor purus, sit amet tempus ligula
-      suscipit non. Nunc interdum velit id diam hendrerit tincidunt.
-    </p>
+      lazyAnimateClass="fadeindown"
+      [innerHTML]="'about-description-description' | translate"></p>
     <div
       class="description animation-duration-3000 animation-iteration-1 animation-ease-in-out"
       appLazyAnimate
