@@ -1,0 +1,16 @@
+.service-link {
+  display: block;
+  text-decoration: none;
+  color: #000000;
+  border: 1px solid #000000;
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s all;
+
+  &:hover {
+    background-color: #000000;
+    color: #ffffff;
+  }
+}

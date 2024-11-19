@@ -1,0 +1,7 @@
+<div class="grid grid-nogutter justify-content-center py-8 px-4 gap-4">
+  @for (service of services(); track service.id) {
+    <a class="col-12 md:col-3 p-2 service-link" [routerLink]="[]" [fragment]="service.id">
+      {{ service.name }}
+    </a>
+  }
+</div>

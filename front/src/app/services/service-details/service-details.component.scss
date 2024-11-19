@@ -1,0 +1,11 @@
+.service-details {
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  padding: 1rem;
+  margin-inline: 2rem;
+
+  @media (max-width: 767px) {
+    margin-top: -3rem;
+  }
+}

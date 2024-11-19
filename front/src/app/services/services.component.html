@@ -1,1 +1,6 @@
-<app-coming-soon />
+<app-service-summary [services]="services()" />
+@for (service of services(); track service.id) {
+  <app-service-details [id]="service.id" [service]="service" />
+}
+<app-home-trial />
+<app-home-social-showcase />
