@@ -7,11 +7,12 @@ import { environment } from '../environments/environment';
 import { ToastModule, ToastPositionType } from 'primeng/toast';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ScrollTopModule } from 'primeng/scrolltop';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, ToastModule, ConfirmDialogModule],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, ToastModule, ConfirmDialogModule, ScrollTopModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
