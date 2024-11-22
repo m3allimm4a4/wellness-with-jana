@@ -6,11 +6,18 @@ import { ServiceDetailsComponent } from './service-details/service-details.compo
 import { HomeTrialComponent } from '../home/home-trial/home-trial.component';
 import { HomeSocialShowcaseComponent } from '../home/home-social-showcase/home-social-showcase.component';
 import { ServiceSummaryComponent } from './service-summary/service-summary.component';
+import { ServicesBannerComponent } from './services-banner/services-banner.component';
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [ServiceDetailsComponent, HomeTrialComponent, HomeSocialShowcaseComponent, ServiceSummaryComponent],
+  imports: [
+    ServiceDetailsComponent,
+    HomeTrialComponent,
+    HomeSocialShowcaseComponent,
+    ServiceSummaryComponent,
+    ServicesBannerComponent,
+  ],
   templateUrl: './services.component.html',
   styleUrl: './services.component.scss',
 })

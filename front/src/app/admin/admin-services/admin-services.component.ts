@@ -8,11 +8,19 @@ import { RouterLink } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { AssetComponent } from '../../shared/components/asset/asset.component';
 import { AdminServicesSummaryComponent } from './admin-services-summary/admin-services-summary.component';
+import { AdminServicesBannerComponent } from './admin-services-banner/admin-services-banner.component';
 
 @Component({
   selector: 'app-admin-services',
   standalone: true,
-  imports: [TableModule, Button, RouterLink, AssetComponent, AdminServicesSummaryComponent],
+  imports: [
+    TableModule,
+    Button,
+    RouterLink,
+    AssetComponent,
+    AdminServicesSummaryComponent,
+    AdminServicesBannerComponent,
+  ],
   templateUrl: './admin-services.component.html',
   styleUrl: './admin-services.component.scss',
 })

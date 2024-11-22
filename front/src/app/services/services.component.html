@@ -1,3 +1,4 @@
+<app-services-banner />
 <app-service-summary [services]="services()" />
 @for (service of services(); track service.id) {
   <app-service-details [id]="service.id" [service]="service" />
