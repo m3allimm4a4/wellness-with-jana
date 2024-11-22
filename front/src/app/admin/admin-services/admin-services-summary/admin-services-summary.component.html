@@ -1,0 +1,14 @@
+<p-card>
+  <h5 class="pb-4">Services Summary</h5>
+  <form class="flex flex-column gap-2" [formGroup]="summaryform">
+    <div>
+      <label style="width: 100%">Title:</label>
+      <input pInputText type="text" style="width: 100%" formControlName="title" />
+    </div>
+    <div>
+      <label style="width: 100%">Description:</label>
+      <p-editor formControlName="description" [style]="{ height: '10rem' }" />
+    </div>
+    <p-button label="SAVE" type="submit" [disabled]="!summaryform.valid" (onClick)="saveSummary()" />
+  </form>
+</p-card>
