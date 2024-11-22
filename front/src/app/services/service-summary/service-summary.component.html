@@ -1,7 +1,20 @@
-<div class="grid grid-nogutter justify-content-center py-8 px-4 gap-4">
+<section class="services-summary">
+  <h4
+    class="title animation-duration-1000 animation-iteration-1 animation-ease-in-out"
+    appLazyAnimate
+    lazyAnimateClass="fadeindown"
+    [innerHTML]="'services-summary-title' | translate"></h4>
+  <div
+    class="content animation-duration-1000 animation-iteration-1 animation-ease-in-out"
+    appLazyAnimate
+    lazyAnimateClass="fadeindown"
+    [innerHTML]="'services-summary-description' | translate"></div>
+</section>
+
+<section class="grid grid-nogutter justify-content-center py-8 px-4 gap-4">
   @for (service of services(); track service.id) {
     <a class="col-12 md:col-3 p-2 service-link" [routerLink]="[]" [fragment]="service.id">
       {{ service.name }}
     </a>
   }
-</div>
+</section>

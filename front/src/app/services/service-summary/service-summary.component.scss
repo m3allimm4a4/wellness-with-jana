@@ -1,3 +1,22 @@
+.services-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  text-align: center;
+
+  .title,
+  .content {
+    max-width: 50%;
+
+    @media (max-width: 767px) {
+      max-width: 100%;
+    }
+  }
+}
+
 .service-link {
   display: block;
   text-decoration: none;
