@@ -1,0 +1,168 @@
+<p-stepper orientation="vertical" [linear]="true">
+  <p-stepperPanel header="Choose a day">
+    <ng-template pTemplate="content" let-nextCallback="nextCallback">
+      <p-calendar appendTo="body" [touchUI]="isMobile" [(ngModel)]="date" [style]="{ width: '100%' }" />
+      <div class="py-2">
+        <p-button
+          size="small"
+          severity="info"
+          label="NEXT"
+          [disabled]="!date()"
+          (onClick)="onDateConfirmed(nextCallback)" />
+      </div>
+    </ng-template>
+  </p-stepperPanel>
+
+  <p-stepperPanel header="Choose an available time">
+    <ng-template pTemplate="content" let-nextCallback="nextCallback" let-prevCallback="prevCallback">
+      <div class="timeline-wrapper">
+        <p-timeline align="alternate" [value]="timeslots()">
+          <ng-template pTemplate="marker" let-timeslot>
+            @let checked = selectedTimeSlot() === timeslot;
+            @let reserved = timeslot.reserved;
+            <span
+              class="timeslot"
+              pTooltip="Reserved"
+              tooltipPosition="bottom"
+              [tooltipDisabled]="!reserved"
+              [ngStyle]="{ cursor: reserved ? 'not-allowed' : 'pointer' }"
+              [ngClass]="{ reserved: reserved, checked: checked }"
+              (click)="toggleTimeslot(timeslot)">
+              @if (reserved) {
+                <i class="pi pi-times"></i>
+              } @else if (checked) {
+                <i class="pi pi-check-circle"></i>
+              } @else {
+                <i class="pi pi-circle-on"></i>
+              }
+            </span>
+          </ng-template>
+          <ng-template pTemplate="content" let-timeslot>
+            {{ timeslot.date | date: 'hh:mm a' }}
+          </ng-template>
+        </p-timeline>
+      </div>
+      <div class="flex gap-2 py-2">
+        <p-button size="small" severity="secondary" label="BACK" (onClick)="prevCallback.emit()" />
+        <p-button
+          size="small"
+          severity="info"
+          label="NEXT"
+          [disabled]="!selectedTimeSlot()"
+          (onClick)="onTimeConfirmed(nextCallback)" />
+      </div>
+    </ng-template>
+  </p-stepperPanel>
+
+  <p-stepperPanel header="Confirm Booking">
+    <ng-template pTemplate="content" let-nextCallback="nextCallback" let-prevCallback="prevCallback">
+      <div class="flex flex-column gap-4">
+        <div class="pb-1"><a style="text-decoration: underline; cursor: pointer">Sign Up</a> to autofill your info</div>
+
+        <div>
+          <p-floatLabel>
+            <input id="name" style="width: 100%" pInputText type="text" [formControl]="infoForm.controls.name" />
+            <label for="name">Name</label>
+          </p-floatLabel>
+          @if (infoForm.controls.name.dirty && infoForm.controls.name.invalid) {
+            <small>Your name is required</small>
+          }
+        </div>
+
+        <div>
+          <p-floatLabel>
+            <input
+              id="lastname"
+              style="width: 100%"
+              pInputText
+              type="text"
+              [formControl]="infoForm.controls.lastname" />
+            <label for="lastname">Last Name</label>
+          </p-floatLabel>
+          @if (infoForm.controls.lastname.dirty && infoForm.controls.lastname.invalid) {
+            <small>Your last name is required</small>
+          }
+        </div>
+
+        <div>
+          <p-floatLabel>
+            <p-dropdown
+              id="country"
+              appendTo="body"
+              [style]="{ width: '100%' }"
+              [virtualScroll]="true"
+              [virtualScrollItemSize]="38"
+              [filter]="true"
+              [options]="countryOptions"
+              [formControl]="infoForm.controls.country" />
+            <label for="country">Country</label>
+          </p-floatLabel>
+          @if (infoForm.controls.country.dirty && infoForm.controls.country.invalid) {
+            <small>Your country is required</small>
+          }
+        </div>
+
+        <div>
+          <p-floatLabel>
+            <input id="email" style="width: 100%" pInputText type="email" [formControl]="infoForm.controls.email" />
+            <label for="email">Email</label>
+          </p-floatLabel>
+          @if (infoForm.controls.email.dirty && infoForm.controls.email.invalid) {
+            <small>A valid email is required</small>
+          }
+        </div>
+
+        <div>
+          <p-floatLabel>
+            <input pInputText id="phone" style="width: 100%" type="tel" [formControl]="infoForm.controls.phone" />
+            <label for="phone">Phone Number</label>
+          </p-floatLabel>
+          @if (infoForm.controls.phone.dirty && infoForm.controls.phone.invalid) {
+            <small>Your phone number is required</small>
+          }
+        </div>
+
+        <div class="flex gap-2 py-2">
+          <p-button size="small" severity="secondary" label="BACK" (onClick)="prevCallback.emit()" />
+          <p-button
+            size="small"
+            severity="info"
+            [disabled]="infoForm.invalid"
+            label="NEXT"
+            (onClick)="onInfoConfirmed(nextCallback)" />
+        </div>
+      </div>
+    </ng-template>
+  </p-stepperPanel>
+
+  <p-stepperPanel header="Confirm Booking">
+    <ng-template pTemplate="content" let-prevCallback="prevCallback">
+      <div class="flex flex-column">
+        <p>
+          Name: {{ infoForm.controls.name.value }}<br />
+          Last Name: {{ infoForm.controls.lastname.value }} <br />
+          Country: {{ infoForm.controls.country.value }}<br />
+          Email: {{ infoForm.controls.email.value }} <br />
+          Phone Number: {{ infoForm.controls.phone.value }} <br />
+        </p>
+        <p-divider />
+        <p>
+          Service: {{ service.name }} <br />
+          Date: {{ date() | date: 'dd/MM/yyyy' }} <br />
+          Time: Time: {{ selectedTimeSlot()?.date | date: 'hh:mm a' }} <br />
+          Price: Price: {{ service.price }}$
+        </p>
+
+        <div class="flex gap-2 py-4">
+          <p-button size="small" severity="secondary" label="BACK" (onClick)="prevCallback.emit()" />
+          <p-button
+            size="small"
+            severity="danger"
+            label="CONFIRM"
+            [loading]="isLoading()"
+            (onClick)="onBookingConfirmed()" />
+        </div>
+      </div>
+    </ng-template>
+  </p-stepperPanel>
+</p-stepper>

@@ -1,0 +1,47 @@
+.timeline-wrapper {
+  overflow-y: auto;
+  max-height: 20rem;
+  width: fit-content;
+}
+
+.timeslot {
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: var(--blue-500);
+
+  i {
+    font-size: 0.5rem;
+    color: #ffffff;
+  }
+
+  &.reserved {
+    background-color: var(--red-500);
+
+    i {
+      font-size: 1rem;
+    }
+  }
+
+  &.checked {
+    background-color: var(--primary-color);
+
+    i {
+      color: #000000;
+      font-size: 2rem;
+    }
+  }
+}
+
+small {
+  color: var(--red-500);
+}
+
+label:after {
+  content: ' *';
+  color: red;
+}
