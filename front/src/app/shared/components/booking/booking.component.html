@@ -3,12 +3,7 @@
     <ng-template pTemplate="content" let-nextCallback="nextCallback">
       <p-calendar appendTo="body" [touchUI]="isMobile" [(ngModel)]="date" [style]="{ width: '100%' }" />
       <div class="py-2">
-        <p-button
-          size="small"
-          severity="info"
-          label="NEXT"
-          [disabled]="!date()"
-          (onClick)="onDateConfirmed(nextCallback)" />
+        <p-button size="small" label="NEXT" [disabled]="!date()" (onClick)="onDateConfirmed(nextCallback)" />
       </div>
     </ng-template>
   </p-stepperPanel>
@@ -46,7 +41,6 @@
         <p-button size="small" severity="secondary" label="BACK" (onClick)="prevCallback.emit()" />
         <p-button
           size="small"
-          severity="info"
           label="NEXT"
           [disabled]="!selectedTimeSlot()"
           (onClick)="onTimeConfirmed(nextCallback)" />
@@ -124,12 +118,7 @@
 
         <div class="flex gap-2 py-2">
           <p-button size="small" severity="secondary" label="BACK" (onClick)="prevCallback.emit()" />
-          <p-button
-            size="small"
-            severity="info"
-            [disabled]="infoForm.invalid"
-            label="NEXT"
-            (onClick)="onInfoConfirmed(nextCallback)" />
+          <p-button size="small" [disabled]="infoForm.invalid" label="NEXT" (onClick)="onInfoConfirmed(nextCallback)" />
         </div>
       </div>
     </ng-template>
