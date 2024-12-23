@@ -1,4 +1,4 @@
-import { Component, EventEmitter, signal } from '@angular/core';
+import { Component, EventEmitter, signal, viewChild } from '@angular/core';
 import { StepperModule } from 'primeng/stepper';
 import { CalendarModule } from 'primeng/calendar';
 import { TimelineModule } from 'primeng/timeline';
@@ -16,6 +16,10 @@ import { getCountryOptions } from '../../constants/countries';
 import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { DividerModule } from 'primeng/divider';
+import { CalendarOptions } from '@fullcalendar/core';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-booking',
@@ -34,6 +38,7 @@ import { DividerModule } from 'primeng/divider';
     FloatLabelModule,
     ReactiveFormsModule,
     DividerModule,
+    FullCalendarModule,
   ],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss',
@@ -69,6 +74,25 @@ export class BookingComponent {
   selectedTimeSlot = signal<ITimeslot | undefined>(undefined);
   isLoading = signal<boolean>(false);
 
+  calendar = viewChild<FullCalendarComponent>('calendar');
+
+  calendarOptions: CalendarOptions = {
+    initialView: 'timeGridDay',
+    plugins: [timeGridPlugin, interactionPlugin],
+    allDaySlot: false,
+    selectable: true,
+    eventOverlap: false,
+    events: [{ date: new Date(), color: 'red', editable: false, title: 'Reserved' }],
+    select: event => {
+      this.selectedTimeSlot.set({ date: event.start, reserved: false });
+      this.calendar()?.getApi().removeAllEvents();
+      this.calendar()?.getApi().addEvent({ date: new Date(), color: 'red', editable: false, title: 'Reserved' });
+      this.calendar()
+        ?.getApi()
+        .addEvent({ start: event.start, end: event.end, extendedProps: { isNew: true } });
+    },
+  };
+
   constructor(
     config: DynamicDialogConfig,
     deviceService: DeviceDetectorService,
@@ -84,6 +108,7 @@ export class BookingComponent {
 
   onTimeConfirmed(callback: EventEmitter<void>) {
     callback.emit();
+    this.calendar()?.getApi().updateSize();
   }
 
   onInfoConfirmed(callback: EventEmitter<void>) {

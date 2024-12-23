@@ -48,6 +48,22 @@
     </ng-template>
   </p-stepperPanel>
 
+  <p-stepperPanel header="Choose an available time">
+    <ng-template pTemplate="content" let-nextCallback="nextCallback" let-prevCallback="prevCallback">
+      <div>
+        <full-calendar [options]="calendarOptions" #calendar />
+      </div>
+      <div class="flex gap-2 py-2">
+        <p-button size="small" severity="secondary" label="BACK" (onClick)="prevCallback.emit()" />
+        <p-button
+          size="small"
+          label="NEXT"
+          [disabled]="!selectedTimeSlot()"
+          (onClick)="onTimeConfirmed(nextCallback)" />
+      </div>
+    </ng-template>
+  </p-stepperPanel>
+
   <p-stepperPanel header="Confirm Booking">
     <ng-template pTemplate="content" let-nextCallback="nextCallback" let-prevCallback="prevCallback">
       <div class="flex flex-column gap-4">
