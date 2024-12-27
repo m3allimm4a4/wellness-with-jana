@@ -15,6 +15,7 @@ export class HeaderComponent {
   items: MenuItem[] = [
     { label: 'Home', routerLink: '/' },
     { label: 'Services', routerLink: '/services' },
+    // { label: 'Blog', routerLink: '/blogs' },
     { label: 'About', routerLink: '/about' },
     { label: 'Contact', routerLink: '/contact' },
   ];
