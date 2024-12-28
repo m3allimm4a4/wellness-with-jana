@@ -32,15 +32,19 @@ export const getTimeslots: RequestHandler = catchAsync(async (req, res): Promise
   startOfDay.setHours(0, 0, 0, 0);
   const endOfDay = new Date(day.getTime());
   endOfDay.setHours(23, 59, 59, 999);
-  const reservedAppointments = await Appointment.find({ time: { $gte: endOfDay, $lte: endOfDay } });
+  const reservedAppointments = await Appointment.find({ time: { $gte: startOfDay, $lte: endOfDay } });
   const timeslots = await generateTimeslots(day);
-  if (reservedAppointments?.length) {
-    reservedAppointments.forEach(appointment => {
-      const timeslot = timeslots.find(timeslot => timeslot.start.getTime() === appointment.time.getTime());
-      if (timeslot) {
+
+  reservedAppointments.forEach(appointment => {
+    timeslots.forEach(timeslot => {
+      if (
+        timeslot.start.getTime() < appointment.end.getTime() &&
+        timeslot.end.getTime() > appointment.start.getTime()
+      ) {
         timeslot.reserved = true;
       }
     });
-  }
+  });
+
   res.status(200).json(timeslots);
 });
