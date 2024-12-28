@@ -1,9 +1,10 @@
 import dayjs from 'dayjs';
 import { RequestHandler } from 'express';
 import { catchAsync } from '../shared/catchAsync';
-import { Appointment } from '../models/appointment.model';
+import { Appointment, IAppointment } from '../models/appointment.model';
 import { getAppointmentConfig } from '../shared/dynamic-config-manager';
 import { Timeslot } from '../types/timeslot.type';
+import { BadRequestError } from '../errors/bad-request.error';
 
 const generateTimeslots = async (date: Date) => {
   const config = await getAppointmentConfig();
@@ -32,7 +33,7 @@ export const getTimeslots: RequestHandler = catchAsync(async (req, res): Promise
   startOfDay.setHours(0, 0, 0, 0);
   const endOfDay = new Date(day.getTime());
   endOfDay.setHours(23, 59, 59, 999);
-  const reservedAppointments = await Appointment.find({ time: { $gte: startOfDay, $lte: endOfDay } });
+  const reservedAppointments = await Appointment.find({ start: { $gte: startOfDay, $lte: endOfDay } });
   const timeslots = await generateTimeslots(day);
 
   reservedAppointments.forEach(appointment => {
@@ -47,4 +48,31 @@ export const getTimeslots: RequestHandler = catchAsync(async (req, res): Promise
   });
 
   res.status(200).json(timeslots);
+});
+
+export const createAppointment: RequestHandler = catchAsync(async (req, res): Promise<void> => {
+  const appointment: Partial<IAppointment> = req.body;
+  appointment.start = new Date(appointment.start || 0);
+  appointment.end = new Date(appointment.end || 0);
+  const intersection = await Appointment.findOne({ start: { $lt: appointment.end }, end: { $gt: appointment.start } });
+  if (intersection) {
+    throw new BadRequestError();
+  }
+
+  const newBooking = await Appointment.create({
+    name: appointment.name,
+    country: appointment.country,
+    email: appointment.email,
+    phone: appointment.phone,
+    start: appointment.start,
+    end: appointment.end,
+    service: appointment.service?.id,
+  });
+
+  res.status(200).json(newBooking.toObject());
+});
+
+export const getAppointments: RequestHandler = catchAsync(async (req, res) => {
+  const appointments = await Appointment.find().populate('service');
+  res.status(200).json(appointments.map(a => a.toObject()));
 });
