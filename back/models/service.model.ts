@@ -1,7 +1,7 @@
 import { model, Schema, Types } from 'mongoose';
 import { Asset, IAsset } from './asset.model';
 
-export interface IService extends Document {
+export interface IService {
   id: string;
   name: string;
   title: string;

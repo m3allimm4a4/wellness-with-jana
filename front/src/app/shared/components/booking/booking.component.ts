@@ -8,7 +8,7 @@ import { Service } from '../../interfaces/service.interface';
 import { BookingService } from '../../services/booking.service';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { ITimeslot } from '../../interfaces/timeslot.interface';
+import { Timeslot } from '../../interfaces/timeslot.interface';
 import { TooltipModule } from 'primeng/tooltip';
 import { finalize } from 'rxjs';
 import { InputTextModule } from 'primeng/inputtext';
@@ -52,21 +52,8 @@ export class BookingComponent {
   });
 
   date = signal<Date | null>(null);
-  timeslots = signal<ITimeslot[]>([
-    { date: new Date(), reserved: true },
-    {
-      date: new Date(),
-      reserved: false,
-    },
-    { date: new Date(), reserved: true },
-    { date: new Date(), reserved: false },
-    {
-      date: new Date(),
-      reserved: false,
-    },
-    { date: new Date(), reserved: false },
-  ]);
-  selectedTimeSlot = signal<ITimeslot | undefined>(undefined);
+  timeslots = signal<Timeslot[]>([]);
+  selectedTimeSlot = signal<Timeslot | undefined>(undefined);
   isLoading = signal<boolean>(false);
 
   constructor(
@@ -79,7 +66,12 @@ export class BookingComponent {
   }
 
   onDateConfirmed(callback: EventEmitter<void>) {
-    callback.emit();
+    const day = this.date();
+    if (!day) return;
+    this.bookingService.getTimeslots(day).subscribe(timeslots => {
+      this.timeslots.set(timeslots);
+      callback.emit();
+    });
   }
 
   onTimeConfirmed(callback: EventEmitter<void>) {
@@ -98,7 +90,7 @@ export class BookingComponent {
       .subscribe();
   }
 
-  toggleTimeslot(timeslot: ITimeslot) {
+  toggleTimeslot(timeslot: Timeslot) {
     if (timeslot.reserved) {
       return;
     }

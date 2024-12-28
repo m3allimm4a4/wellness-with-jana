@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 
-interface ILabel extends Document {
+interface ILabel {
   id: string;
   name: string;
   en: string;

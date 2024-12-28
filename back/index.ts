@@ -13,6 +13,8 @@ import { testemonialRoutes } from './routes/testemonialRoutes';
 import { assetRoutes } from './routes/assetRoutes';
 import { igPostRoutes } from './routes/igPostRoutes';
 import { contactInfoRoutes } from './routes/contact-info.routes';
+import { bookingRoutes } from './routes/booking.routes';
+import { dynamicConfigRoutes } from './routes/dynamic-config.routes';
 
 const run = async () => {
   const env = process.env.NODE_ENV || 'dev';
@@ -50,6 +52,8 @@ const run = async () => {
   server.use('/api/assets', assetRoutes);
   server.use('/api/ig-posts', igPostRoutes);
   server.use('/api/contact-info', contactInfoRoutes);
+  server.use('/api/booking', bookingRoutes);
+  server.use('/api/dynamic-config', dynamicConfigRoutes);
 
   server.get('/api/test', (_req, res) => {
     res.status(200).send('API is running');

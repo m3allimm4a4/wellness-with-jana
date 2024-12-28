@@ -33,7 +33,7 @@
             </span>
           </ng-template>
           <ng-template pTemplate="content" let-timeslot>
-            {{ timeslot.date | date: 'hh:mm a' }}
+            {{ timeslot.start | date: 'hh:mm a' }} - {{ timeslot.end | date: 'hh:mm a' }}
           </ng-template>
         </p-timeline>
       </div>
@@ -138,8 +138,9 @@
         <p>
           Service: {{ service.name }} <br />
           Date: {{ date() | date: 'dd/MM/yyyy' }} <br />
-          Time: Time: {{ selectedTimeSlot()?.date | date: 'hh:mm a' }} <br />
-          Price: Price: {{ service.price }}$
+          Time: {{ selectedTimeSlot()?.start | date: 'hh:mm a' }} - {{ selectedTimeSlot()?.end | date: 'hh:mm a' }}
+          <br />
+          Price: {{ service.price }}$
         </p>
 
         <div class="flex gap-2 py-4">

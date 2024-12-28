@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 
-export interface IContactInfo extends Document {
+export interface IContactInfo {
   id: string;
   createdAt: Date;
   updatedAt: Date;

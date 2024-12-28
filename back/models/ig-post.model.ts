@@ -1,7 +1,7 @@
 import { Asset, IAsset } from './asset.model';
 import { model, Schema, Types } from 'mongoose';
 
-export interface IIgPost extends Document {
+export interface IIgPost {
   id: string;
   url: string;
   createdAt: Date;

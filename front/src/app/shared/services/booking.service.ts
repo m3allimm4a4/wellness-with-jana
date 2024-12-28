@@ -4,12 +4,16 @@ import { BookingComponent } from '../components/booking/booking.component';
 import { Service } from '../interfaces/service.interface';
 import { tap, timer } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { Timeslot } from '../interfaces/timeslot.interface';
 
 @Injectable({ providedIn: 'root' })
 export class BookingService {
   private bookingDialog: DynamicDialogRef | undefined;
 
   constructor(
+    private http: HttpClient,
     private dialogService: DialogService,
     private messageService: MessageService,
   ) {}
@@ -19,6 +23,7 @@ export class BookingService {
       header: 'Book A Session',
       modal: true,
       appendTo: 'body',
+      width: '40rem',
       data: { service },
     });
   }
@@ -36,6 +41,11 @@ export class BookingService {
         });
       }),
     );
+  }
+
+  getTimeslots(day: Date) {
+    const params = new HttpParams().append('day', day.toISOString());
+    return this.http.get<Timeslot[]>(`${environment.apiUrl}/booking/timeslots`, { params });
   }
 
   private closeBookingDialog() {

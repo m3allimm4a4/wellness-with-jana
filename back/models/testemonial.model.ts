@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 
-export interface ITestemonial extends Document {
+export interface ITestemonial {
   id: string;
   description: string;
   clientName: string;

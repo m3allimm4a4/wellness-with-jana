@@ -5,7 +5,7 @@ export enum AssetType {
   IMAGE = 'IMAGE',
 }
 
-export interface IAsset extends Document {
+export interface IAsset {
   id: string;
   name: string;
   type: AssetType;
