@@ -1,10 +1,10 @@
 <div class="list-item">
   <div style="height: 20rem">
-    <app-asset [assetId]="assetId()" />
+    <app-asset [assetId]="service()?.asset?.name || ''" />
   </div>
-  <h5 class="p-4">{{ header() }}</h5>
-  <p class="px-4">{{ content() }}</p>
+  <h5 class="p-4">{{ service()?.name }}</h5>
+  <p class="px-4">{{ service()?.title }}</p>
   <div class="p-4">
-    <a class="p-button p-button-outlined" [routerLink]="routerLink()">Book a Session</a>
+    <a class="p-button p-button-outlined" (click)="onBookClicked()">Book a Session</a>
   </div>
 </div>

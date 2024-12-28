@@ -1,17 +1,23 @@
 import { Component, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { AssetComponent } from '../../../shared/components/asset/asset.component';
+import { BookingService } from '../../../shared/services/booking.service';
+import { Service } from '../../../shared/interfaces/service.interface';
 
 @Component({
   selector: 'app-home-services-list-item',
   standalone: true,
-  imports: [RouterLink, AssetComponent],
+  imports: [AssetComponent],
   templateUrl: './home-services-list-item.component.html',
   styleUrl: './home-services-list-item.component.scss',
 })
 export class HomeServicesListItemComponent {
-  assetId = input<string>('');
-  header = input<string>('');
-  content = input<string>('');
-  routerLink = input<string>();
+  service = input<Service>();
+
+  constructor(private bookingService: BookingService) {}
+
+  onBookClicked() {
+    const service = this.service();
+    if (!service) return;
+    this.bookingService.openBookingDialog(service);
+  }
 }
