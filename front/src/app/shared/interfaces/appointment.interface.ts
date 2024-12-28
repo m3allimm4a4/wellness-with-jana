@@ -8,5 +8,6 @@ export interface Appointment extends Entity {
   phone: string;
   start: Date;
   end: Date;
+  confirmed?: boolean;
   service?: Service;
 }

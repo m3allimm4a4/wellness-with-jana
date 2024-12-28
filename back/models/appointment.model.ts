@@ -9,6 +9,7 @@ export interface IAppointment extends Document {
   phone: string;
   start: Date;
   end: Date;
+  confirmed: boolean;
   createdAt: Date;
   updatedAt: Date;
   service?: IService;
@@ -22,6 +23,7 @@ export const AppointmentSchema = new Schema<IAppointment>(
     phone: { type: String, required: true },
     start: { type: Date, required: true },
     end: { type: Date, required: true },
+    confirmed: { type: Boolean, default: false },
     service: { type: Types.ObjectId, ref: Service },
   },
   {
