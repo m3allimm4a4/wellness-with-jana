@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BookingComponent } from '../components/booking/booking.component';
 import { Service } from '../interfaces/service.interface';
-import { tap, timer } from 'rxjs';
+import { tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Timeslot } from '../interfaces/timeslot.interface';
+import { Appointment } from '../interfaces/appointment.interface';
 
 @Injectable({ providedIn: 'root' })
 export class BookingService {
@@ -28,8 +29,8 @@ export class BookingService {
     });
   }
 
-  confirmBooking(service: Service) {
-    return timer(3000).pipe(
+  confirmBooking(appointment: Appointment) {
+    return this.http.post<Appointment>(`${environment.apiUrl}/booking`, appointment).pipe(
       tap(() => {
         this.closeBookingDialog();
         this.messageService.add({

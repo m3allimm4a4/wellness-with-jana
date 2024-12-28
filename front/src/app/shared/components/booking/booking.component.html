@@ -1,7 +1,7 @@
 <p-stepper orientation="vertical" [linear]="true">
   <p-stepperPanel header="Choose a day">
     <ng-template pTemplate="content" let-nextCallback="nextCallback">
-      <p-calendar appendTo="body" [touchUI]="isMobile" [(ngModel)]="date" [style]="{ width: '100%' }" />
+      <p-calendar appendTo="body" [touchUI]="isMobile" [minDate]="today" [(ngModel)]="date" [style]="{ width: '100%' }" />
       <div class="py-2">
         <p-button size="small" label="NEXT" [disabled]="!date()" (onClick)="onDateConfirmed(nextCallback)" />
       </div>

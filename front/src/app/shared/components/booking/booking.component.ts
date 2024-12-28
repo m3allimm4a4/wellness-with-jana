@@ -16,6 +16,7 @@ import { getCountryOptions } from '../../constants/countries';
 import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { DividerModule } from 'primeng/divider';
+import { Appointment } from '../../interfaces/appointment.interface';
 
 @Component({
   selector: 'app-booking',
@@ -42,6 +43,7 @@ export class BookingComponent {
   readonly service: Service;
   readonly isMobile: boolean;
   readonly countryOptions = getCountryOptions();
+  readonly today = new Date();
 
   infoForm = new FormGroup({
     name: new FormControl<string | null>(null, [Validators.required]),
@@ -84,8 +86,17 @@ export class BookingComponent {
 
   onBookingConfirmed() {
     this.isLoading.set(true);
+    const appointment: Appointment = {
+      start: this.selectedTimeSlot()?.start || new Date(),
+      end: this.selectedTimeSlot()?.end || new Date(),
+      country: this.infoForm.controls.country.value || '',
+      email: this.infoForm.controls.email.value || '',
+      phone: this.infoForm.controls.phone.value || '',
+      name: this.infoForm.controls.name.value || '',
+      service: this.service,
+    };
     this.bookingService
-      .confirmBooking(this.service)
+      .confirmBooking(appointment)
       .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe();
   }
