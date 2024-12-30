@@ -4,6 +4,7 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { LabelsService } from './services/labels.service';
 import { finalize, Subscription } from 'rxjs';
 import { MessagesModule } from 'primeng/messages';
+import { DynamicConfigService } from './services/dynamic-config.service';
 
 @Component({
   selector: 'app-admin',
@@ -11,7 +12,7 @@ import { MessagesModule } from 'primeng/messages';
   imports: [RouterOutlet, AdminHeaderComponent, MessagesModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
-  providers: [LabelsService],
+  providers: [LabelsService, DynamicConfigService],
 })
 export class AdminComponent implements OnInit, OnDestroy {
   doneLoading = signal<boolean>(false);

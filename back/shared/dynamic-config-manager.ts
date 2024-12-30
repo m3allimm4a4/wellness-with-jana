@@ -2,7 +2,7 @@ import { DynamicConfig } from '../models/dynamic-config.model';
 import { NotFoundError } from '../errors/not-found.error';
 import { AppointmentConfig } from '../types/appointment-config.type';
 
-const getDynamicConfig = async (name: string): Promise<AppointmentConfig> => {
+export const getDynamicConfig = async (name: string) => {
   const config = await DynamicConfig.findOne({ name: name });
   if (!config) {
     throw new NotFoundError();

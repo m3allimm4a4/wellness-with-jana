@@ -1,0 +1,24 @@
+<p-card>
+  <h5 class="pb-4">Settings</h5>
+  <form class="flex flex-column gap-2" [formGroup]="bookingConfigForm">
+    <div>
+      <label>Start time (24h format):</label>
+      <input pInputText type="number" style="width: 100%" [formControl]="bookingConfigForm.controls.start" />
+    </div>
+
+    <div>
+      <label>End time (24h format):</label>
+      <input pInputText type="number" style="width: 100%" [formControl]="bookingConfigForm.controls.end" />
+    </div>
+
+    <div>
+      <label>Duration (in minutes):</label>
+      <input pInputText type="number" style="width: 100%" [formControl]="bookingConfigForm.controls.duration" />
+    </div>
+
+    <div>
+      <label>Spacing (in minutes):</label>
+      <input pInputText type="number" style="width: 100%" [formControl]="bookingConfigForm.controls.spacing" />
+    </div>
+  </form>
+</p-card>
