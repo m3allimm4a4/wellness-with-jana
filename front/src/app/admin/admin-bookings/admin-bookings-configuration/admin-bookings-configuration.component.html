@@ -3,22 +3,30 @@
   <form class="flex flex-column gap-2" [formGroup]="bookingConfigForm">
     <div>
       <label>Start time (24h format):</label>
-      <input pInputText type="number" style="width: 100%" [formControl]="bookingConfigForm.controls.start" />
+      <input pInputText type="number" style="width: 100%" min="0" [formControl]="bookingConfigForm.controls.start" />
+      @if (bookingConfigForm.controls.start.invalid) {
+        <small style="color: red">Start time must be before start time</small>
+      }
     </div>
 
     <div>
       <label>End time (24h format):</label>
-      <input pInputText type="number" style="width: 100%" [formControl]="bookingConfigForm.controls.end" />
+      <input pInputText type="number" style="width: 100%" min="0" [formControl]="bookingConfigForm.controls.end" />
+      @if (bookingConfigForm.controls.end.invalid) {
+        <small style="color: red">End time must be after start time</small>
+      }
     </div>
 
     <div>
       <label>Duration (in minutes):</label>
-      <input pInputText type="number" style="width: 100%" [formControl]="bookingConfigForm.controls.duration" />
+      <input pInputText type="number" style="width: 100%" min="1" [formControl]="bookingConfigForm.controls.duration" />
     </div>
 
     <div>
       <label>Spacing (in minutes):</label>
-      <input pInputText type="number" style="width: 100%" [formControl]="bookingConfigForm.controls.spacing" />
+      <input pInputText type="number" style="width: 100%" min="0" [formControl]="bookingConfigForm.controls.spacing" />
     </div>
+
+    <p-button label="SAVE" [disabled]="bookingConfigForm.invalid" (onClick)="onBookingConfigSave()" />
   </form>
 </p-card>
