@@ -5,6 +5,7 @@ import { Appointment, IAppointment } from '../models/appointment.model';
 import { getAppointmentConfig } from '../shared/dynamic-config-manager';
 import { Timeslot } from '../types/timeslot.type';
 import { BadRequestError } from '../errors/bad-request.error';
+import { NotFoundError } from '../errors/not-found.error';
 
 const generateTimeslots = async (date: Date) => {
   const config = await getAppointmentConfig();
@@ -27,7 +28,7 @@ const generateTimeslots = async (date: Date) => {
   return timeslots;
 };
 
-export const getTimeslots: RequestHandler = catchAsync(async (req, res): Promise<void> => {
+export const getTimeslots: RequestHandler = catchAsync(async (req, res) => {
   const day = new Date(req.query.day as string);
   const startOfDay = new Date(day.getTime());
   startOfDay.setHours(0, 0, 0, 0);
@@ -50,7 +51,7 @@ export const getTimeslots: RequestHandler = catchAsync(async (req, res): Promise
   res.status(200).json(timeslots);
 });
 
-export const createAppointment: RequestHandler = catchAsync(async (req, res): Promise<void> => {
+export const createAppointment: RequestHandler = catchAsync(async (req, res) => {
   const appointment: Partial<IAppointment> = req.body;
   appointment.start = new Date(appointment.start || 0);
   appointment.end = new Date(appointment.end || 0);
@@ -72,7 +73,21 @@ export const createAppointment: RequestHandler = catchAsync(async (req, res): Pr
   res.status(200).json(newBooking.toObject());
 });
 
-export const getAppointments: RequestHandler = catchAsync(async (req, res) => {
+export const confirmAppointment: RequestHandler = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  if (!id) {
+    throw new BadRequestError();
+  }
+  const appointment = await Appointment.findByIdAndUpdate(id, { confirmed: true });
+
+  if (!appointment) {
+    throw new NotFoundError();
+  }
+
+  res.status(200).json(appointment.toObject());
+});
+
+export const getAppointments: RequestHandler = catchAsync(async (_req, res) => {
   const appointments = await Appointment.find().populate('service');
   res.status(200).json(appointments.map(a => a.toObject()));
 });
