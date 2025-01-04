@@ -19,7 +19,7 @@
   }
 
   &.reserved {
-    background-color: var(--red-500);
+    background-color: var(--p-red-500);
 
     i {
       font-size: 1rem;
@@ -37,7 +37,7 @@
 }
 
 small {
-  color: var(--red-500);
+  color: var(--p-red-500);
 }
 
 label:after {
