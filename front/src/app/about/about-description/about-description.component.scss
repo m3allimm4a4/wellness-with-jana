@@ -20,7 +20,8 @@
     display: flex;
     flex-wrap: wrap;
 
-    .image-container, .content {
+    .image-container,
+    .content {
       width: 100%;
     }
     .content {

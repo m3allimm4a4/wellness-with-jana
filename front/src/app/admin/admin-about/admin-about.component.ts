@@ -5,7 +5,6 @@ import { AdminAboutDescriptionComponent } from './admin-about-description/admin-
 
 @Component({
   selector: 'app-admin-about',
-  standalone: true,
   imports: [AdminAboutBannerComponent, AdminAboutSummaryComponent, AdminAboutDescriptionComponent],
   templateUrl: './admin-about.component.html',
   styleUrl: './admin-about.component.scss',

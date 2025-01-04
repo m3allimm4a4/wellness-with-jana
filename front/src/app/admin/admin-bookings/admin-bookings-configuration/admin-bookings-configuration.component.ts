@@ -7,7 +7,6 @@ import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-admin-bookings-configuration',
-  standalone: true,
   imports: [CardModule, InputTextModule, ReactiveFormsModule, Button],
   templateUrl: './admin-bookings-configuration.component.html',
   styleUrl: './admin-bookings-configuration.component.scss',

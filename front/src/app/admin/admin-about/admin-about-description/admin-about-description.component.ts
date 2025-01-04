@@ -11,7 +11,6 @@ import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-about-description',
-  standalone: true,
   imports: [Button, CardModule, EditorModule, FormsModule, InputTextModule, ReactiveFormsModule, FileUploadModule],
   templateUrl: './admin-about-description.component.html',
   styleUrl: './admin-about-description.component.scss',

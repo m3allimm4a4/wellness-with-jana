@@ -7,7 +7,6 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home-highlighted-guide',
-  standalone: true,
   imports: [Button, LazyAnimateDirective, TranslateModule, AssetComponent, RouterLink],
   templateUrl: './home-highlighted-guide.component.html',
   styleUrl: './home-highlighted-guide.component.scss',

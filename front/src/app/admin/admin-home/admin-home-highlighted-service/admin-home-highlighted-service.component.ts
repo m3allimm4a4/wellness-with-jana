@@ -11,7 +11,6 @@ import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-home-highlighted-service',
-  standalone: true,
   imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, EditorModule, FileUploadModule],
   templateUrl: './admin-home-highlighted-service.component.html',
   styleUrl: './admin-home-highlighted-service.component.scss',

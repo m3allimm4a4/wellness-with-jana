@@ -10,7 +10,6 @@ import { IgPost } from '../../shared/interfaces/ig-post.interface';
 
 @Component({
   selector: 'app-admin-ig-posts',
-  standalone: true,
   imports: [AssetComponent, Button, PrimeTemplate, TableModule, RouterLink],
   templateUrl: './admin-ig-posts.component.html',
   styleUrl: './admin-ig-posts.component.scss',

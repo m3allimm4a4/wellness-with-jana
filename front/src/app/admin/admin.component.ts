@@ -8,7 +8,6 @@ import { DynamicConfigService } from './services/dynamic-config.service';
 
 @Component({
   selector: 'app-admin',
-  standalone: true,
   imports: [RouterOutlet, AdminHeaderComponent, MessagesModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',

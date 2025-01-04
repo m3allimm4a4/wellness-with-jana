@@ -10,7 +10,6 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-admin-contact',
-  standalone: true,
   imports: [CardModule, ReactiveFormsModule, InputTextModule, Button, FileUploadModule],
   templateUrl: './admin-contact.component.html',
   styleUrl: './admin-contact.component.scss',

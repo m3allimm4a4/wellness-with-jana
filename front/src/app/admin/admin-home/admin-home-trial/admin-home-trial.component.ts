@@ -9,7 +9,6 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-admin-home-trial',
-  standalone: true,
   imports: [Button, CardModule, EditorModule, FormsModule, InputTextModule, ReactiveFormsModule],
   templateUrl: './admin-home-trial.component.html',
   styleUrl: './admin-home-trial.component.scss',

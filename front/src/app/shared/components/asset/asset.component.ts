@@ -5,7 +5,6 @@ import { NgClass, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-asset',
-  standalone: true,
   imports: [NgStyle, NgClass],
   templateUrl: './asset.component.html',
   styleUrl: './asset.component.scss',

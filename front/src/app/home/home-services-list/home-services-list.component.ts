@@ -8,7 +8,6 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home-services-list',
-  standalone: true,
   imports: [HomeServicesListItemComponent, LazyAnimateDirective, TranslateModule],
   templateUrl: './home-services-list.component.html',
   styleUrl: './home-services-list.component.scss',

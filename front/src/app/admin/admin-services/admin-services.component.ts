@@ -12,7 +12,6 @@ import { AdminServicesBannerComponent } from './admin-services-banner/admin-serv
 
 @Component({
   selector: 'app-admin-services',
-  standalone: true,
   imports: [
     TableModule,
     Button,

@@ -11,7 +11,6 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-admin-services-banner',
-  standalone: true,
   imports: [Button, CardModule, EditorModule, FileUploadModule, InputTextModule, ReactiveFormsModule],
   templateUrl: './admin-services-banner.component.html',
   styleUrl: './admin-services-banner.component.scss',

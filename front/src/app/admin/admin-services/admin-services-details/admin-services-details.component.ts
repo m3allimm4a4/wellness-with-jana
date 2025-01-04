@@ -15,7 +15,6 @@ import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-testemonials-details',
-  standalone: true,
   imports: [
     CardModule,
     ReactiveFormsModule,

@@ -4,7 +4,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-about-summary',
-  standalone: true,
   imports: [LazyAnimateDirective, TranslateModule],
   templateUrl: './about-summary.component.html',
   styleUrl: './about-summary.component.scss',

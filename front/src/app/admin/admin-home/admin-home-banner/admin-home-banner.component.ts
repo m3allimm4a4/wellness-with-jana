@@ -11,7 +11,6 @@ import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-home-banner',
-  standalone: true,
   imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, EditorModule, FileUploadModule],
   templateUrl: './admin-home-banner.component.html',
   styleUrl: './admin-home-banner.component.scss',

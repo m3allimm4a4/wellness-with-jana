@@ -6,7 +6,6 @@ import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
   imports: [MenubarModule, Button],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

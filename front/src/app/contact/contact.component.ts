@@ -6,7 +6,6 @@ import { HomeSocialShowcaseComponent } from '../home/home-social-showcase/home-s
 
 @Component({
   selector: 'app-contact',
-  standalone: true,
   imports: [ContactBannerComponent, ContactFormComponent, HomeTrialComponent, HomeSocialShowcaseComponent],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',

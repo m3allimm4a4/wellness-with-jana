@@ -9,7 +9,6 @@ import { AboutDescriptionComponent } from './about-description/about-description
 
 @Component({
   selector: 'app-about',
-  standalone: true,
   imports: [
     AboutBannerComponent,
     HomeMarketingMessageComponent,

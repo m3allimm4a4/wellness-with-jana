@@ -13,7 +13,6 @@ import { getCountryOptions } from '../../../shared/constants/countries';
 
 @Component({
   selector: 'app-admin-testemonials-details',
-  standalone: true,
   imports: [CardModule, ReactiveFormsModule, InputTextModule, CheckboxModule, Button, DropdownModule],
   templateUrl: './admin-testemonials-details.component.html',
   styleUrl: './admin-testemonials-details.component.scss',

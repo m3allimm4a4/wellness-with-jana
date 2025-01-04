@@ -2,16 +2,14 @@ import { Component, OnInit, signal } from '@angular/core';
 import { ContactInfoService } from '../../shared/services/contact-info.service';
 import { ContactInfo } from '../../shared/interfaces/contact-info.interface';
 import { InputTextModule } from 'primeng/inputtext';
-import { NgStyle } from '@angular/common';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { Button } from 'primeng/button';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ContactMessage } from '../../shared/interfaces/contact-message.interface';
+import { Textarea } from 'primeng/textarea';
 
 @Component({
   selector: 'app-contact-form',
-  standalone: true,
-  imports: [InputTextModule, NgStyle, InputTextareaModule, Button, ReactiveFormsModule],
+  imports: [InputTextModule, Button, ReactiveFormsModule, Textarea],
   templateUrl: './contact-form.component.html',
   styleUrl: './contact-form.component.scss',
 })

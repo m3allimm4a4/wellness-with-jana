@@ -7,7 +7,6 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-about-description',
-  standalone: true,
   imports: [Button, LazyAnimateDirective, TranslateModule, AssetComponent, RouterLink],
   templateUrl: './about-description.component.html',
   styleUrl: './about-description.component.scss',

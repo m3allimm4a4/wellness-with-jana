@@ -7,7 +7,6 @@ import { ContactInfoService } from '../../shared/services/contact-info.service';
 
 @Component({
   selector: 'app-home-social-showcase',
-  standalone: true,
   imports: [AssetComponent],
   templateUrl: './home-social-showcase.component.html',
   styleUrl: './home-social-showcase.component.scss',

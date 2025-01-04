@@ -1,40 +1,44 @@
-import { Component, EventEmitter, signal } from '@angular/core';
-import { StepperModule } from 'primeng/stepper';
-import { CalendarModule } from 'primeng/calendar';
-import { TimelineModule } from 'primeng/timeline';
+import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DatePipe, NgClass, NgStyle } from '@angular/common';
 import { Service } from '../../interfaces/service.interface';
 import { BookingService } from '../../services/booking.service';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Timeslot } from '../../interfaces/timeslot.interface';
-import { TooltipModule } from 'primeng/tooltip';
 import { finalize } from 'rxjs';
-import { InputTextModule } from 'primeng/inputtext';
 import { getCountryOptions } from '../../constants/countries';
-import { DropdownModule } from 'primeng/dropdown';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { DividerModule } from 'primeng/divider';
 import { Appointment } from '../../interfaces/appointment.interface';
+import { Step, StepItem, StepPanel, Stepper } from 'primeng/stepper';
+import { Calendar } from 'primeng/calendar';
+import { Button } from 'primeng/button';
+import { Timeline } from 'primeng/timeline';
+import { DatePipe, NgClass, NgStyle } from '@angular/common';
+import { DropdownModule } from 'primeng/dropdown';
+import { Divider } from 'primeng/divider';
+import { Tooltip } from 'primeng/tooltip';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputText } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-booking',
-  standalone: true,
   imports: [
-    StepperModule,
-    CalendarModule,
-    TimelineModule,
+    Stepper,
+    StepItem,
+    Step,
+    StepPanel,
+    Calendar,
+    Button,
     FormsModule,
+    Timeline,
     DatePipe,
-    NgClass,
-    NgStyle,
-    TooltipModule,
-    InputTextModule,
-    DropdownModule,
-    FloatLabelModule,
     ReactiveFormsModule,
-    DividerModule,
+    DropdownModule,
+    Divider,
+    Tooltip,
+    NgStyle,
+    NgClass,
+    FloatLabelModule,
+    InputText,
   ],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss',
@@ -67,21 +71,13 @@ export class BookingComponent {
     this.isMobile = deviceService.isMobile();
   }
 
-  onDateConfirmed(callback: EventEmitter<void>) {
+  onDateConfirmed(callback: (tab: number) => void) {
     const day = this.date();
     if (!day) return;
     this.bookingService.getTimeslots(day).subscribe(timeslots => {
       this.timeslots.set(timeslots);
-      callback.emit();
+      callback(2);
     });
-  }
-
-  onTimeConfirmed(callback: EventEmitter<void>) {
-    callback.emit();
-  }
-
-  onInfoConfirmed(callback: EventEmitter<void>) {
-    callback.emit();
   }
 
   onBookingConfirmed() {

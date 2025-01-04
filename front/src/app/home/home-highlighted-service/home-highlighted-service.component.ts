@@ -7,7 +7,6 @@ import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home-highlighted-service',
-  standalone: true,
   imports: [Button, LazyAnimateDirective, TranslateModule, AssetComponent, RouterLink],
   templateUrl: './home-highlighted-service.component.html',
   styleUrl: './home-highlighted-service.component.scss',

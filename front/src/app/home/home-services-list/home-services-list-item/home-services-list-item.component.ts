@@ -5,7 +5,6 @@ import { Service } from '../../../shared/interfaces/service.interface';
 
 @Component({
   selector: 'app-home-services-list-item',
-  standalone: true,
   imports: [AssetComponent],
   templateUrl: './home-services-list-item.component.html',
   styleUrl: './home-services-list-item.component.scss',

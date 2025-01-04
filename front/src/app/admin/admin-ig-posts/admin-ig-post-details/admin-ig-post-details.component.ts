@@ -12,7 +12,6 @@ import { IgPostsApiService } from '../../../shared/services/ig-posts-api.service
 
 @Component({
   selector: 'app-admin-ig-post-details',
-  standalone: true,
   imports: [Button, CardModule, FileUploadModule, InputTextModule, ReactiveFormsModule],
   templateUrl: './admin-ig-post-details.component.html',
   styleUrl: './admin-ig-post-details.component.scss',

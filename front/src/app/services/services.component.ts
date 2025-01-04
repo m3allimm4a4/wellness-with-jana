@@ -10,7 +10,6 @@ import { ServicesBannerComponent } from './services-banner/services-banner.compo
 
 @Component({
   selector: 'app-services',
-  standalone: true,
   imports: [
     ServiceDetailsComponent,
     HomeTrialComponent,

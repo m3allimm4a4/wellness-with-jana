@@ -5,7 +5,6 @@ import { ContactInfo } from '../shared/interfaces/contact-info.interface';
 
 @Component({
   selector: 'app-footer',
-  standalone: true,
   imports: [],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',

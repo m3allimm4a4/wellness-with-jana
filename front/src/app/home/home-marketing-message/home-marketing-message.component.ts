@@ -6,7 +6,6 @@ import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-home-marketing-message',
-  standalone: true,
   imports: [TranslateModule, NgStyle],
   templateUrl: './home-marketing-message.component.html',
   styleUrl: './home-marketing-message.component.scss',

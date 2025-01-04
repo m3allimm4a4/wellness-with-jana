@@ -11,7 +11,6 @@ import { FileUploadModule } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-admin-home-marketing-message',
-  standalone: true,
   imports: [Button, CardModule, EditorModule, FormsModule, InputTextModule, ReactiveFormsModule, FileUploadModule],
   templateUrl: './admin-home-marketing-message.component.html',
   styleUrl: './admin-home-marketing-message.component.scss',

@@ -6,7 +6,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-service-summary',
-  standalone: true,
   imports: [RouterLink, LazyAnimateDirective, TranslateModule],
   templateUrl: './service-summary.component.html',
   styleUrl: './service-summary.component.scss',

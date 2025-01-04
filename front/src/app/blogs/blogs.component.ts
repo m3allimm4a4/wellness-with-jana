@@ -5,7 +5,6 @@ import { BlogsListComponent } from './blogs-list/blogs-list.component';
 
 @Component({
   selector: 'app-blogs',
-  standalone: true,
   imports: [HomeTrialComponent, HomeSocialShowcaseComponent, BlogsListComponent],
   templateUrl: './blogs.component.html',
   styleUrl: './blogs.component.scss',

@@ -10,7 +10,6 @@ import { FileUploadModule } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-admin-about-banner',
-  standalone: true,
   imports: [CardModule, ReactiveFormsModule, EditorModule, Button, FileUploadModule],
   templateUrl: './admin-about-banner.component.html',
   styleUrl: './admin-about-banner.component.scss',

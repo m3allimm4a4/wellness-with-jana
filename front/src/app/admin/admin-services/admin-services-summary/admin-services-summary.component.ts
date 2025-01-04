@@ -9,7 +9,6 @@ import { LabelsService } from '../../services/labels.service';
 
 @Component({
   selector: 'app-admin-services-summary',
-  standalone: true,
   imports: [Button, CardModule, EditorModule, InputTextModule, ReactiveFormsModule],
   templateUrl: './admin-services-summary.component.html',
   styleUrl: './admin-services-summary.component.scss',

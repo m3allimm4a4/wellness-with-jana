@@ -6,7 +6,6 @@ import { BookingService } from '../../shared/services/booking.service';
 
 @Component({
   selector: 'app-service-details',
-  standalone: true,
   imports: [AssetComponent, Button],
   templateUrl: './service-details.component.html',
   styleUrl: './service-details.component.scss',

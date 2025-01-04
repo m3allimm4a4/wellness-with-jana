@@ -6,7 +6,6 @@ import { AssetsService } from '../../shared/services/assets.service';
 
 @Component({
   selector: 'app-services-banner',
-  standalone: true,
   imports: [TranslateModule, NgStyle],
   templateUrl: './services-banner.component.html',
   styleUrl: './services-banner.component.scss',

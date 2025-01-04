@@ -9,7 +9,6 @@ import { EditorModule } from 'primeng/editor';
 
 @Component({
   selector: 'app-admin-home-summary',
-  standalone: true,
   imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, EditorModule],
   templateUrl: './admin-home-summary.component.html',
   styleUrl: './admin-home-summary.component.scss',

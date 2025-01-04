@@ -9,7 +9,6 @@ import { TestemonialsApiService } from '../../shared/services/testemonials-api.s
 
 @Component({
   selector: 'app-admin-testemonials',
-  standalone: true,
   imports: [TableModule, Button, RouterLink],
   templateUrl: './admin-testemonials.component.html',
   styleUrl: './admin-testemonials.component.scss',
