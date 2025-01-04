@@ -1,6 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'primeng/resources/themes/aura-light-lime/theme.css';
-@import 'primeng/resources/primeng.css';
 @import 'primeicons/primeicons.css';
 @import 'primeflex/primeflex.css';
 @import 'quill/dist/quill.core.css';
@@ -101,7 +99,7 @@ p {
 }
 
 a {
-  color: var(--primary-color);
+  color: var(--p-primary-color);
 
   &:hover {
     color: var(--highlight-text-color);
@@ -139,14 +137,6 @@ a {
   padding: 5px;
   height: 1.5rem;
   width: 1.5rem;
-}
-
-.p-chips-w-100 {
-  width: 100%;
-
-  .p-chips-multiple-container {
-    width: 100%;
-  }
 }
 
 // END - primeng overrrides

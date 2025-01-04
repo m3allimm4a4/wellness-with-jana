@@ -8,12 +8,12 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { Button } from 'primeng/button';
 import { Testemonial } from '../../../shared/interfaces/testemonial.interface';
 import { TestemonialsApiService } from '../../../shared/services/testemonials-api.service';
-import { DropdownModule } from 'primeng/dropdown';
 import { getCountryOptions } from '../../../shared/constants/countries';
+import { Select } from 'primeng/select';
 
 @Component({
   selector: 'app-admin-testemonials-details',
-  imports: [CardModule, ReactiveFormsModule, InputTextModule, CheckboxModule, Button, DropdownModule],
+  imports: [CardModule, ReactiveFormsModule, InputTextModule, CheckboxModule, Button, Select],
   templateUrl: './admin-testemonials-details.component.html',
   styleUrl: './admin-testemonials-details.component.scss',
 })

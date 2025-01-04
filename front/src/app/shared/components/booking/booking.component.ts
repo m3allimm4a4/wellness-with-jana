@@ -9,15 +9,15 @@ import { finalize } from 'rxjs';
 import { getCountryOptions } from '../../constants/countries';
 import { Appointment } from '../../interfaces/appointment.interface';
 import { Step, StepItem, StepPanel, Stepper } from 'primeng/stepper';
-import { Calendar } from 'primeng/calendar';
+import { DatePickerModule } from 'primeng/datepicker';
 import { Button } from 'primeng/button';
 import { Timeline } from 'primeng/timeline';
 import { DatePipe, NgClass, NgStyle } from '@angular/common';
-import { DropdownModule } from 'primeng/dropdown';
 import { Divider } from 'primeng/divider';
 import { Tooltip } from 'primeng/tooltip';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputText } from 'primeng/inputtext';
+import { Select } from 'primeng/select';
 
 @Component({
   selector: 'app-booking',
@@ -26,19 +26,19 @@ import { InputText } from 'primeng/inputtext';
     StepItem,
     Step,
     StepPanel,
-    Calendar,
+    DatePickerModule,
     Button,
     FormsModule,
     Timeline,
     DatePipe,
     ReactiveFormsModule,
-    DropdownModule,
     Divider,
     Tooltip,
     NgStyle,
     NgClass,
     FloatLabelModule,
     InputText,
+    Select,
   ],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss',

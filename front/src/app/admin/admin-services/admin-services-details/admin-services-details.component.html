@@ -21,13 +21,17 @@
       <div class="col-12 md:col-6 p-2">
         <label>Check List:</label>
         <div>
-          <p-chips styleClass="p-chips-w-100" formControlName="checkList" placeholder="Maximum 6 items" [max]="6" />
+          <p-auto-complete
+            formControlName="checkList"
+            placeholder="Maximum 6 items"
+            [typeahead]="false"
+            [multiple]="true" />
         </div>
       </div>
       @if (service()?.id) {
         <div class="col-12 md:col-6 p-2">
           <label>Choose or drop a file:</label>
-          <p-fileUpload
+          <p-fileupload
             accept="image/*,video/*"
             mode="advanced"
             name="file"

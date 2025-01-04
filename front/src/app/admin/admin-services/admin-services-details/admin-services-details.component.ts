@@ -7,11 +7,11 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { EditorModule } from 'primeng/editor';
-import { ChipsModule } from 'primeng/chips';
 import { CheckboxModule } from 'primeng/checkbox';
 import { Button } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
 import { environment } from '../../../../environments/environment';
+import { AutoComplete } from 'primeng/autocomplete';
 
 @Component({
   selector: 'app-admin-testemonials-details',
@@ -20,10 +20,10 @@ import { environment } from '../../../../environments/environment';
     ReactiveFormsModule,
     InputTextModule,
     EditorModule,
-    ChipsModule,
     CheckboxModule,
     Button,
     FileUploadModule,
+    AutoComplete,
   ],
   templateUrl: './admin-services-details.component.html',
   styleUrl: './admin-services-details.component.scss',

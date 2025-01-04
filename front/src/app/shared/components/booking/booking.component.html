@@ -2,8 +2,8 @@
   <p-step-item [value]="1">
     <p-step>Choose a day</p-step>
     <p-step-panel>
-      <ng-template let-activateCallback="activateCallback">
-        <p-calendar
+      <ng-template #content let-activateCallback="activateCallback">
+        <p-date-picker
           appendTo="body"
           [touchUI]="isMobile"
           [minDate]="today"
@@ -19,7 +19,7 @@
   <p-step-item [value]="2">
     <p-step>Choose an available time</p-step>
     <p-step-panel>
-      <ng-template let-activateCallback="activateCallback">
+      <ng-template #content let-activateCallback="activateCallback">
         <div class="timeline-wrapper">
           <p-timeline align="alternate" [value]="timeslots()">
             <ng-template pTemplate="marker" let-timeslot>
@@ -58,7 +58,7 @@
   <p-step-item [value]="3">
     <p-step>Confirm Booking</p-step>
     <p-step-panel>
-      <ng-template let-activateCallback="activateCallback">
+      <ng-template #content let-activateCallback="activateCallback">
         <div class="flex flex-column gap-4">
           <div class="pb-1">
             <a style="text-decoration: underline; cursor: pointer">Sign Up</a> to autofill your info
@@ -91,7 +91,7 @@
 
           <div>
             <p-floatlabel>
-              <p-dropdown
+              <p-select
                 id="country"
                 appendTo="body"
                 [style]="{ width: '100%' }"
@@ -139,7 +139,7 @@
   <p-step-item [value]="4">
     <p-step>Confirm Booking</p-step>
     <p-step-panel>
-      <ng-template let-activateCallback="activateCallback">
+      <ng-template #content let-activateCallback="activateCallback">
         <div class="flex flex-column">
           <p>
             Name: {{ infoForm.controls.name.value }}<br />

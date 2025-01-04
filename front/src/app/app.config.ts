@@ -7,8 +7,10 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../environments/environment';
 import { DialogService } from 'primeng/dynamicdialog';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import { LimePreset } from './primeng.config';
 
 const HttpLoaderFactory = (http: HttpClient) => {
   return new TranslateHttpLoader(http, environment.translationEndpoint);
@@ -23,7 +25,15 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' }),
     ),
     provideHttpClient(withFetch()),
-    provideAnimations(),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: LimePreset,
+        options: {
+          darkModeSelector: 'none',
+        },
+      },
+    }),
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {
