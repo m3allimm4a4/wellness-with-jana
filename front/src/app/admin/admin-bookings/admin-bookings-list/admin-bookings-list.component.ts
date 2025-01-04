@@ -7,10 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 import { Tooltip } from 'primeng/tooltip';
+import { SelectButton } from 'primeng/selectbutton';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-admin-bookings-list',
-  imports: [TableModule, DatePipe, FormsModule, Button, Tooltip],
+  imports: [TableModule, DatePipe, FormsModule, Button, Tooltip, SelectButton],
   templateUrl: './admin-bookings-list.component.html',
   styleUrl: './admin-bookings-list.component.scss',
 })
@@ -18,10 +20,25 @@ export class AdminBookingsListComponent implements OnInit {
   private readonly bookingService = inject(BookingService);
   private readonly confirmationService = inject(ConfirmationService);
 
+  showHistory = signal<boolean>(false);
+  showHistoryOptions = signal([
+    { label: 'Upcoming', value: false },
+    { label: 'Passed', value: true },
+  ]);
+
   appointments = signal<Appointment[]>([]);
+  appointmentsLoading = signal<boolean>(false);
 
   ngOnInit() {
-    this.bookingService.getAppointments().subscribe(appointments => this.appointments.set(appointments));
+    this.showHistoryChange(this.showHistory());
+  }
+
+  showHistoryChange(showHistory: boolean) {
+    this.appointmentsLoading.set(true);
+    this.bookingService
+      .getAppointments(showHistory)
+      .pipe(finalize(() => this.appointmentsLoading.set(false)))
+      .subscribe(appointments => this.appointments.set(appointments));
   }
 
   confirmBooking(booking: Appointment) {

@@ -1,3 +1,10 @@
+<p-select-button
+  optionLabel="label"
+  optionValue="value"
+  [options]="showHistoryOptions()"
+  [(ngModel)]="showHistory"
+  (ngModelChange)="showHistoryChange($event)" />
+
 <p-table
   dataKey="id"
   scrollHeight="36rem"
@@ -5,10 +12,13 @@
   [paginator]="true"
   [rows]="5"
   [rowsPerPageOptions]="[5, 10, 20, 50, 100]"
+  [loading]="appointmentsLoading()"
   [value]="appointments()">
   <ng-template #header>
     <tr>
-      <th>Actions</th>
+      @if (!showHistory()) {
+        <th>Actions</th>
+      }
       <th>Name</th>
       <th>Country</th>
       <th>Email</th>
@@ -18,7 +28,9 @@
       <th>Confirmed</th>
     </tr>
     <tr>
-      <th></th>
+      @if (!showHistory()) {
+        <th></th>
+      }
       <th>
         <p-columnFilter type="text" field="name" placeholder="Search by name" />
       </th>
@@ -45,29 +57,31 @@
 
   <ng-template #body let-appointment>
     <tr>
-      <td>
-        <div class="flex gap-1 justify-content-end">
-          @if (!appointment.confirmed) {
+      @if (!showHistory()) {
+        <td>
+          <div class="flex gap-1 justify-content-end">
+            @if (!appointment.confirmed) {
+              <p-button
+                size="small"
+                icon="pi pi-check-circle"
+                pTooltip="Confirm"
+                tooltipPosition="top"
+                [rounded]="true"
+                [text]="true"
+                (onClick)="confirmBooking(appointment)" />
+            }
             <p-button
               size="small"
-              icon="pi pi-check-circle"
-              pTooltip="Confirm"
+              icon="pi pi-times-circle"
+              severity="danger"
+              pTooltip="Cancel"
               tooltipPosition="top"
               [rounded]="true"
               [text]="true"
-              (onClick)="confirmBooking(appointment)" />
-          }
-          <p-button
-            size="small"
-            icon="pi pi-times-circle"
-            severity="danger"
-            pTooltip="Cancel"
-            tooltipPosition="top"
-            [rounded]="true"
-            [text]="true"
-            (onClick)="cancelBooking(appointment)" />
-        </div>
-      </td>
+              (onClick)="cancelBooking(appointment)" />
+          </div>
+        </td>
+      }
       <td>{{ appointment.name }}</td>
       <td>{{ appointment.country }}</td>
       <td>{{ appointment.email }}</td>

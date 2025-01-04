@@ -99,7 +99,15 @@ export const cancelAppointment: RequestHandler = catchAsync(async (req, res) => 
   res.status(204).send();
 });
 
-export const getAppointments: RequestHandler = catchAsync(async (_req, res) => {
-  const appointments = await Appointment.find().sort({ start: -1 }).populate('service');
+export const getAppointments: RequestHandler = catchAsync(async (req, res) => {
+  const history = req.query.history === 'true';
+
+  const currentDate = new Date();
+  const query = history
+    ? Appointment.find({ start: { $lte: currentDate } })
+    : Appointment.find({ start: { $gt: currentDate } });
+
+  const appointments = await query.populate('service');
+
   res.status(200).json(appointments.map(a => a.toObject()));
 });

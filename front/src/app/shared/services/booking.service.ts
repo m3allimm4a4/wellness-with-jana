@@ -44,8 +44,9 @@ export class BookingService {
     return this.http.get<Timeslot[]>(`${environment.apiUrl}/booking/timeslots`, { params });
   }
 
-  getAppointments(): Observable<Appointment[]> {
-    return this.http.get<AppointmentResponse[]>(`${environment.apiUrl}/booking`).pipe(
+  getAppointments(showHistory: boolean): Observable<Appointment[]> {
+    const params = new HttpParams().append('history', showHistory);
+    return this.http.get<AppointmentResponse[]>(`${environment.apiUrl}/booking`, { params }).pipe(
       map(appointments =>
         appointments.map(a => ({
           id: a.id,
