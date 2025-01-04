@@ -4,10 +4,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { AuthService } from '../../services/auth.service';
+import { Password } from 'primeng/password';
 
 @Component({
   selector: 'app-login',
-  imports: [DialogModule, InputTextModule, ReactiveFormsModule, Button],
+  imports: [DialogModule, InputTextModule, ReactiveFormsModule, Button, Password],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

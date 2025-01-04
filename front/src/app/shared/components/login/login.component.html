@@ -4,7 +4,7 @@
       <label for="username">Username</label>
     </div>
     <div>
-      <input pInputText id="username" type="text" formControlName="username" style="width: 100%" />
+      <input pInputText id="username" type="text" formControlName="username" [fluid]="true" />
     </div>
   </div>
   <div class="col-12">
@@ -12,7 +12,7 @@
       <label for="password">Password</label>
     </div>
     <div>
-      <input pInputText id="password" type="password" formControlName="password" style="width: 100%" />
+      <p-password id="password" formControlName="password" [feedback]="false" [fluid]="true" [toggleMask]="true" />
     </div>
   </div>
   <div class="col-12">
