@@ -19,6 +19,7 @@ export class AuthService {
       header: 'Login',
       position: 'top',
       modal: true,
+      closable: true,
       appendTo: 'body',
     });
   }
