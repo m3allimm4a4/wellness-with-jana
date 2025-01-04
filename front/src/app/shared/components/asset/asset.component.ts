@@ -18,11 +18,8 @@ export class AssetComponent {
   protected asset = signal<Asset | undefined>(undefined);
 
   constructor(private assetsService: AssetsService) {
-    effect(
-      () => {
-        this.assetsService.getAssetById(this.assetId()).subscribe(asset => this.asset.set(asset));
-      },
-      { allowSignalWrites: true },
-    );
+    effect(() => {
+      this.assetsService.getAssetById(this.assetId()).subscribe(asset => this.asset.set(asset));
+    });
   }
 }

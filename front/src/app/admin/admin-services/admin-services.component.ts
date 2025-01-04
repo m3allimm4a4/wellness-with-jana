@@ -9,6 +9,7 @@ import { ConfirmationService } from 'primeng/api';
 import { AssetComponent } from '../../shared/components/asset/asset.component';
 import { AdminServicesSummaryComponent } from './admin-services-summary/admin-services-summary.component';
 import { AdminServicesBannerComponent } from './admin-services-banner/admin-services-banner.component';
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primeng/tabs';
 
 @Component({
   selector: 'app-admin-services',
@@ -19,6 +20,11 @@ import { AdminServicesBannerComponent } from './admin-services-banner/admin-serv
     AssetComponent,
     AdminServicesSummaryComponent,
     AdminServicesBannerComponent,
+    Tabs,
+    TabList,
+    Tab,
+    TabPanels,
+    TabPanel,
   ],
   templateUrl: './admin-services.component.html',
   styleUrl: './admin-services.component.scss',
