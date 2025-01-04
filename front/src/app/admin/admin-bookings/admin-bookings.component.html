@@ -1,8 +1,18 @@
-<div class="grid grid-nogutter">
-  <div class="col-12">
-    <app-admin-bookings-list />
-  </div>
-  <div class="col-12 md:col-6">
-    <app-admin-bookings-configuration />
-  </div>
-</div>
+<p-tabs [value]="0">
+  <p-tablist>
+    <p-tab [value]="0">Appointments</p-tab>
+    <p-tab [value]="1">Settings</p-tab>
+  </p-tablist>
+  <p-tabpanels>
+    <p-tabpanel [value]="0">
+      <app-admin-bookings-list />
+    </p-tabpanel>
+    <p-tabpanel [value]="1">
+      <div class="grid grid-nogutter">
+        <div class="col-12 md:col-6">
+          <app-admin-bookings-configuration />
+        </div>
+      </div>
+    </p-tabpanel>
+  </p-tabpanels>
+</p-tabs>

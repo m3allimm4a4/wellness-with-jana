@@ -87,7 +87,19 @@ export const confirmAppointment: RequestHandler = catchAsync(async (req, res) =>
   res.status(200).json(appointment.toObject());
 });
 
+export const cancelAppointment: RequestHandler = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  if (!id) {
+    throw new BadRequestError();
+  }
+  const appointment = await Appointment.findByIdAndDelete(id);
+  if (!appointment) {
+    throw new NotFoundError();
+  }
+  res.status(204).send();
+});
+
 export const getAppointments: RequestHandler = catchAsync(async (_req, res) => {
-  const appointments = await Appointment.find().populate('service');
+  const appointments = await Appointment.find().sort({ start: -1 }).populate('service');
   res.status(200).json(appointments.map(a => a.toObject()));
 });

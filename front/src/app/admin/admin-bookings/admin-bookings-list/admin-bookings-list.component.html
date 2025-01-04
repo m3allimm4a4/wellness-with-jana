@@ -1,1 +1,83 @@
-<p>admin-bookings-list works!</p>
+<p-table
+  dataKey="id"
+  scrollHeight="36rem"
+  [scrollable]="true"
+  [paginator]="true"
+  [rows]="5"
+  [rowsPerPageOptions]="[5, 10, 20, 50, 100]"
+  [value]="appointments()">
+  <ng-template #header>
+    <tr>
+      <th>Actions</th>
+      <th>Name</th>
+      <th>Country</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Time</th>
+      <th>Service</th>
+      <th>Confirmed</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>
+        <p-columnFilter type="text" field="name" placeholder="Search by name" />
+      </th>
+      <th>
+        <p-columnFilter type="text" field="country" placeholder="Search by country" />
+      </th>
+      <th>
+        <p-columnFilter type="text" field="email" placeholder="Search by email" />
+      </th>
+      <th>
+        <p-columnFilter type="text" field="phone" placeholder="Search by phone" />
+      </th>
+      <th>
+        <p-columnFilter type="date" field="start" placeholder="Search by day" />
+      </th>
+      <th>
+        <p-columnFilter type="text" field="service.name" placeholder="Search by service name" />
+      </th>
+      <th>
+        <p-columnFilter type="boolean" field="confirmed" />
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template #body let-appointment>
+    <tr>
+      <td>
+        <div class="flex gap-1 justify-content-end">
+          @if (!appointment.confirmed) {
+            <p-button
+              size="small"
+              icon="pi pi-check-circle"
+              pTooltip="Confirm"
+              tooltipPosition="top"
+              [rounded]="true"
+              [text]="true"
+              (onClick)="confirmBooking(appointment)" />
+          }
+          <p-button
+            size="small"
+            icon="pi pi-times-circle"
+            severity="danger"
+            pTooltip="Cancel"
+            tooltipPosition="top"
+            [rounded]="true"
+            [text]="true"
+            (onClick)="cancelBooking(appointment)" />
+        </div>
+      </td>
+      <td>{{ appointment.name }}</td>
+      <td>{{ appointment.country }}</td>
+      <td>{{ appointment.email }}</td>
+      <td>{{ appointment.phone }}</td>
+      <td>
+        <div>{{ appointment.start | date: 'dd/MM/yyyy' }}</div>
+        <div>{{ appointment.start | date: 'hh:mm a' }} - {{ appointment.end | date: 'hh:mm a' }}</div>
+      </td>
+      <td>{{ appointment.service.name }}</td>
+      <td>{{ appointment.confirmed ? 'YES' : 'NO' }}</td>
+    </tr>
+  </ng-template>
+</p-table>
