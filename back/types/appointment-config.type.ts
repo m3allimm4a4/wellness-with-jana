@@ -7,4 +7,8 @@ export type AppointmentConfig = {
     template: string;
     subject: string;
   };
+  confirmationEmail: {
+    template: string;
+    subject: string;
+  };
 };

@@ -33,13 +33,7 @@
       <input pInputText type="number" [fluid]="true" min="0" [formControl]="bookingConfigForm.controls.spacing" />
     </div>
 
-    <div class="col-6">
-      <label>Email subject:</label>
-      <input pInputText type="text" [fluid]="true" [formControl]="bookingConfigForm.controls.emailSubject" />
-    </div>
-
     <div class="col-12">
-      <label>Email Template:</label>
       <p-message size="small" [closable]="true">
         <div>You can use the following text in the template will be replaced by the corresponding values:</div>
         <div>[name] : User name and last name</div>
@@ -48,7 +42,32 @@
         <div>[endTime] : End time of the session</div>
         <div>[service] : The session type</div>
       </p-message>
+    </div>
+
+    <div class="col-6">
+      <label>Info Email subject:</label>
+      <input pInputText type="text" [fluid]="true" [formControl]="bookingConfigForm.controls.emailSubject" />
+    </div>
+
+    <div class="col-12">
+      <label>Info Email Template:</label>
       <p-editor [formControl]="bookingConfigForm.controls.emailTemplate" [style]="{ 'min-height': '10rem' }" />
+    </div>
+
+    <div class="col-6">
+      <label>Confirmation Email subject:</label>
+      <input
+        pInputText
+        type="text"
+        [fluid]="true"
+        [formControl]="bookingConfigForm.controls.confirmationEmailSubject" />
+    </div>
+
+    <div class="col-12">
+      <label>Confirmation Email Template:</label>
+      <p-editor
+        [formControl]="bookingConfigForm.controls.confirmationEmailTemplate"
+        [style]="{ 'min-height': '10rem' }" />
     </div>
 
     <div class="col-12">

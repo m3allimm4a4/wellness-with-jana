@@ -94,6 +94,15 @@ export const confirmAppointment: RequestHandler = catchAsync(async (req, res) =>
     throw new NotFoundError();
   }
 
+  const config = await getAppointmentConfig();
+  const html = config.confirmationEmail.template
+    .replace('[name]', appointment.name || '')
+    .replace('[service]', appointment.service?.name || '')
+    .replace('[day]', appointment.start.toLocaleDateString())
+    .replace('[startTime]', appointment.start.toLocaleTimeString())
+    .replace('[endTime]', appointment.end.toLocaleTimeString());
+  await sendEmail(config.confirmationEmail.subject, [appointment.email], html);
+
   res.status(200).json(appointment.toObject());
 });
 

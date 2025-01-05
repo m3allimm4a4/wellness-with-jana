@@ -21,6 +21,8 @@ export class AdminBookingsConfigurationComponent implements OnInit {
     spacing: new FormControl<number>(0, [Validators.required]),
     emailSubject: new FormControl<string>('', [Validators.required]),
     emailTemplate: new FormControl<string>('', [Validators.required]),
+    confirmationEmailSubject: new FormControl<string>('', [Validators.required]),
+    confirmationEmailTemplate: new FormControl<string>('', [Validators.required]),
   });
 
   constructor(private dynamicConfigService: DynamicConfigService) {}
@@ -48,6 +50,8 @@ export class AdminBookingsConfigurationComponent implements OnInit {
         spacing: config['spacing'],
         emailSubject: config['email']?.subject,
         emailTemplate: config['email']?.template,
+        confirmationEmailSubject: config['confirmationEmail']?.subject,
+        confirmationEmailTemplate: config['confirmationEmail']?.template,
       });
     });
   }
@@ -62,6 +66,10 @@ export class AdminBookingsConfigurationComponent implements OnInit {
         email: {
           subject: this.bookingConfigForm.value.emailSubject,
           template: this.bookingConfigForm.value.emailTemplate,
+        },
+        confirmationEmail: {
+          subject: this.bookingConfigForm.value.confirmationEmailSubject,
+          template: this.bookingConfigForm.value.confirmationEmailTemplate,
         },
       })
       .subscribe();
