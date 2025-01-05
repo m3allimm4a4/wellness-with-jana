@@ -1,32 +1,58 @@
 <p-card>
   <h5 class="pb-4">Settings</h5>
-  <form class="flex flex-column gap-2" [formGroup]="bookingConfigForm">
-    <div>
+  <form class="grid" [formGroup]="bookingConfigForm">
+    <div class="col-6 md:col-3">
       <label>Start time (24h format):</label>
-      <input pInputText type="number" style="width: 100%" min="0" [formControl]="bookingConfigForm.controls.start" />
+      <input
+        pInputText
+        type="number"
+        [fluid]="true"
+        min="0"
+        max="23"
+        [formControl]="bookingConfigForm.controls.start" />
       @if (bookingConfigForm.controls.start.invalid) {
         <small style="color: red">Start time must be before start time</small>
       }
     </div>
 
-    <div>
+    <div class="col-6 md:col-3">
       <label>End time (24h format):</label>
-      <input pInputText type="number" style="width: 100%" min="0" [formControl]="bookingConfigForm.controls.end" />
+      <input pInputText type="number" [fluid]="true" min="0" max="23" [formControl]="bookingConfigForm.controls.end" />
       @if (bookingConfigForm.controls.end.invalid) {
         <small style="color: red">End time must be after start time</small>
       }
     </div>
 
-    <div>
+    <div class="col-6 md:col-3">
       <label>Duration (in minutes):</label>
-      <input pInputText type="number" style="width: 100%" min="1" [formControl]="bookingConfigForm.controls.duration" />
+      <input pInputText type="number" [fluid]="true" min="1" [formControl]="bookingConfigForm.controls.duration" />
     </div>
 
-    <div>
+    <div class="col-6 md:col-3">
       <label>Spacing (in minutes):</label>
-      <input pInputText type="number" style="width: 100%" min="0" [formControl]="bookingConfigForm.controls.spacing" />
+      <input pInputText type="number" [fluid]="true" min="0" [formControl]="bookingConfigForm.controls.spacing" />
     </div>
 
-    <p-button label="SAVE" [disabled]="bookingConfigForm.invalid" (onClick)="onBookingConfigSave()" />
+    <div class="col-6">
+      <label>Email subject:</label>
+      <input pInputText type="text" [fluid]="true" [formControl]="bookingConfigForm.controls.emailSubject" />
+    </div>
+
+    <div class="col-12">
+      <label>Email Template:</label>
+      <p-message size="small" [closable]="true">
+        <div>You can use the following text in the template will be replaced by the corresponding values:</div>
+        <div>[name] : User name and last name</div>
+        <div>[day] : Day of the booking</div>
+        <div>[startTime] : Start time of the session</div>
+        <div>[endTime] : End time of the session</div>
+        <div>[service] : The session type</div>
+      </p-message>
+      <p-editor [formControl]="bookingConfigForm.controls.emailTemplate" [style]="{ 'min-height': '10rem' }" />
+    </div>
+
+    <div class="col-12">
+      <p-button label="SAVE" [disabled]="bookingConfigForm.invalid" (onClick)="onBookingConfigSave()" />
+    </div>
   </form>
 </p-card>

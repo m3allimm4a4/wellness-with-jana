@@ -88,7 +88,7 @@ export class BookingComponent {
       country: this.infoForm.controls.country.value || '',
       email: this.infoForm.controls.email.value || '',
       phone: this.infoForm.controls.phone.value || '',
-      name: this.infoForm.controls.name.value || '',
+      name: (this.infoForm.controls.name.value || '') + (this.infoForm.controls.lastname.value || ''),
       service: this.service,
     };
     this.bookingService

@@ -4,10 +4,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DynamicConfigService } from '../../services/dynamic-config.service';
 import { Button } from 'primeng/button';
+import { Editor } from 'primeng/editor';
+import { Message } from 'primeng/message';
 
 @Component({
   selector: 'app-admin-bookings-configuration',
-  imports: [CardModule, InputTextModule, ReactiveFormsModule, Button],
+  imports: [CardModule, InputTextModule, ReactiveFormsModule, Button, Editor, Message],
   templateUrl: './admin-bookings-configuration.component.html',
   styleUrl: './admin-bookings-configuration.component.scss',
 })
@@ -17,6 +19,8 @@ export class AdminBookingsConfigurationComponent implements OnInit {
     end: new FormControl<number>(0, [Validators.required]),
     duration: new FormControl<number>(0, [Validators.required]),
     spacing: new FormControl<number>(0, [Validators.required]),
+    emailSubject: new FormControl<string>('', [Validators.required]),
+    emailTemplate: new FormControl<string>('', [Validators.required]),
   });
 
   constructor(private dynamicConfigService: DynamicConfigService) {}
@@ -37,7 +41,14 @@ export class AdminBookingsConfigurationComponent implements OnInit {
       this.bookingConfigForm.controls.start.setValidators(validators);
     });
     this.dynamicConfigService.getConfigByName('APPOINTMENT').subscribe(config => {
-      this.bookingConfigForm.patchValue(config);
+      this.bookingConfigForm.patchValue({
+        start: config['start'],
+        end: config['end'],
+        duration: config['duration'],
+        spacing: config['spacing'],
+        emailSubject: config['email']?.subject,
+        emailTemplate: config['email']?.template,
+      });
     });
   }
 
@@ -48,6 +59,10 @@ export class AdminBookingsConfigurationComponent implements OnInit {
         end: this.bookingConfigForm.value.end,
         duration: this.bookingConfigForm.value.duration,
         spacing: this.bookingConfigForm.value.spacing,
+        email: {
+          subject: this.bookingConfigForm.value.emailSubject,
+          template: this.bookingConfigForm.value.emailTemplate,
+        },
       })
       .subscribe();
   }

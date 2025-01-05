@@ -3,4 +3,8 @@ export type AppointmentConfig = {
   end: number;
   duration: number;
   spacing: number;
+  email: {
+    template: string;
+    subject: string;
+  };
 };
