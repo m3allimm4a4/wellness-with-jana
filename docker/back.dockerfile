@@ -1,4 +1,4 @@
-FROM node:18-alpine as base
+FROM node:18-alpine AS base
 WORKDIR /app
 
 FROM node:18-alpine AS build
@@ -7,11 +7,11 @@ COPY . .
 RUN npm ci -w back
 RUN npm run build:back
 
-FROM build as publish
+FROM build AS publish
 WORKDIR /publish
 RUN cp -r /src/back/dist /publish
 
-FROM base as final
+FROM base AS final
 COPY --from=publish /publish/* /app
 RUN npm i --omit=dev
 EXPOSE 80
