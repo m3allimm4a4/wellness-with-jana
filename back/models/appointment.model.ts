@@ -1,7 +1,7 @@
 import { IService, Service } from './service.model';
 import { model, Schema, Types } from 'mongoose';
 
-export interface IAppointment extends Document {
+export interface IAppointment {
   id: string;
   name: string;
   country: string;
