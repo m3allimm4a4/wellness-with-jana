@@ -1,6 +1,6 @@
-import { model, Schema, Document } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
-export interface IDynamicConfig extends Document {
+export interface IDynamicConfig {
   id: string;
   name: string;
   value: string;

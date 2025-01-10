@@ -7,6 +7,7 @@ import { Timeslot } from '../types/timeslot.type';
 import { BadRequestError } from '../errors/bad-request.error';
 import { NotFoundError } from '../errors/not-found.error';
 import { sendEmail } from '../shared/mail-sender';
+import { proccessTemplateHtml } from '../shared/template-manager';
 
 const generateTimeslots = async (date: Date) => {
   const config = await getAppointmentConfig();
@@ -72,12 +73,14 @@ export const createAppointment: RequestHandler = catchAsync(async (req, res) => 
   });
 
   const config = await getAppointmentConfig();
-  const html = config.email.template
-    .replace('[name]', appointment.name || '')
-    .replace('[service]', appointment.service?.name || '')
-    .replace('[day]', appointment.start.toLocaleDateString())
-    .replace('[startTime]', appointment.start.toLocaleTimeString())
-    .replace('[endTime]', appointment.end.toLocaleTimeString());
+
+  const html = proccessTemplateHtml(config.email.template, {
+    name: appointment.name || '',
+    service: appointment.service?.name || '',
+    day: appointment.start.toLocaleDateString(),
+    startTime: appointment.start.toLocaleTimeString(),
+    endTime: appointment.end.toLocaleTimeString(),
+  });
   await sendEmail(config.email.subject, [newBooking.email], html);
 
   res.status(200).json(newBooking.toObject());
@@ -95,12 +98,13 @@ export const confirmAppointment: RequestHandler = catchAsync(async (req, res) =>
   }
 
   const config = await getAppointmentConfig();
-  const html = config.confirmationEmail.template
-    .replace('[name]', appointment.name || '')
-    .replace('[service]', appointment.service?.name || '')
-    .replace('[day]', appointment.start.toLocaleDateString())
-    .replace('[startTime]', appointment.start.toLocaleTimeString())
-    .replace('[endTime]', appointment.end.toLocaleTimeString());
+  const html = proccessTemplateHtml(config.confirmationEmail.template, {
+    name: appointment.name || '',
+    service: appointment.service?.name || '',
+    day: appointment.start.toLocaleDateString(),
+    startTime: appointment.start.toLocaleTimeString(),
+    endTime: appointment.end.toLocaleTimeString(),
+  });
   await sendEmail(config.confirmationEmail.subject, [appointment.email], html);
 
   res.status(200).json(appointment.toObject());

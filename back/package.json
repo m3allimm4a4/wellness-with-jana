@@ -10,18 +10,22 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.685.0",
     "@getbrevo/brevo": "^2.2.0",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "express-fileupload": "^1.5.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.0",
     "sharp": "^0.33.5"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/express-fileupload": "^1.5.1",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^18.19.63",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
