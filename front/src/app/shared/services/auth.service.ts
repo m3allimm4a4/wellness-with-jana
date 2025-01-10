@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { LoginComponent } from '../components/login/login.component';
 import { Router } from '@angular/router';
@@ -7,7 +7,7 @@ import { SignUpComponent } from '../components/sign-up/sign-up.component';
 import { User } from '../interfaces/user.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 import { EmailVerificationComponent } from '../components/email-verification/email-verification.component';
 
 @Injectable({ providedIn: 'root' })
@@ -17,13 +17,14 @@ export class AuthService {
   private readonly dialogService = inject(DialogService);
   private readonly messageService = inject(MessageService);
 
+  private readonly user = new BehaviorSubject<User | undefined>(undefined);
+
   private loginDialog: DynamicDialogRef | undefined;
   private signUpDialog: DynamicDialogRef | undefined;
   private emailVerificationDialog: DynamicDialogRef | undefined;
-  private _user = signal<User | undefined>(undefined);
 
-  public get user() {
-    return this._user.asReadonly();
+  public getUser() {
+    return this.user.asObservable();
   }
 
   public openLoginDialog() {
@@ -80,7 +81,7 @@ export class AuthService {
   }
 
   public logout() {
-    this._user.set(undefined);
+    this.user.next(undefined);
   }
 
   public signUp(user: User) {
