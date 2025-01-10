@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { HomeBannerComponent } from './home-banner/home-banner.component';
 import { HomeSummaryComponent } from './home-summary/home-summary.component';
 import { HomeHighlightedServiceComponent } from './home-highlighted-service/home-highlighted-service.component';
@@ -8,6 +8,9 @@ import { HomeClientTestemonialsComponent } from './home-client-testemonials/home
 import { HomeMarketingMessageComponent } from './home-marketing-message/home-marketing-message.component';
 import { HomeTrialComponent } from './home-trial/home-trial.component';
 import { HomeSocialShowcaseComponent } from './home-social-showcase/home-social-showcase.component';
+import { AuthService } from '../shared/services/auth.service';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -25,4 +28,24 @@ import { HomeSocialShowcaseComponent } from './home-social-showcase/home-social-
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {}
+export class HomeComponent implements OnInit, OnDestroy {
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly authService = inject(AuthService);
+
+  private subscription = new Subscription();
+
+  ngOnInit() {
+    this.subscription.add(
+      this.activatedRoute.queryParamMap.subscribe(params => {
+        const emailVerification = params.get('email-verification');
+        if (emailVerification) {
+          this.authService.openEmailVerificationDialog(emailVerification);
+        }
+      }),
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+}

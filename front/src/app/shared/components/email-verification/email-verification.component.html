@@ -1,0 +1,13 @@
+<div class="flex align-items-center gap-2">
+  @switch (status()) {
+    @case ('loading') {
+      <i class="pi pi-spin pi-spinner"></i> <span>Verifying email address...</span>
+    }
+    @case ('error') {
+      <i style="color: var(--p-red-500)" class="pi pi-times-circle"></i> <span>Error verifying email address.</span>
+    }
+    @case ('verified') {
+      <i style="color: var(--p-primary-color)" class="pi pi-verified"></i><span>Email verified. Click here to <a style="cursor: pointer" (click)="openLogin()">Log In</a></span>
+    }
+  }
+</div>

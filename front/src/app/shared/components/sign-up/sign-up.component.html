@@ -1,0 +1,77 @@
+<form [formGroup]="signUpForm" class="grid">
+  <div class="col-6">
+    <p-floatlabel variant="on">
+      <input id="name" [fluid]="true" pInputText type="text" [formControl]="signUpForm.controls.name" />
+      <label for="name">Name</label>
+    </p-floatlabel>
+    @if (signUpForm.controls.name.dirty && signUpForm.controls.name.invalid) {
+      <small>Your name is required</small>
+    }
+  </div>
+
+  <div class="col-6">
+    <p-floatlabel variant="on">
+      <input id="lastname" [fluid]="true" pInputText type="text" [formControl]="signUpForm.controls.lastname" />
+      <label for="lastname">Last Name</label>
+    </p-floatlabel>
+    @if (signUpForm.controls.lastname.dirty && signUpForm.controls.lastname.invalid) {
+      <small>Your last name is required</small>
+    }
+  </div>
+
+  <div class="col-6">
+    <p-floatlabel variant="on">
+      <p-select
+        id="country"
+        appendTo="body"
+        [style]="{ width: '100%' }"
+        [virtualScroll]="true"
+        [virtualScrollItemSize]="38"
+        [filter]="true"
+        [options]="countryOptions"
+        [formControl]="signUpForm.controls.country" />
+      <label for="country">Country</label>
+    </p-floatlabel>
+    @if (signUpForm.controls.country.dirty && signUpForm.controls.country.invalid) {
+      <small>Your country is required</small>
+    }
+  </div>
+
+  <div class="col-6">
+    <p-floatlabel variant="on">
+      <input pInputText id="phone" [fluid]="true" type="tel" [formControl]="signUpForm.controls.phone" />
+      <label for="phone">Phone Number</label>
+    </p-floatlabel>
+    @if (signUpForm.controls.phone.dirty && signUpForm.controls.phone.invalid) {
+      <small>Your phone number is required</small>
+    }
+  </div>
+
+  <div class="col-6">
+    <p-floatlabel variant="on">
+      <input id="email" [fluid]="true" pInputText type="email" [formControl]="signUpForm.controls.email" />
+      <label for="email">Email</label>
+    </p-floatlabel>
+    @if (signUpForm.controls.email.dirty && signUpForm.controls.email.invalid) {
+      <small>A valid email is required</small>
+    }
+  </div>
+
+  <div class="col-6">
+    <p-floatlabel variant="on">
+      <p-password id="password" [fluid]="true" [toggleMask]="true" [formControl]="signUpForm.controls.password" />
+      <label for="password">Password</label>
+    </p-floatlabel>
+    @if (signUpForm.controls.email.dirty && signUpForm.controls.email.invalid) {
+      <small>Password is required</small>
+    }
+  </div>
+
+  <div class="col-12">
+    <p-button label="SIGN UP" type="submit" [disabled]="!signUpForm.valid" (onClick)="onSignUp()" />
+  </div>
+
+  <div class="col-12">
+    Already have an account? <a style="cursor: pointer" (click)="openLogin()">Click here to log in</a>
+  </div>
+</form>

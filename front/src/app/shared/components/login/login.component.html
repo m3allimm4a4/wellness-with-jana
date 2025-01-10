@@ -1,10 +1,10 @@
 <form [formGroup]="loginForm" class="grid grid-nogutter gap-2">
   <div class="col-12">
     <div>
-      <label for="username">Username</label>
+      <label for="email">Email</label>
     </div>
     <div>
-      <input pInputText id="username" type="text" formControlName="username" [fluid]="true" />
+      <input pInputText id="email" type="email" [formControl]="loginForm.controls.email" [fluid]="true" />
     </div>
   </div>
   <div class="col-12">
@@ -12,10 +12,16 @@
       <label for="password">Password</label>
     </div>
     <div>
-      <p-password id="password" formControlName="password" [feedback]="false" [fluid]="true" [toggleMask]="true" />
+      <p-password
+        id="password"
+        [formControl]="loginForm.controls.password"
+        [feedback]="false"
+        [fluid]="true"
+        [toggleMask]="true" />
     </div>
   </div>
   <div class="col-12">
     <p-button label="LOGIN" type="submit" [disabled]="!loginForm.valid" (onClick)="onLogin()" />
   </div>
+  <div class="col-12">Don't have an account? <a style="cursor: pointer" (click)="openSignUp()">Click here to sign up</a></div>
 </form>

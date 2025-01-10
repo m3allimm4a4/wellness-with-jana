@@ -38,7 +38,7 @@ export const signUp: RequestHandler = catchAsync(async (req, res) => {
   });
 
   const contactInfo = await ContactInfo.findOne();
-  const verificationUrl = `${process.env.FRONT_BASE_URL}/email-verification/${verificationHash}`;
+  const verificationUrl = `${process.env.FRONT_BASE_URL}?email-verification=${verificationHash}`;
   const html = await getStaticTemplate('email-verification', {
     name: user.name,
     verificationUrl,
@@ -57,7 +57,7 @@ export const verifyEmail: RequestHandler = catchAsync(async (req, res): Promise<
   }
 
   user.emailVerified = true;
-  user.verificationHash = '';
+  user.verificationHash = undefined;
   await user.save();
 
   res.status(200).send();

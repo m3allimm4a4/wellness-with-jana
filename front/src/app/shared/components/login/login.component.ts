@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -13,17 +13,21 @@ import { Password } from 'primeng/password';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  private readonly authService = inject(AuthService);
+
   loginForm = new FormGroup({
-    username: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    email: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     password: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
   });
-
-  constructor(private authService: AuthService) {}
 
   onLogin() {
     if (!this.loginForm.valid) {
       return;
     }
-    this.authService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value);
+    this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
+  }
+
+  openSignUp() {
+    this.authService.openSignUpDialog();
   }
 }
