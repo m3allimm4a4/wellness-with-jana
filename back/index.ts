@@ -4,6 +4,7 @@ import cors from 'cors';
 import fileUpload from 'express-fileupload';
 import mongoose from 'mongoose';
 import useragent from 'express-useragent';
+import cookieParser from 'cookie-parser';
 import { NotFoundError } from './errors/not-found.error';
 import { errorHandler } from './middlewares/error.handler';
 import { labelRoutes } from './routes/labelRoutes';
@@ -32,13 +33,15 @@ const run = async () => {
     await createTranslationFiles(languages);
   }
 
-  server.use(cors());
+  server.use(cors({ origin: process.env.FRONT_BASE_URL, credentials: true }));
 
   server.use(express.json());
 
   server.use(express.static('public'));
 
   server.use(useragent.express());
+
+  server.use(cookieParser());
 
   server.use(
     fileUpload({

@@ -4,7 +4,7 @@ import { IUser } from '../models/user.model';
 import { RefreshToken } from '../models/refresh-token.model';
 import { Details } from 'express-useragent';
 
-const signToken = (payload: string | IUser, secret: string, expiry: string) => {
+const signToken = (payload: object, secret: string, expiry: string) => {
   return new Promise<string>((resolve, reject) => {
     sign(payload, secret, { expiresIn: expiry }, (err, token) => {
       if (err) return reject(err);
@@ -22,10 +22,10 @@ export const generateAccessToken = async (user: IUser) => {
 export const generateRefreshToken = async (userId: string, deviceInfo?: Details) => {
   const jwtSecret = process.env.JWT_REFRESH_SECRET || '';
   const jwtExpiry = process.env.JWT_REFRESH_EXPIRY || '';
-  const token = await signToken(userId, jwtSecret, jwtExpiry);
+  const token = await signToken({ userId }, jwtSecret, jwtExpiry);
   const refreshToken = await RefreshToken.create({
     user: userId,
-    refreshToken: token,
+    token: token,
     deviceInfo: deviceInfo ? `${deviceInfo.platform} on ${deviceInfo.os}` : '',
     expiresAt: new Date(Date.now() + ms(jwtExpiry)),
   });

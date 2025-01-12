@@ -4,11 +4,12 @@ import { LoginComponent } from '../components/login/login.component';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { SignUpComponent } from '../components/sign-up/sign-up.component';
-import { User } from '../interfaces/user.interface';
+import { User, UserRole } from '../interfaces/user.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, finalize, map, of, switchMap, tap, timer } from 'rxjs';
 import { EmailVerificationComponent } from '../components/email-verification/email-verification.component';
+import { LoginResponse } from '../interfaces/login-response.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -18,13 +19,18 @@ export class AuthService {
   private readonly messageService = inject(MessageService);
 
   private readonly user = new BehaviorSubject<User | undefined>(undefined);
+  private readonly accessToken = new BehaviorSubject<string>('');
 
   private loginDialog: DynamicDialogRef | undefined;
   private signUpDialog: DynamicDialogRef | undefined;
   private emailVerificationDialog: DynamicDialogRef | undefined;
 
-  public getUser() {
+  public getUser$() {
     return this.user.asObservable();
+  }
+
+  public getAccessToken() {
+    return this.accessToken.value;
   }
 
   public openLoginDialog() {
@@ -60,24 +66,45 @@ export class AuthService {
     });
   }
 
-  public login(username: string, password: string) {
-    if (username !== 'admin' || password !== 'admin') {
-      this.messageService.add({
-        key: 'toast',
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Invalid username or password',
-      });
-      return;
-    }
-    this.closeDialogs();
-    this.router.navigate(['/admin', 'home']).then();
-    this.messageService.add({
-      key: 'toast',
-      severity: 'success',
-      summary: 'Success',
-      detail: `Hello ${username}!`,
-    });
+  public login(email: string, password: string) {
+    return this.http
+      .post<LoginResponse>(
+        `${environment.apiUrl}/auth/login`,
+        {
+          email,
+          password,
+        },
+        { withCredentials: true },
+      )
+      .pipe(
+        tap(res => {
+          this.handleLoginResponse(res);
+          this.closeDialogs();
+          this.showToast('success', 'Success', `Hello ${res.user.name}!`);
+        }),
+        catchError(() => {
+          this.handleLoginError();
+          this.showToast('error', 'Error', 'Invalid username or password');
+          return of(undefined);
+        }),
+        finalize(() => {
+          if (this.user.value?.roles.includes(UserRole.ADMIN)) {
+            this.router.navigate(['/admin', 'home']).then();
+          }
+        }),
+        map(() => undefined),
+      );
+  }
+
+  public refresh() {
+    return this.http.get<LoginResponse>(`${environment.apiUrl}/auth/refresh`, { withCredentials: true }).pipe(
+      tap(res => this.handleLoginResponse(res)),
+      catchError(() => {
+        this.handleLoginError();
+        this.showToast('error', 'Error', 'Session expired, please log in again');
+        return of(undefined);
+      }),
+    );
   }
 
   public logout() {
@@ -88,19 +115,27 @@ export class AuthService {
     return this.http.post<void>(`${environment.apiUrl}/auth/sign-up`, user).pipe(
       tap(() => {
         this.closeDialogs();
-        this.messageService.add({
-          key: 'toast',
-          severity: 'warn',
-          summary: 'Email Verification',
-          detail: `An email verification has been sent to ${user.email}`,
-          sticky: true,
-        });
+        this.showToast('warn', 'Email Verification', `An email verification has been sent to ${user.email}`, true);
       }),
     );
   }
 
   public verifyEmail(emailVerification: string) {
     return this.http.patch<void>(`${environment.apiUrl}/auth/verify-email`, { hash: emailVerification });
+  }
+
+  private handleLoginResponse(res: LoginResponse) {
+    this.accessToken.next(res.accessToken);
+    this.user.next(res.user);
+    const expiresIn = new Date(res.expiresAt).getTime() - Date.now() - 1000;
+    timer(expiresIn)
+      .pipe(switchMap(() => this.refresh()))
+      .subscribe();
+  }
+
+  private handleLoginError() {
+    this.user.next(undefined);
+    this.accessToken.next('');
   }
 
   private closeDialogs() {
@@ -110,5 +145,15 @@ export class AuthService {
     this.signUpDialog = undefined;
     this.emailVerificationDialog?.close();
     this.emailVerificationDialog = undefined;
+  }
+
+  private showToast(severity: string, summary: string, detail: string, sticky = false) {
+    this.messageService.add({
+      key: 'toast',
+      severity: severity,
+      summary: summary,
+      detail: detail,
+      sticky: sticky,
+    });
   }
 }

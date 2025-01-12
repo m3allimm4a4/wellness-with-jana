@@ -33,13 +33,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
           },
     ];
     if (this.user()?.roles.includes(UserRole.ADMIN)) {
-      items.push({ label: 'Log Out', routerLink: '/admin' });
+      items.push({ label: 'Admin', routerLink: '/admin' });
     }
     return items;
   });
 
   ngOnInit() {
-    this.subscription.add(this.authService.getUser().subscribe(user => this.user.set(user)));
+    this.subscription.add(this.authService.getUser$().subscribe(user => this.user.set(user)));
   }
 
   ngOnDestroy() {

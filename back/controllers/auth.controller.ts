@@ -68,7 +68,7 @@ export const verifyEmail: RequestHandler = catchAsync(async (req, res): Promise<
 
 export const login: RequestHandler = catchAsync(async (req, res) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email: email, verified: true });
+  const user = await User.findOne({ email: email, emailVerified: true });
   if (!user) {
     throw new UnauthorizedError();
   }
@@ -77,10 +77,10 @@ export const login: RequestHandler = catchAsync(async (req, res) => {
     throw new UnauthorizedError();
   }
 
-  const refreshToken = await generateRefreshToken(user.id, req.useragent);
-  const accessToken = await generateAccessToken(user);
-
   const userObject = user.toObject();
+  const refreshToken = await generateRefreshToken(userObject.id, req.useragent);
+  const accessToken = await generateAccessToken(userObject);
+
   res.cookie('refreshToken', refreshToken.token, {
     httpOnly: true,
     secure: process.env.PROD === 'true',

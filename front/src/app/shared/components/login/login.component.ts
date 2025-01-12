@@ -24,7 +24,7 @@ export class LoginComponent {
     if (!this.loginForm.valid) {
       return;
     }
-    this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
+    this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).subscribe();
   }
 
   openSignUp() {
