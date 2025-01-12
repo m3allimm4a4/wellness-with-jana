@@ -95,10 +95,10 @@ export const login: RequestHandler = catchAsync(async (req, res) => {
 });
 
 export const refresh: RequestHandler = catchAsync(async (req, res) => {
-  const refreshToken = req.cookies.refreshToken;
+  const refreshToken = req.cookies?.refreshToken;
 
   if (!refreshToken) {
-    throw new UnauthorizedError();
+    throw new ForbiddenError();
   }
 
   const userId = await verifyRefreshToken(refreshToken);
