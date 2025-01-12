@@ -39,6 +39,7 @@ export const UserSchema = new Schema<IUser>(
       versionKey: false,
       transform: (_doc, ret) => {
         delete ret._id;
+        ret.password = '';
         return ret;
       },
     },

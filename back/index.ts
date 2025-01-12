@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
 import mongoose from 'mongoose';
+import useragent from 'express-useragent';
 import { NotFoundError } from './errors/not-found.error';
 import { errorHandler } from './middlewares/error.handler';
 import { labelRoutes } from './routes/labelRoutes';
@@ -36,6 +37,8 @@ const run = async () => {
   server.use(express.json());
 
   server.use(express.static('public'));
+
+  server.use(useragent.express());
 
   server.use(
     fileUpload({

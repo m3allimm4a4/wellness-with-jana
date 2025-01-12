@@ -1,3 +1,4 @@
+import ms from 'ms';
 import { RequestHandler } from 'express';
 import { catchAsync } from '../shared/catchAsync';
 import { IUser, User, UserRole } from '../models/user.model';
@@ -7,8 +8,10 @@ import { getStaticTemplate } from '../shared/template-manager';
 import { ContactInfo } from '../models/contact-info.model';
 import { sendEmail } from '../shared/mail-sender';
 import { UnauthorizedError } from '../errors/unauthorized.error';
-import { generateAuthToken } from '../shared/jwt-manager';
+import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../shared/jwt-manager';
 import { NotFoundError } from '../errors/not-found.error';
+import { ForbiddenError } from '../errors/forbidden.error';
+import { RefreshToken } from '../models/refresh-token.model';
 
 export const signUp: RequestHandler = catchAsync(async (req, res) => {
   const user: Partial<IUser> = req.body;
@@ -73,14 +76,54 @@ export const login: RequestHandler = catchAsync(async (req, res) => {
   if (!validPassword) {
     throw new UnauthorizedError();
   }
+
+  const refreshToken = await generateRefreshToken(user.id, req.useragent);
+  const accessToken = await generateAccessToken(user);
+
   const userObject = user.toObject();
-  const token = generateAuthToken(userObject);
-  res.status(200).json({
-    accessToken: token,
-    expiresIn: process.env.JWT_EXPIRY || '',
-    user: {
-      ...userObject,
-      password: '',
-    },
+  res.cookie('refreshToken', refreshToken.token, {
+    httpOnly: true,
+    secure: process.env.PROD === 'true',
+    //sameSite: 'Strict', // todo add config to prevent CSRF
+    maxAge: ms(process.env.JWT_REFRESH_EXPIRY || ''),
   });
+  res.status(200).json({
+    accessToken: accessToken,
+    expiresAt: new Date(Date.now() + ms(process.env.JWT_EXPIRY || '')),
+    user: userObject,
+  });
+});
+
+export const refresh: RequestHandler = catchAsync(async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    throw new UnauthorizedError();
+  }
+
+  const userId = await verifyRefreshToken(refreshToken);
+  if (!userId) {
+    throw new ForbiddenError();
+  }
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new ForbiddenError();
+  }
+  const userObject = user.toObject();
+  const accessToken = await generateAccessToken(userObject);
+  res.status(200).json({
+    accessToken: accessToken,
+    expiresAt: new Date(Date.now() + ms(process.env.JWT_EXPIRY || '')),
+    user: userObject,
+  });
+});
+
+export const logout: RequestHandler = catchAsync(async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+  if (refreshToken) {
+    await RefreshToken.findOneAndDelete({ token: refreshToken });
+  }
+
+  res.clearCookie('refreshToken');
+  res.status(204).send();
 });
