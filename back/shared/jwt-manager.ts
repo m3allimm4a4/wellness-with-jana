@@ -26,7 +26,7 @@ export const generateRefreshToken = async (userId: string, deviceInfo?: Details)
   const refreshToken = await RefreshToken.create({
     user: userId,
     token: token,
-    deviceInfo: deviceInfo ? `${deviceInfo.platform} on ${deviceInfo.os}` : '',
+    deviceInfo: deviceInfo ? `${deviceInfo.browser} on ${deviceInfo.os}` : '',
     expiresAt: new Date(Date.now() + ms(jwtExpiry)),
   });
   return refreshToken.toObject();

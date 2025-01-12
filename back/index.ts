@@ -5,6 +5,7 @@ import fileUpload from 'express-fileupload';
 import mongoose from 'mongoose';
 import useragent from 'express-useragent';
 import cookieParser from 'cookie-parser';
+import cron from 'node-cron';
 import { NotFoundError } from './errors/not-found.error';
 import { errorHandler } from './middlewares/error.handler';
 import { labelRoutes } from './routes/labelRoutes';
@@ -18,6 +19,7 @@ import { contactInfoRoutes } from './routes/contact-info.routes';
 import { bookingRoutes } from './routes/booking.routes';
 import { dynamicConfigRoutes } from './routes/dynamic-config.routes';
 import { authRoutes } from './routes/authRoutes';
+import { cleanTokensJob } from './jobs/clean-tokens.job';
 
 const run = async () => {
   const env = process.env.NODE_ENV || 'dev';
@@ -79,6 +81,8 @@ const run = async () => {
       console.log(`Node Express server listening on http://localhost:${port}/api`);
     }
   });
+
+  cron.schedule(process.env.CLEAN_TOKENS_SCHEDULE || '', cleanTokensJob, { name: 'cleanTokensJob' });
 };
 
 run().catch(console.error);
