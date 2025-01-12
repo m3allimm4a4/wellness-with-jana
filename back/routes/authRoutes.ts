@@ -7,6 +7,6 @@ router.route('/sign-up').post(signUp);
 router.route('/verify-email').patch(verifyEmail);
 router.route('/login').post(login);
 router.route('/refresh').get(refresh);
-router.route('/logout').patch(logout);
+router.route('/logout').delete(logout);
 
 export const authRoutes = router;

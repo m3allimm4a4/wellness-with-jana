@@ -103,10 +103,12 @@ export const refresh: RequestHandler = catchAsync(async (req, res) => {
 
   const userId = await verifyRefreshToken(refreshToken);
   if (!userId) {
+    res.clearCookie('refreshToken', { httpOnly: true });
     throw new ForbiddenError();
   }
   const user = await User.findById(userId);
   if (!user) {
+    res.clearCookie('refreshToken', { httpOnly: true });
     throw new ForbiddenError();
   }
   const userObject = user.toObject();
@@ -124,6 +126,6 @@ export const logout: RequestHandler = catchAsync(async (req, res) => {
     await RefreshToken.findOneAndDelete({ token: refreshToken });
   }
 
-  res.clearCookie('refreshToken');
+  res.clearCookie('refreshToken', { httpOnly: true });
   res.status(204).send();
 });

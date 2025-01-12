@@ -96,19 +96,23 @@ export class AuthService {
       );
   }
 
-  public refresh() {
+  public refresh(showToast = true) {
     return this.http.get<LoginResponse>(`${environment.apiUrl}/auth/refresh`, { withCredentials: true }).pipe(
       tap(res => this.handleLoginResponse(res)),
       catchError(() => {
         this.handleLoginError();
-        this.showToast('error', 'Error', 'Session expired, please log in again');
+        if (showToast) {
+          this.showToast('error', 'Error', 'Session expired, please log in again');
+        }
         return of(undefined);
       }),
     );
   }
 
   public logout() {
-    this.user.next(undefined);
+    return this.http
+      .delete<void>(`${environment.apiUrl}/auth/logout`, { withCredentials: true })
+      .pipe(tap(() => this.handleLoginError()));
   }
 
   public signUp(user: User) {

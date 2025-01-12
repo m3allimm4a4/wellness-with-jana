@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       { label: 'About', routerLink: '/about' },
       { label: 'Contact', routerLink: '/contact' },
       this.user()
-        ? { label: 'Log Out', command: () => this.authService.logout() }
+        ? { label: 'Log Out', command: () => this.authService.logout().subscribe() }
         : {
             label: 'Log In',
             command: () => this.authService.openLoginDialog(),
