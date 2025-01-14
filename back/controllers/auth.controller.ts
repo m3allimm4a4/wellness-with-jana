@@ -49,7 +49,7 @@ export const signUp: RequestHandler = catchAsync(async (req, res) => {
     contactInsta: contactInfo?.ig || '',
   });
   await sendEmail('Email verification', [user.email], html);
-  res.status(200).send();
+  res.status(204).send();
 });
 
 export const verifyEmail: RequestHandler = catchAsync(async (req, res): Promise<void> => {
@@ -127,5 +127,39 @@ export const logout: RequestHandler = catchAsync(async (req, res) => {
   }
 
   res.clearCookie('refreshToken', { httpOnly: true });
+  res.status(204).send();
+});
+
+export const forgotPassword: RequestHandler = catchAsync(async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email: email, emailVerified: true });
+  if (user) {
+    const verificationHash = await generateVerificationToken();
+    user.verificationHash = verificationHash;
+    await user.save();
+    const contactInfo = await ContactInfo.findOne();
+    const verificationUrl = `${process.env.FRONT_BASE_URL}?password-reset=${verificationHash}`;
+    const html = await getStaticTemplate('password-reset', {
+      name: user.name,
+      verificationUrl,
+      contactEmail: contactInfo?.email || '',
+      contactInsta: contactInfo?.ig || '',
+    });
+    await sendEmail('Email verification', [user.email], html);
+  }
+  res.status(204).send();
+});
+
+export const passwordReset: RequestHandler = catchAsync(async (req, res) => {
+  const { verificationHash, newPassword } = req.body;
+  const user = await User.findOne({ verificationHash: verificationHash, emailVerified: true });
+  if (!user) {
+    throw new UnauthorizedError();
+  }
+
+  user.password = await hashPassword(newPassword);
+  user.verificationHash = undefined;
+  await user.save();
+  await RefreshToken.deleteMany({ user: user.id });
   res.status(204).send();
 });
