@@ -12,6 +12,7 @@ export const auth: (roles: UserRole[]) => RequestHandler = roles => {
     verifyAccessToken(token)
       .then(user => {
         if (user.roles.some(role => role === UserRole.ADMIN) || roles.some(role => user.roles.includes(role))) {
+          req.user = user;
           next();
           return;
         }
