@@ -128,6 +128,14 @@ export class AuthService {
     return this.http.patch<void>(`${environment.apiUrl}/auth/verify-email`, { hash: emailVerification });
   }
 
+  public forgotPassword(email: string) {
+    return this.http.post<void>(`${environment.apiUrl}/auth/forgot-password`, { email }).pipe(
+      tap(() => {
+        this.showToast('success', 'Success', `Check your email for a password reset link`, true);
+      }),
+    );
+  }
+
   private handleLoginResponse(res: LoginResponse) {
     this.accessToken.next(res.accessToken);
     this.user.next(res.user);

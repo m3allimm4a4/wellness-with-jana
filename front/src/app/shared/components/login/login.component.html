@@ -20,8 +20,27 @@
         [toggleMask]="true" />
     </div>
   </div>
+  <div class="col-12" style="text-align: end">
+    <a style="cursor: pointer" (click)="forgotPassword.toggle($event)">Forgot your password?</a>
+    <p-popover #forgotPassword>
+      <div class="flex gap-2">
+        <p-floatlabel variant="on">
+          <input
+            id="forgotEmail"
+            type="text"
+            pInputText
+            [(ngModel)]="forgotEmail"
+            [ngModelOptions]="{ standalone: true }" />
+          <label for="forgotEmail">Enter your email</label>
+        </p-floatlabel>
+        <p-button label="CONTINUE" [disabled]="!forgotEmail()" (onClick)="onForgotPassword(); forgotPassword.hide()" />
+      </div>
+    </p-popover>
+  </div>
   <div class="col-12">
     <p-button label="LOGIN" type="submit" [disabled]="!loginForm.valid" (onClick)="onLogin()" />
   </div>
-  <div class="col-12">Don't have an account? <a style="cursor: pointer" (click)="openSignUp()">Click here to sign up</a></div>
+  <div class="col-12">
+    Don't have an account? <a style="cursor: pointer" (click)="openSignUp()">Click here to sign up</a>
+  </div>
 </form>

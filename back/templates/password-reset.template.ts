@@ -18,7 +18,7 @@ export default `
       </p>
       <p style="color: #666666;">If the button doesn't work, you can copy and paste this link into your browser:</p>
       <p style="color: #007bff; word-break: break-all;">[verificationUrl]</p>
-      <p style="color: #666666;">If you need further assistance, feel free to contact our support team at [contactEmail].</p>
+      <p style="color: #666666;">If you need further assistance, feel free to contact our support team at <a href="mailto:[contactEmail]">[contactEmail]</a>.</p>
     </td>
   </tr>
   <tr>
