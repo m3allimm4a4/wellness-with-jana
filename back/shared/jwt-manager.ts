@@ -1,5 +1,5 @@
 import ms from 'ms';
-import { JwtPayload, sign, verify } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import { IUser } from '../models/user.model';
 import { RefreshToken } from '../models/refresh-token.model';
 import { Details } from 'express-useragent';
@@ -9,6 +9,15 @@ const signToken = (payload: object, secret: string, expiry: string) => {
     sign(payload, secret, { expiresIn: expiry }, (err, token) => {
       if (err) return reject(err);
       return resolve(token || '');
+    });
+  });
+};
+
+const verifyToken = <T>(token: string, secret: string): Promise<T> => {
+  return new Promise<T>((resolve, reject) => {
+    verify(token, secret, (err, decoded) => {
+      if (err) return reject(err);
+      return resolve(decoded as T);
     });
   });
 };
@@ -32,13 +41,19 @@ export const generateRefreshToken = async (userId: string, deviceInfo?: Details)
   return refreshToken.toObject();
 };
 
-export const verifyRefreshToken = async (token: string): Promise<string> => {
+export const verifyRefreshToken = async (token: string) => {
   const jwtSecret = process.env.JWT_REFRESH_SECRET || '';
-  const decoded = verify(token, jwtSecret) as JwtPayload;
+
+  const decoded = await verifyToken<{ userId: string }>(token, jwtSecret);
   const refreshToken = await RefreshToken.findOne({
     user: decoded.userId,
     token: token,
     expiresAt: { $gt: new Date() },
   });
   return refreshToken ? decoded.userId : undefined;
+};
+
+export const verifyAccessToken = async (token: string) => {
+  const jwtSecret = process.env.JWT_SECRET || '';
+  return await verifyToken<IUser>(token, jwtSecret);
 };
