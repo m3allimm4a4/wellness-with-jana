@@ -10,6 +10,7 @@ import { environment } from '../../../environments/environment';
 import { BehaviorSubject, catchError, finalize, map, of, switchMap, tap, timer } from 'rxjs';
 import { EmailVerificationComponent } from '../components/email-verification/email-verification.component';
 import { LoginResponse } from '../interfaces/login-response.interface';
+import { PasswordResetComponent } from '../components/password-reset/password-reset.component';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -24,6 +25,7 @@ export class AuthService {
   private loginDialog: DynamicDialogRef | undefined;
   private signUpDialog: DynamicDialogRef | undefined;
   private emailVerificationDialog: DynamicDialogRef | undefined;
+  private passwordResetDialog: DynamicDialogRef | undefined;
 
   public getUser$() {
     return this.user.asObservable();
@@ -57,12 +59,24 @@ export class AuthService {
 
   public openEmailVerificationDialog(emailVerification: string) {
     this.closeDialogs();
-    this.loginDialog = this.dialogService.open(EmailVerificationComponent, {
+    this.emailVerificationDialog = this.dialogService.open(EmailVerificationComponent, {
       header: 'Email Verification',
       modal: true,
       closable: true,
       appendTo: 'body',
       data: { emailVerification },
+    });
+  }
+
+  public openPasswordResetDialog(verification: string) {
+    this.closeDialogs();
+    this.passwordResetDialog = this.dialogService.open(PasswordResetComponent, {
+      header: 'Password Reset',
+      modal: true,
+      closable: true,
+      appendTo: 'body',
+      data: { verification },
+      contentStyle: { overflow: 'unset' },
     });
   }
 
@@ -129,11 +143,23 @@ export class AuthService {
   }
 
   public forgotPassword(email: string) {
-    return this.http.post<void>(`${environment.apiUrl}/auth/forgot-password`, { email }).pipe(
-      tap(() => {
-        this.showToast('success', 'Success', `Check your email for a password reset link`, true);
-      }),
-    );
+    return this.http
+      .post<void>(`${environment.apiUrl}/auth/forgot-password`, { email })
+      .pipe(tap(() => this.showToast('success', 'Success', `Check your email for a password reset link`, true)));
+  }
+
+  public resetPassword(verification: string, password: string) {
+    return this.http
+      .post<void>(`${environment.apiUrl}/auth/password-reset`, {
+        verificationHash: verification,
+        newPassword: password,
+      })
+      .pipe(
+        tap(() => {
+          this.closeDialogs();
+          this.showToast('success', 'Success', `Your password has been reset, you can now log in`);
+        }),
+      );
   }
 
   private handleLoginResponse(res: LoginResponse) {
@@ -157,6 +183,8 @@ export class AuthService {
     this.signUpDialog = undefined;
     this.emailVerificationDialog?.close();
     this.emailVerificationDialog = undefined;
+    this.passwordResetDialog?.close();
+    this.passwordResetDialog = undefined;
   }
 
   private showToast(severity: string, summary: string, detail: string, sticky = false) {

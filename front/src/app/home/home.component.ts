@@ -41,6 +41,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (emailVerification) {
           this.authService.openEmailVerificationDialog(emailVerification);
         }
+        const passwordReset = params.get('password-reset');
+        if (passwordReset) {
+          this.authService.openPasswordResetDialog(passwordReset);
+        }
       }),
     );
   }
