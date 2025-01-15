@@ -31,6 +31,10 @@ export class AuthService {
     return this.user.asObservable();
   }
 
+  public isLoggedIn(): boolean {
+    return !!this.accessToken.value && !!this.user.value;
+  }
+
   public getAccessToken() {
     return this.accessToken.value;
   }

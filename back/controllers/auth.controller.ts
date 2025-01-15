@@ -69,7 +69,7 @@ export const verifyEmail: RequestHandler = catchAsync(async (req, res): Promise<
 export const login: RequestHandler = catchAsync(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email: email, emailVerified: true });
-  if (!user) {
+  if (!user?.password) {
     throw new UnauthorizedError();
   }
   const validPassword = await isValidPassword(password, user.password);

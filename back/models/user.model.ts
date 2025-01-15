@@ -12,11 +12,11 @@ export interface IUser {
   country: string;
   phone: string;
   email: string;
-  password: string;
   emailVerified: boolean;
   roles: UserRole[];
   createdAt: Date;
   updatedAt: Date;
+  password?: string;
   verificationHash?: string;
 }
 
@@ -27,8 +27,8 @@ export const UserSchema = new Schema<IUser>(
     country: { type: String, required: true },
     phone: { type: String, required: true },
     email: { type: String, required: true },
-    password: { type: String, required: true },
     emailVerified: { type: Boolean, default: false },
+    password: { type: String },
     verificationHash: { type: String },
     roles: [{ type: String, enum: Object.values(UserRole) }],
   },
@@ -39,7 +39,7 @@ export const UserSchema = new Schema<IUser>(
       versionKey: false,
       transform: (_doc, ret) => {
         delete ret._id;
-        ret.password = '';
+        delete ret.password;
         return ret;
       },
     },

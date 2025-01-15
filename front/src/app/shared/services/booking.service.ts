@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BookingComponent } from '../components/booking/booking.component';
 import { Service } from '../interfaces/service.interface';
@@ -8,26 +8,30 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Timeslot } from '../interfaces/timeslot.interface';
 import { Appointment, AppointmentResponse } from '../interfaces/appointment.interface';
+import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class BookingService {
+  private readonly http = inject(HttpClient);
+  private readonly dialogService = inject(DialogService);
+  private readonly messageService = inject(MessageService);
+  private readonly authService = inject(AuthService);
+
   private bookingDialog: DynamicDialogRef | undefined;
 
-  constructor(
-    private http: HttpClient,
-    private dialogService: DialogService,
-    private messageService: MessageService,
-  ) {}
-
   openBookingDialog(service: Service) {
-    this.bookingDialog = this.dialogService.open(BookingComponent, {
-      header: 'Book A Session',
-      modal: true,
-      closable: true,
-      appendTo: 'body',
-      width: '40rem',
-      data: { service },
-    });
+    if (this.authService.isLoggedIn()) {
+      this.bookingDialog = this.dialogService.open(BookingComponent, {
+        header: 'Book A Session',
+        modal: true,
+        closable: true,
+        appendTo: 'body',
+        width: '40rem',
+        data: { service },
+      });
+    } else {
+      this.authService.openLoginDialog();
+    }
   }
 
   confirmBooking(appointment: Partial<Appointment>) {
