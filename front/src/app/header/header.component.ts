@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           },
     ];
     if (this.user()?.roles.includes(UserRole.ADMIN)) {
-      items.push({ label: 'Admin', routerLink: '/admin' });
+      items.push({ label: 'Admin', routerLink: '/admin/home' });
     }
     return items;
   });

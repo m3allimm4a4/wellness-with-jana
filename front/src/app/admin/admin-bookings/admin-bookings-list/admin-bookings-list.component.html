@@ -32,16 +32,16 @@
         <th></th>
       }
       <th>
-        <p-columnFilter type="text" field="name" placeholder="Search by name" />
+        <p-columnFilter type="text" field="user.name" placeholder="Search by name" />
       </th>
       <th>
-        <p-columnFilter type="text" field="country" placeholder="Search by country" />
+        <p-columnFilter type="text" field="user.country" placeholder="Search by country" />
       </th>
       <th>
-        <p-columnFilter type="text" field="email" placeholder="Search by email" />
+        <p-columnFilter type="text" field="user.email" placeholder="Search by email" />
       </th>
       <th>
-        <p-columnFilter type="text" field="phone" placeholder="Search by phone" />
+        <p-columnFilter type="text" field="user.phone" placeholder="Search by phone" />
       </th>
       <th>
         <p-columnFilter type="date" field="start" placeholder="Search by day" />
@@ -82,10 +82,10 @@
           </div>
         </td>
       }
-      <td>{{ appointment.name }}</td>
-      <td>{{ appointment.country }}</td>
-      <td>{{ appointment.email }}</td>
-      <td>{{ appointment.phone }}</td>
+      <td>{{ appointment.user.name }}</td>
+      <td>{{ appointment.user.country }}</td>
+      <td>{{ appointment.user.email }}</td>
+      <td>{{ appointment.user.phone }}</td>
       <td>
         <div>{{ appointment.start | date: 'dd/MM/yyyy' }}</div>
         <div>{{ appointment.start | date: 'hh:mm a' }} - {{ appointment.end | date: 'hh:mm a' }}</div>

@@ -1,21 +1,16 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, iif, map, take, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Asset } from '../interfaces/asset.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AssetsService {
-  private assets = new BehaviorSubject<Map<string, Asset>>(new Map());
-
-  constructor(private http: HttpClient) {}
-
-  public getAssets() {
-    return iif(() => this.assets.value.size === 0, this.refreshAssets(), this.assets.pipe(take(1)));
-  }
+  private readonly http = inject(HttpClient);
+  private readonly assets = new BehaviorSubject<Map<string, Asset>>(new Map());
 
   public getAssetById(id: string) {
-    return this.getAssets().pipe(map(assets => assets.get(id)));
+    return this.assets.pipe(map(assets => assets.get(id)));
   }
 
   public refreshAssets() {

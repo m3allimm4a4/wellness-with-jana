@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, iif, take, tap } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, take, tap } from 'rxjs';
 import { ContactInfo } from '../interfaces/contact-info.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -8,17 +8,13 @@ import { ContactMessage } from '../interfaces/contact-message.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ContactInfoService {
-  private loaded = false;
-  private contactInfo = new BehaviorSubject<ContactInfo>({});
-
-  constructor(
-    private http: HttpClient,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService,
-  ) {}
+  private readonly http = inject(HttpClient);
+  private readonly messageService = inject(MessageService);
+  private readonly confirmationService = inject(ConfirmationService);
+  private readonly contactInfo = new BehaviorSubject<ContactInfo>({});
 
   getContactInfo() {
-    return iif(() => this.loaded, this.contactInfo.pipe(take(1)), this.refreshContactInfo());
+    return this.contactInfo.pipe(take(1));
   }
 
   saveContactInfo(contactInfo: ContactInfo) {
@@ -45,13 +41,10 @@ export class ContactInfoService {
     );
   }
 
-  private refreshContactInfo() {
-    return this.http.get<ContactInfo>(`${environment.apiUrl}/contact-info`).pipe(
-      tap(res => {
-        this.loaded = true;
-        this.contactInfo.next(res);
-      }),
-    );
+  public refreshContactInfo() {
+    return this.http
+      .get<ContactInfo>(`${environment.apiUrl}/contact-info`)
+      .pipe(tap(res => this.contactInfo.next(res)));
   }
 
   private createSuccessToast(message: string): void {
