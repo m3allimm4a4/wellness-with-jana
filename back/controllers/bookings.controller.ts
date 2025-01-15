@@ -54,6 +54,9 @@ export const getTimeslots: RequestHandler = catchAsync(async (req, res) => {
 });
 
 export const createAppointment: RequestHandler = catchAsync(async (req, res) => {
+  if (!req.user) {
+    throw new BadRequestError();
+  }
   const appointment: Partial<IAppointment> = req.body;
   appointment.start = new Date(appointment.start || 0);
   appointment.end = new Date(appointment.end || 0);
@@ -63,10 +66,7 @@ export const createAppointment: RequestHandler = catchAsync(async (req, res) => 
   }
 
   const newBooking = await Appointment.create({
-    name: appointment.name,
-    country: appointment.country,
-    email: appointment.email,
-    phone: appointment.phone,
+    user: req.user,
     start: appointment.start,
     end: appointment.end,
     service: appointment.service?.id,
@@ -75,13 +75,13 @@ export const createAppointment: RequestHandler = catchAsync(async (req, res) => 
   const config = await getAppointmentConfig();
 
   const html = proccessTemplateHtml(config.email.template, {
-    name: appointment.name || '',
+    name: req.user.name,
     service: appointment.service?.name || '',
     day: appointment.start.toLocaleDateString(),
     startTime: appointment.start.toLocaleTimeString(),
     endTime: appointment.end.toLocaleTimeString(),
   });
-  await sendEmail(config.email.subject, [newBooking.email], html);
+  await sendEmail(config.email.subject, [req.user.email], html);
 
   res.status(200).json(newBooking.toObject());
 });
@@ -99,13 +99,13 @@ export const confirmAppointment: RequestHandler = catchAsync(async (req, res) =>
 
   const config = await getAppointmentConfig();
   const html = proccessTemplateHtml(config.confirmationEmail.template, {
-    name: appointment.name || '',
+    name: appointment.user.name || '',
     service: appointment.service?.name || '',
     day: appointment.start.toLocaleDateString(),
     startTime: appointment.start.toLocaleTimeString(),
     endTime: appointment.end.toLocaleTimeString(),
   });
-  await sendEmail(config.confirmationEmail.subject, [appointment.email], html);
+  await sendEmail(config.confirmationEmail.subject, [appointment.user.email], html);
 
   res.status(200).json(appointment.toObject());
 });

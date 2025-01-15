@@ -1,11 +1,9 @@
 import { Entity } from './entity.interface';
 import { Service } from './service.interface';
+import { User } from './user.interface';
 
 export interface Appointment extends Entity {
-  name: string;
-  country: string;
-  email: string;
-  phone: string;
+  user: User;
   start: Date;
   end: Date;
   confirmed?: boolean;
@@ -13,10 +11,7 @@ export interface Appointment extends Entity {
 }
 
 export interface AppointmentResponse extends Entity {
-  name: string;
-  country: string;
-  email: string;
-  phone: string;
+  user: User;
   start: Date;
   end: Date;
   confirmed?: boolean;

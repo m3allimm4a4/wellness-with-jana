@@ -1,12 +1,10 @@
 import { IService, Service } from './service.model';
 import { model, Schema, Types } from 'mongoose';
+import { IUser, User } from './user.model';
 
 export interface IAppointment {
   id: string;
-  name: string;
-  country: string;
-  email: string;
-  phone: string;
+  user: IUser;
   start: Date;
   end: Date;
   confirmed: boolean;
@@ -17,10 +15,7 @@ export interface IAppointment {
 
 export const AppointmentSchema = new Schema<IAppointment>(
   {
-    name: { type: String, required: true },
-    country: { type: String, required: true },
-    email: { type: String, required: true },
-    phone: { type: String, required: true },
+    user: { type: User, required: true },
     start: { type: Date, required: true },
     end: { type: Date, required: true },
     confirmed: { type: Boolean, default: false },

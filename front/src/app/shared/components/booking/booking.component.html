@@ -59,94 +59,13 @@
     <p-step>Confirm Booking</p-step>
     <p-step-panel>
       <ng-template #content let-activateCallback="activateCallback">
-        <div class="flex flex-column gap-4">
-          <div class="pb-1">
-            <a style="text-decoration: underline; cursor: pointer">Sign Up</a> to autofill your info
-          </div>
-
-          <div>
-            <p-floatlabel variant="on">
-              <input id="name" style="width: 100%" pInputText type="text" [formControl]="infoForm.controls.name" />
-              <label for="name">Name</label>
-            </p-floatlabel>
-            @if (infoForm.controls.name.dirty && infoForm.controls.name.invalid) {
-              <small>Your name is required</small>
-            }
-          </div>
-
-          <div>
-            <p-floatlabel variant="on">
-              <input
-                id="lastname"
-                style="width: 100%"
-                pInputText
-                type="text"
-                [formControl]="infoForm.controls.lastname" />
-              <label for="lastname">Last Name</label>
-            </p-floatlabel>
-            @if (infoForm.controls.lastname.dirty && infoForm.controls.lastname.invalid) {
-              <small>Your last name is required</small>
-            }
-          </div>
-
-          <div>
-            <p-floatlabel variant="on">
-              <p-select
-                id="country"
-                appendTo="body"
-                [style]="{ width: '100%' }"
-                [virtualScroll]="true"
-                [virtualScrollItemSize]="38"
-                [filter]="true"
-                [options]="countryOptions"
-                [formControl]="infoForm.controls.country" />
-              <label for="country">Country</label>
-            </p-floatlabel>
-            @if (infoForm.controls.country.dirty && infoForm.controls.country.invalid) {
-              <small>Your country is required</small>
-            }
-          </div>
-
-          <div>
-            <p-floatlabel variant="on">
-              <input id="email" style="width: 100%" pInputText type="email" [formControl]="infoForm.controls.email" />
-              <label for="email">Email</label>
-            </p-floatlabel>
-            @if (infoForm.controls.email.dirty && infoForm.controls.email.invalid) {
-              <small>A valid email is required</small>
-            }
-          </div>
-
-          <div>
-            <p-floatlabel variant="on">
-              <input pInputText id="phone" style="width: 100%" type="tel" [formControl]="infoForm.controls.phone" />
-              <label for="phone">Phone Number</label>
-            </p-floatlabel>
-            @if (infoForm.controls.phone.dirty && infoForm.controls.phone.invalid) {
-              <small>Your phone number is required</small>
-            }
-          </div>
-
-          <div class="flex gap-2 py-2">
-            <p-button size="small" severity="secondary" label="BACK" (onClick)="activateCallback(2)" />
-            <p-button size="small" [disabled]="infoForm.invalid" label="NEXT" (onClick)="activateCallback(4)" />
-          </div>
-        </div>
-      </ng-template>
-    </p-step-panel>
-  </p-step-item>
-
-  <p-step-item [value]="4">
-    <p-step>Confirm Booking</p-step>
-    <p-step-panel>
-      <ng-template #content let-activateCallback="activateCallback">
         <div class="flex flex-column">
           <p>
-            Name: {{ infoForm.controls.name.value }}<br />
-            Last Name: {{ infoForm.controls.lastname.value }} <br />
-            Country: {{ infoForm.controls.country.value }}<br />
-            Email: {{ infoForm.controls.email.value }} <br />
-            Phone Number: {{ infoForm.controls.phone.value }} <br />
+            Name: {{ user()?.name }}<br />
+            Last Name: {{ user()?.lastname }} <br />
+            Country: {{ user()?.country }}<br />
+            Email: {{ user()?.email }} <br />
+            Phone Number: {{ user()?.phone }} <br />
           </p>
           <p-divider />
           <p>
@@ -158,7 +77,7 @@
           </p>
 
           <div class="flex gap-2 py-4">
-            <p-button size="small" severity="secondary" label="BACK" (onClick)="activateCallback(3)" />
+            <p-button size="small" severity="secondary" label="BACK" (onClick)="activateCallback(2)" />
             <p-button
               size="small"
               severity="danger"

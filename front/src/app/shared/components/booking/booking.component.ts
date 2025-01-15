@@ -1,12 +1,11 @@
-import { Component, signal } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Service } from '../../interfaces/service.interface';
 import { BookingService } from '../../services/booking.service';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Timeslot } from '../../interfaces/timeslot.interface';
 import { finalize } from 'rxjs';
-import { getCountryOptions } from '../../constants/countries';
 import { Appointment } from '../../interfaces/appointment.interface';
 import { Step, StepItem, StepPanel, Stepper } from 'primeng/stepper';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -16,8 +15,8 @@ import { DatePipe, NgClass, NgStyle } from '@angular/common';
 import { Divider } from 'primeng/divider';
 import { Tooltip } from 'primeng/tooltip';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputText } from 'primeng/inputtext';
-import { Select } from 'primeng/select';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-booking',
@@ -37,38 +36,28 @@ import { Select } from 'primeng/select';
     NgStyle,
     NgClass,
     FloatLabelModule,
-    InputText,
-    Select,
   ],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss',
 })
-export class BookingComponent {
-  readonly service: Service;
-  readonly isMobile: boolean;
-  readonly countryOptions = getCountryOptions();
-  readonly today = new Date();
+export class BookingComponent implements OnInit {
+  private readonly config = inject(DynamicDialogConfig);
+  private readonly deviceService = inject(DeviceDetectorService);
+  private readonly bookingService = inject(BookingService);
+  private readonly authService = inject(AuthService);
 
-  infoForm = new FormGroup({
-    name: new FormControl<string | null>(null, [Validators.required]),
-    lastname: new FormControl<string | null>(null, [Validators.required]),
-    country: new FormControl<string | null>(null, [Validators.required]),
-    email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
-    phone: new FormControl<string | null>(null, [Validators.required]),
-  });
+  protected readonly service: Service = this.config?.data?.service;
+  protected readonly isMobile = this.deviceService.isMobile();
+  protected readonly today = new Date();
 
-  date = signal<Date | null>(null);
-  timeslots = signal<Timeslot[]>([]);
-  selectedTimeSlot = signal<Timeslot | undefined>(undefined);
-  isLoading = signal<boolean>(false);
+  protected readonly user = signal<User | undefined>(undefined);
+  protected readonly date = signal<Date | undefined>(undefined);
+  protected readonly timeslots = signal<Timeslot[]>([]);
+  protected readonly selectedTimeSlot = signal<Timeslot | undefined>(undefined);
+  protected readonly isLoading = signal<boolean>(false);
 
-  constructor(
-    config: DynamicDialogConfig,
-    deviceService: DeviceDetectorService,
-    private bookingService: BookingService,
-  ) {
-    this.service = config?.data?.service;
-    this.isMobile = deviceService.isMobile();
+  ngOnInit() {
+    this.authService.getUser$().subscribe(user => this.user.set(user));
   }
 
   onDateConfirmed(callback: (tab: number) => void) {
@@ -82,13 +71,9 @@ export class BookingComponent {
 
   onBookingConfirmed() {
     this.isLoading.set(true);
-    const appointment: Appointment = {
+    const appointment: Partial<Appointment> = {
       start: this.selectedTimeSlot()?.start || new Date(),
       end: this.selectedTimeSlot()?.end || new Date(),
-      country: this.infoForm.controls.country.value || '',
-      email: this.infoForm.controls.email.value || '',
-      phone: this.infoForm.controls.phone.value || '',
-      name: (this.infoForm.controls.name.value || '') + (this.infoForm.controls.lastname.value || ''),
       service: this.service,
     };
     this.bookingService

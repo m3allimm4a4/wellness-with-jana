@@ -30,7 +30,7 @@ export class BookingService {
     });
   }
 
-  confirmBooking(appointment: Appointment) {
+  confirmBooking(appointment: Partial<Appointment>) {
     return this.http.post<Appointment>(`${environment.apiUrl}/booking`, appointment).pipe(
       tap(() => {
         this.closeBookingDialog();
@@ -50,10 +50,7 @@ export class BookingService {
       map(appointments =>
         appointments.map(a => ({
           id: a.id,
-          name: a.name,
-          country: a.country,
-          email: a.email,
-          phone: a.phone,
+          user: a.user,
           start: new Date(a.start),
           end: new Date(a.end),
           confirmed: a.confirmed,
