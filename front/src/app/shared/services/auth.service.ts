@@ -39,10 +39,10 @@ export class AuthService {
     return this.accessToken.value;
   }
 
-  public openLoginDialog() {
+  public openLoginDialog(fromRequirement = false) {
     this.closeDialogs();
     this.loginDialog = this.dialogService.open(LoginComponent, {
-      header: 'Login',
+      header: fromRequirement ? 'You need to login before procceding' : 'Login',
       modal: true,
       closable: true,
       appendTo: 'body',

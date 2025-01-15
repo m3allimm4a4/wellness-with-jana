@@ -30,7 +30,7 @@ export class BookingService {
         data: { service },
       });
     } else {
-      this.authService.openLoginDialog();
+      this.authService.openLoginDialog(true);
     }
   }
 
