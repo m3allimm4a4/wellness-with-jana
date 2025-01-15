@@ -124,9 +124,12 @@ export class AuthService {
   }
 
   public logout() {
-    return this.http
-      .delete<void>(`${environment.apiUrl}/auth/logout`, { withCredentials: true })
-      .pipe(tap(() => this.handleLoginError()));
+    return this.http.delete<void>(`${environment.apiUrl}/auth/logout`, { withCredentials: true }).pipe(
+      tap(() => {
+        this.router.navigateByUrl('/').then();
+        this.handleLoginError();
+      }),
+    );
   }
 
   public signUp(user: User) {

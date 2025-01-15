@@ -21,13 +21,13 @@ export class AppComponent implements OnInit {
   private readonly deviceService = inject(DeviceDetectorService);
   private readonly authService = inject(AuthService);
 
-  toastPosition: ToastPositionType = this.deviceService.isMobile() ? 'top-right' : 'bottom-right';
+  toastPosition: ToastPositionType = this.deviceService.isMobile() ? 'bottom-right' : 'top-right';
 
   ngOnInit() {
     this.translate.addLangs(environment.languages);
     this.translate.setDefaultLang('en');
     this.translate.use(this.getUserLanguage());
-    this.authService.refresh(false).subscribe()
+    this.authService.refresh(false).subscribe();
   }
 
   private getUserLanguage() {
