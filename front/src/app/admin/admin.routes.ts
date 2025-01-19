@@ -1,9 +1,12 @@
 import { Routes } from '@angular/router';
+import { authGuard } from '../shared/guards/auth.guard';
+import { UserRole } from '../shared/interfaces/user.interface';
 
 export const adminRoutes: Routes = [
   {
     path: '',
     loadComponent: () => import('./admin.component').then(m => m.AdminComponent),
+    canActivate: [authGuard([UserRole.ADMIN])],
     children: [
       {
         path: 'home',

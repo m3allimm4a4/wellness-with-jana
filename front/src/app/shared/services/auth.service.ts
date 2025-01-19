@@ -35,6 +35,10 @@ export class AuthService {
     return !!this.accessToken.value && !!this.user.value;
   }
 
+  public hasPermissions(permissions: UserRole[]): boolean {
+    return this.isLoggedIn() && (this.user.value?.roles?.every(r => permissions.includes(r)) ?? false);
+  }
+
   public getAccessToken() {
     return this.accessToken.value;
   }
