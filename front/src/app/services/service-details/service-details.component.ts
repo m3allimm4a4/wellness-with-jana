@@ -16,6 +16,6 @@ export class ServiceDetailsComponent {
   constructor(private bookingService: BookingService) {}
 
   onBookClicked() {
-    this.bookingService.openBookingDialog(this.service());
+    this.bookingService.openBookingDialog(this.service()).subscribe();
   }
 }

@@ -7,7 +7,7 @@ import { SignUpComponent } from '../components/sign-up/sign-up.component';
 import { User, UserRole } from '../interfaces/user.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { BehaviorSubject, catchError, finalize, map, of, switchMap, tap, timer } from 'rxjs';
+import { catchError, forkJoin, map, of, ReplaySubject, switchMap, take, tap, timer } from 'rxjs';
 import { EmailVerificationComponent } from '../components/email-verification/email-verification.component';
 import { LoginResponse } from '../interfaces/login-response.interface';
 import { PasswordResetComponent } from '../components/password-reset/password-reset.component';
@@ -19,8 +19,8 @@ export class AuthService {
   private readonly dialogService = inject(DialogService);
   private readonly messageService = inject(MessageService);
 
-  private readonly user = new BehaviorSubject<User | undefined>(undefined);
-  private readonly accessToken = new BehaviorSubject<string>('');
+  private readonly user = new ReplaySubject<User | undefined>(1);
+  private readonly accessToken = new ReplaySubject<string>(1);
 
   private loginDialog: DynamicDialogRef | undefined;
   private signUpDialog: DynamicDialogRef | undefined;
@@ -31,16 +31,21 @@ export class AuthService {
     return this.user.asObservable();
   }
 
-  public isLoggedIn(): boolean {
-    return !!this.accessToken.value && !!this.user.value;
+  public isLoggedIn$() {
+    return this.accessToken.pipe(
+      take(1),
+      map(token => !!token),
+    );
   }
 
-  public hasPermissions(permissions: UserRole[]): boolean {
-    return this.isLoggedIn() && (permissions.every(p => this.user.value?.roles.includes(p)) ?? false);
+  public hasPermissions(permissions: UserRole[]) {
+    return forkJoin([this.isLoggedIn$(), this.user.pipe(take(1))]).pipe(
+      map(([isLoggedIn, user]) => isLoggedIn && permissions.every(p => user?.roles.includes(p))),
+    );
   }
 
   public getAccessToken() {
-    return this.accessToken.value;
+    return this.accessToken.pipe(take(1));
   }
 
   public openLoginDialog(fromRequirement = false) {
@@ -108,11 +113,6 @@ export class AuthService {
           this.handleLoginError();
           this.showToast('error', 'Error', 'Invalid username or password');
           return of(undefined);
-        }),
-        finalize(() => {
-          if (this.user.value?.roles.includes(UserRole.ADMIN)) {
-            this.router.navigate(['/admin', 'home']).then();
-          }
         }),
         map(() => undefined),
       );

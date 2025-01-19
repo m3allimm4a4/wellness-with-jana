@@ -19,17 +19,17 @@ export const adminRoutes: Routes = [
         loadComponent: () => import('./admin-services/admin-services.component').then(m => m.AdminServicesComponent),
       },
       {
-        path: 'bookings',
-        title: 'Admin Bookings',
-        loadComponent: () => import('./admin-bookings/admin-bookings.component').then(m => m.AdminBookingsComponent),
-      },
-      {
         path: 'services/:id',
         title: 'Admin Service Details',
         loadComponent: () =>
           import('./admin-services/admin-services-details/admin-services-details.component').then(
             m => m.AdminServicesDetailsComponent,
           ),
+      },
+      {
+        path: 'bookings',
+        title: 'Admin Bookings',
+        loadComponent: () => import('./admin-bookings/admin-bookings.component').then(m => m.AdminBookingsComponent),
       },
       {
         path: 'testemonials',

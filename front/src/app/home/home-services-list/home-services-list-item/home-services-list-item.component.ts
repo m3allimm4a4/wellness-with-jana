@@ -17,6 +17,6 @@ export class HomeServicesListItemComponent {
   onBookClicked() {
     const service = this.service();
     if (!service) return;
-    this.bookingService.openBookingDialog(service);
+    this.bookingService.openBookingDialog(service).subscribe();
   }
 }

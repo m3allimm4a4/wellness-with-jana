@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const items = [
       { label: 'Home', routerLink: '/' },
       { label: 'Services', routerLink: '/services' },
-      // { label: 'Blog', routerLink: '/blogs' },
+      { label: 'Blog', routerLink: '/blogs' },
       { label: 'About', routerLink: '/about' },
       { label: 'Contact', routerLink: '/contact' },
       this.user()

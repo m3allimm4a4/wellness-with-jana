@@ -20,18 +20,22 @@ export class BookingService {
   private bookingDialog: DynamicDialogRef | undefined;
 
   openBookingDialog(service: Service) {
-    if (this.authService.isLoggedIn()) {
-      this.bookingDialog = this.dialogService.open(BookingComponent, {
-        header: 'Book A Session',
-        modal: true,
-        closable: true,
-        appendTo: 'body',
-        width: '40rem',
-        data: { service },
-      });
-    } else {
-      this.authService.openLoginDialog(true);
-    }
+    return this.authService.isLoggedIn$().pipe(
+      tap(isLoggedIn => {
+        if (isLoggedIn) {
+          this.bookingDialog = this.dialogService.open(BookingComponent, {
+            header: 'Book A Session',
+            modal: true,
+            closable: true,
+            appendTo: 'body',
+            width: '40rem',
+            data: { service },
+          });
+        } else {
+          this.authService.openLoginDialog(true);
+        }
+      }),
+    );
   }
 
   confirmBooking(appointment: Partial<Appointment>) {
