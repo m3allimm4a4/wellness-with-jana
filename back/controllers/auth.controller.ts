@@ -84,7 +84,7 @@ export const login: RequestHandler = catchAsync(async (req, res) => {
   res.cookie('refreshToken', refreshToken.token, {
     httpOnly: true,
     secure: process.env.PROD === 'true',
-    sameSite: 'none', // todo add config to prevent CSRF
+    sameSite: process.env.PROD === 'true' ? 'none' : undefined, // todo add config to prevent CSRF
     maxAge: ms(process.env.JWT_REFRESH_EXPIRY || ''),
   });
   res.status(200).json({
