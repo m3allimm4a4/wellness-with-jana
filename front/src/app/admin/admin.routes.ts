@@ -27,6 +27,19 @@ export const adminRoutes: Routes = [
           ),
       },
       {
+        path: 'blogs',
+        title: 'Admin Blogs',
+        loadComponent: () => import('./admin-blogs/admin-blogs.component').then(m => m.AdminBlogsComponent),
+      },
+      {
+        path: 'blogs/:id',
+        title: 'Admin Blog Details',
+        loadComponent: () =>
+          import('./admin-blogs/admin-blogs-details/admin-blogs-details.component').then(
+            m => m.AdminBlogsDetailsComponent,
+          ),
+      },
+      {
         path: 'bookings',
         title: 'Admin Bookings',
         loadComponent: () => import('./admin-bookings/admin-bookings.component').then(m => m.AdminBookingsComponent),

@@ -13,6 +13,7 @@ export class AdminHeaderComponent {
     { label: 'Home', routerLink: '/admin/home' },
     { label: 'Services', routerLink: '/admin/services' },
     { label: 'Bookings', routerLink: '/admin/bookings' },
+    { label: 'Blogs', routerLink: '/admin/blogs' },
     { label: 'Testemonials', routerLink: '/admin/testemonials' },
     { label: 'IG Posts', routerLink: '/admin/ig-posts' },
     { label: 'About', routerLink: '/admin/about' },
