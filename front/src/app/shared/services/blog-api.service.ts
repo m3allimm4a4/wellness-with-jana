@@ -19,12 +19,8 @@ export class BlogApiService {
     return this.http.post<Blog>(`${environment.apiUrl}/blogs`, blog);
   }
 
-  updateBlog(blog: Blog) {
-    return this.http.put<Blog>(`${environment.apiUrl}/blogs`, blog);
-  }
-
-  updateBlogContent(content: string) {
-    return this.http.patch<Blog>(`${environment.apiUrl}/blogs`, { content });
+  patchBlog(id: string, blog: Partial<Blog>) {
+    return this.http.patch<Blog>(`${environment.apiUrl}/blogs/${id}`, blog);
   }
 
   getContentImageUploadUrl(id: string) {

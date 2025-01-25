@@ -58,8 +58,8 @@ import {
   Underline,
 } from 'ckeditor5';
 import { AuthService } from '../../../shared/services/auth.service';
-import { ActivatedRoute } from '@angular/router';
-import { firstValueFrom, iif, of, switchMap, tap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { firstValueFrom, of, switchMap, tap } from 'rxjs';
 import { Card } from 'primeng/card';
 import { InputText } from 'primeng/inputtext';
 import { MultiSelect } from 'primeng/multiselect';
@@ -67,14 +67,16 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Blog } from '../../../shared/interfaces/blog.interface';
 import { BlogApiService } from '../../../shared/services/blog-api.service';
 import { Button } from 'primeng/button';
+import { Message } from 'primeng/message';
 
 @Component({
   selector: 'app-admin-blogs-details',
-  imports: [CKEditorModule, Card, InputText, MultiSelect, ReactiveFormsModule, Button],
+  imports: [CKEditorModule, Card, InputText, MultiSelect, ReactiveFormsModule, Button, Message],
   templateUrl: './admin-blogs-details.component.html',
   styleUrl: './admin-blogs-details.component.scss',
 })
 export class AdminBlogsDetailsComponent implements OnInit {
+  private readonly router = inject(Router);
   private readonly authService = inject(AuthService);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly blogApiService = inject(BlogApiService);
@@ -258,7 +260,7 @@ export class AdminBlogsDetailsComponent implements OnInit {
     title: new FormControl<string>('', [Validators.required]),
     tag: new FormControl<string>('', [Validators.required]),
     author: new FormControl<string>('', [Validators.required]),
-    related: new FormControl<string[]>([], [Validators.required]),
+    related: new FormControl<string[]>([]),
   });
   protected readonly content = signal<string>('');
   protected readonly blog = signal<Blog | undefined>(undefined);
@@ -307,13 +309,18 @@ export class AdminBlogsDetailsComponent implements OnInit {
       author: this.blogForm.controls.author.value || '',
       related: this.blogForm.controls.related.value || [],
     };
-    iif(() => !!this.blog()?.id, this.blogApiService.updateBlog(blog), this.blogApiService.addBlog(blog)).subscribe(
-      blog => this.blog.set(blog),
-    );
+    if (this.blog()?.id) {
+      this.blogApiService.patchBlog(this.blog()?.id || '', blog).subscribe(blog => this.blog.set(blog));
+      return;
+    }
+    this.blogApiService.addBlog(blog).subscribe(blog => {
+      this.blog.set(blog);
+      this.router.navigateByUrl(this.router.url.replace('new', blog?.id || 'new')).then();
+    });
   }
 
   async onBlogContentSave(content: string) {
-    const blog = await firstValueFrom(this.blogApiService.updateBlogContent(content));
+    const blog = await firstValueFrom(this.blogApiService.patchBlog(this.blog()?.id || '', { content }));
     this.blog.set(blog);
   }
 }
