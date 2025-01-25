@@ -44,7 +44,7 @@ export const addBlog: RequestHandler = catchAsync(async (req, res) => {
 export const patchBlog: RequestHandler = catchAsync(async (req, res) => {
   const id = req.params.id;
   const blog: Partial<IBlog> = req.body;
-  if (!id || !blog || !blog.title || !blog.tag || !blog.author) {
+  if (!id || !blog) {
     throw new BadRequestError();
   }
   const newBlog = await Blog.findByIdAndUpdate(id, blog);
