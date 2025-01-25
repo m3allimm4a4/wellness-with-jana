@@ -3,6 +3,8 @@
 @import 'primeflex/primeflex.css';
 @import 'quill/dist/quill.core.css';
 @import 'quill/dist/quill.snow.css';
+@import 'ckeditor5/ckeditor5.css';
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 html {
   scroll-behavior: smooth;
@@ -16,6 +18,7 @@ body {
   --custom-green: #69a032;
   --primary-font: 'cairo';
   --secondary-font: 'assistant';
+  --lato-font: 'Lato';
   font-family: var(--secondary-font), sans-serif;
 }
 
@@ -140,3 +143,22 @@ a {
 }
 
 // END - primeng overrrides
+
+// CK Editor 5 styles
+//.main-container {
+//  font-family: var(--lato-font), sans-serif;
+//  width: fit-content;
+//  margin-left: auto;
+//  margin-right: auto;
+//}
+
+//.ck-content {
+//  font-family: var(--lato-font), sans-serif;
+//  line-height: 1.6;
+//  word-break: break-word;
+//}
+//
+//.editor-container_classic-editor .editor-container__editor {
+//  min-width: 795px;
+//  max-width: 795px;
+//}

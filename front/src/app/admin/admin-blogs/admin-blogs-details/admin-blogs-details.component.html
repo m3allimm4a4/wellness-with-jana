@@ -1,1 +1,33 @@
-<p>admin-blogs-details works!</p>
+<p-card>
+  <h5 class="pb-4">Blog Info</h5>
+  <form class="grid" [formGroup]="blogForm">
+    <div class="col-6 md:col-3">
+      <label>Title:</label>
+      <input pInputText [fluid]="true" [formControl]="blogForm.controls.title" />
+    </div>
+
+    <div class="col-6 md:col-3">
+      <label>Tag:</label>
+      <input pInputText [fluid]="true" [formControl]="blogForm.controls.tag" />
+    </div>
+
+    <div class="col-6 md:col-3">
+      <label>Author:</label>
+      <input pInputText [fluid]="true" [formControl]="blogForm.controls.author" />
+    </div>
+
+    <div class="col-6 md:col-3">
+      <label>Related:</label>
+      <p-multi-select [fluid]="true" [formControl]="blogForm.controls.related" />
+    </div>
+
+    <p-button label="SAVE" [disabled]="blogForm.invalid" (onClick)="onBlogInfoSave()"/>
+  </form>
+</p-card>
+
+@if (blog()?.id) {
+  <p-card>
+    <h5 class="pb-4">Blog Content (Auto saves)</h5>
+    <ckeditor [editor]="Editor" [config]="config" [data]="content()" [disableTwoWayDataBinding]="true" />
+  </p-card>
+}

@@ -6,7 +6,7 @@ export interface Blog extends Entity {
   tag: string;
   author: string;
   content?: string;
-  related?: Blog[];
+  related?: Blog[] | string[];
   bannerAsset?: Asset;
-  innerAsset?: Asset;
+  contentImages?: string[];
 }

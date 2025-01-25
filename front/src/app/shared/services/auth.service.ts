@@ -45,7 +45,7 @@ export class AuthService {
   }
 
   public getAccessToken() {
-    return this.accessToken.pipe(take(1));
+    return this.accessToken.asObservable();
   }
 
   public openLoginDialog(fromRequirement = false) {
