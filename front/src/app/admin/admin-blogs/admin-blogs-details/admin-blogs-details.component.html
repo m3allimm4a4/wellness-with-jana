@@ -1,6 +1,6 @@
 <p-card>
   <h5 class="pb-4">Blog Info</h5>
-  <form class="grid" [formGroup]="blogForm">
+  <form class="grid justify-content-end" [formGroup]="blogForm">
     <div class="col-6 md:col-3">
       <label>Title:</label>
       <input pInputText [fluid]="true" [formControl]="blogForm.controls.title" />
@@ -21,7 +21,9 @@
       <p-multi-select [fluid]="true" [formControl]="blogForm.controls.related" />
     </div>
 
-    <p-button label="SAVE" [disabled]="blogForm.invalid" (onClick)="onBlogInfoSave()"/>
+    <div class="col-6 md:col-3" style="text-align: end">
+      <p-button label="SAVE" [disabled]="blogForm.invalid" (onClick)="onBlogInfoSave()" />
+    </div>
   </form>
 </p-card>
 
