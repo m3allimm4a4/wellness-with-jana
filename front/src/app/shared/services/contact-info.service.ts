@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, take, tap } from 'rxjs';
+import { ReplaySubject, take, tap } from 'rxjs';
 import { ContactInfo } from '../interfaces/contact-info.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -11,7 +11,7 @@ export class ContactInfoService {
   private readonly http = inject(HttpClient);
   private readonly messageService = inject(MessageService);
   private readonly confirmationService = inject(ConfirmationService);
-  private readonly contactInfo = new BehaviorSubject<ContactInfo>({});
+  private readonly contactInfo = new ReplaySubject<ContactInfo>(1);
 
   getContactInfo() {
     return this.contactInfo.pipe(take(1));

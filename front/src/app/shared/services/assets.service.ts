@@ -1,13 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, tap } from 'rxjs';
+import { map, ReplaySubject, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Asset } from '../interfaces/asset.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AssetsService {
   private readonly http = inject(HttpClient);
-  private readonly assets = new BehaviorSubject<Map<string, Asset>>(new Map());
+  private readonly assets = new ReplaySubject<Map<string, Asset>>(1);
 
   public getAssetById(id: string) {
     return this.assets.pipe(map(assets => assets.get(id)));

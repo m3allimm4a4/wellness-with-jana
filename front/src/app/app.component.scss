@@ -1,0 +1,6 @@
+.app-container {
+  min-height: calc(100vh - 7.5rem);
+  @media (max-width: 767px) {
+    min-height: calc(100vh - 9.85rem);
+  }
+}
