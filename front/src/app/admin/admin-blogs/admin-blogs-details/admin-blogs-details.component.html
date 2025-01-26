@@ -22,7 +22,21 @@
         <p-multi-select [fluid]="true" [formControl]="blogForm.controls.related" />
       </div>
 
-      <div class="col-6 md:col-3" style="text-align: end">
+      @if (blog()?.id) {
+        <div class="col-12 md:col-6 p-2">
+          <label>Choose or drop a file:</label>
+          <p-fileupload
+            accept="image/*,video/*"
+            mode="advanced"
+            name="file"
+            method="post"
+            [url]="uploadUrl()"
+            [maxFileSize]="20000000"
+            [multiple]="false" />
+        </div>
+      }
+
+      <div class="col-12 md:col-6" style="text-align: end">
         <p-button label="SAVE" [disabled]="blogForm.invalid" (onClick)="onBlogInfoSave()" />
       </div>
     </form>

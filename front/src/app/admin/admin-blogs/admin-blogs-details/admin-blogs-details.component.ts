@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import {
   Alignment,
@@ -68,10 +68,12 @@ import { Blog } from '../../../shared/interfaces/blog.interface';
 import { BlogApiService } from '../../../shared/services/blog-api.service';
 import { Button } from 'primeng/button';
 import { Message } from 'primeng/message';
+import { FileUpload } from 'primeng/fileupload';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-blogs-details',
-  imports: [CKEditorModule, Card, InputText, MultiSelect, ReactiveFormsModule, Button, Message],
+  imports: [CKEditorModule, Card, InputText, MultiSelect, ReactiveFormsModule, Button, Message, FileUpload],
   templateUrl: './admin-blogs-details.component.html',
   styleUrl: './admin-blogs-details.component.scss',
 })
@@ -264,6 +266,7 @@ export class AdminBlogsDetailsComponent implements OnInit {
   });
   protected readonly content = signal<string>('');
   protected readonly blog = signal<Blog | undefined>(undefined);
+  protected readonly uploadUrl = computed(() => `${environment.apiUrl}/blogs/${this.blog()?.id}`);
 
   ngOnInit() {
     this.authService.getAccessToken().subscribe(accessToken => {
