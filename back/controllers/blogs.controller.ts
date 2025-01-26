@@ -2,10 +2,11 @@ import { RequestHandler } from 'express';
 import { catchAsync } from '../shared/catchAsync';
 import { BadRequestError } from '../errors/bad-request.error';
 import { UploadedFile } from 'express-fileupload';
-import { mkdir, writeFile } from 'fs/promises';
+import { mkdir, writeFile, rm } from 'fs/promises';
 import { Blog, IBlog } from '../models/blog.model';
 import { NotFoundError } from '../errors/not-found.error';
-import { addOrUpdateAsset } from '../shared/asset-manager';
+import { addOrUpdateAsset, removeAsset } from '../shared/asset-manager';
+import { IAsset } from '../models/asset.model';
 
 export const getBlogs: RequestHandler = catchAsync(async (req, res) => {
   let query = Blog.find();
@@ -88,4 +89,24 @@ export const uploadAsset: RequestHandler = catchAsync(async (req, res) => {
   await writeFile(filePath, file.data);
 
   res.status(200).json({ url: `http://localhost:3000/blogs/${id}/${file.name}` });
+});
+
+export const deleteBlog: RequestHandler = catchAsync(async (req, res) => {
+  const id = req.params['id'];
+  if (!id) {
+    throw new BadRequestError();
+  }
+
+  const blog = await Blog.findById(id).populate('bannerAsset');
+  if (!blog) {
+    throw new NotFoundError();
+  }
+
+  if ((blog?.bannerAsset as IAsset)?.name) {
+    await removeAsset((blog?.bannerAsset as IAsset)?.name);
+  }
+  await rm(`./public/blogs/${id}/`, { recursive: true, force: true });
+  await blog.deleteOne();
+
+  res.status(204).send();
 });

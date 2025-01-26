@@ -26,4 +26,8 @@ export class BlogApiService {
   getContentImageUploadUrl(id: string) {
     return `${environment.apiUrl}/blogs/${id}/assets`;
   }
+
+  deleteBlog(id: string) {
+    return this.http.delete<void>(`${environment.apiUrl}/blogs/${id}`);
+  }
 }

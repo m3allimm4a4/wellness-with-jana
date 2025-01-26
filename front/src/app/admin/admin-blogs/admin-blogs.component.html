@@ -1,1 +1,59 @@
-<a [routerLink]="['new']">ADD NEW</a>
+<p-table
+  styleClass="p-datatable-striped"
+  [scrollable]="true"
+  [paginator]="true"
+  [rows]="10"
+  [rowsPerPageOptions]="[10, 20, 50, 100]"
+  [value]="blogs()">
+  <ng-template #header>
+    <tr>
+      <th>Title</th>
+      <th>Asset</th>
+      <th>Author</th>
+      <th>Tag</th>
+      <th style="text-align: center" pFrozenColumn alignFrozen="right">
+        <a [routerLink]="['new']">
+          <p-button icon="pi pi-plus" size="small" styleClass="table-action-button" [text]="true" [rounded]="true" />
+        </a>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template #body let-blog>
+    <tr>
+      <td style="width: 24%">{{ blog.title }}</td>
+      <td style="width: 24%">
+        <app-asset [assetId]="blog.bannerAsset?.name" [style]="{ 'max-width': '10rem', 'max-height': '10rem' }" />
+      </td>
+      <td style="width: 24%">{{ blog.author }}</td>
+      <td style="width: 23%">{{ blog.tag }}</td>
+      <td style="width: 5%">
+        <div class="flex justify-content-end" pFrozenColumn alignFrozen="right">
+          <a [routerLink]="[blog.id]">
+            <p-button
+              icon="pi pi-pencil"
+              size="small"
+              styleClass="table-action-button"
+              severity="info"
+              [text]="true"
+              [rounded]="true" />
+          </a>
+          <p-button
+            icon="pi pi-trash"
+            size="small"
+            styleClass="table-action-button"
+            severity="danger"
+            [text]="true"
+            [rounded]="true"
+            (onClick)="onDeleteClick(blog.id)" />
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template #emptymessage>
+    <tr>
+      <td colspan="5">No Blogs Found</td>
+    </tr>
+  </ng-template>
+</p-table>
