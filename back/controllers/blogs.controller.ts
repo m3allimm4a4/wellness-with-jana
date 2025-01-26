@@ -2,11 +2,17 @@ import { RequestHandler } from 'express';
 import { catchAsync } from '../shared/catchAsync';
 import { BadRequestError } from '../errors/bad-request.error';
 import { UploadedFile } from 'express-fileupload';
-import { mkdir, writeFile, rm } from 'fs/promises';
 import { Blog, IBlog } from '../models/blog.model';
 import { NotFoundError } from '../errors/not-found.error';
-import { addOrUpdateAsset, removeAsset } from '../shared/asset-manager';
+import {
+  addOrUpdateAsset,
+  clearBlogImages,
+  deleteBlogImage,
+  removeAsset,
+  uploadBlogImage,
+} from '../shared/asset-manager';
 import { IAsset } from '../models/asset.model';
+import { JSDOM } from 'jsdom';
 
 export const getBlogs: RequestHandler = catchAsync(async (req, res) => {
   let query = Blog.find();
@@ -49,9 +55,23 @@ export const patchBlog: RequestHandler = catchAsync(async (req, res) => {
   if (!id || !blog) {
     throw new BadRequestError();
   }
-  const newBlog = await Blog.findByIdAndUpdate(id, blog);
+  let newBlog = await Blog.findByIdAndUpdate(id, blog);
   if (!newBlog) {
     throw new NotFoundError();
+  }
+  if (newBlog.contentImages.length) {
+    const jsdom = new JSDOM(blog.content);
+    const storageEndpoint = `${process.env.ASSETS_BASE_URL}`;
+    const imagePaths = Array.from(jsdom.window.document.querySelectorAll('img'))
+      .filter(img => img.src.includes(storageEndpoint))
+      .map(img => img.src.replace(storageEndpoint, ''));
+    const imagesToDelete = newBlog.contentImages.filter(path => !imagePaths.includes(path));
+    if (imagesToDelete.length) {
+      await Promise.all(imagesToDelete.map(path => deleteBlogImage(path)));
+      await Blog.findByIdAndUpdate(id, {
+        contentImages: newBlog.contentImages.filter(path => !imagesToDelete.includes(path)),
+      });
+    }
   }
   res.status(200).json(newBlog.toObject());
 });
@@ -83,12 +103,10 @@ export const uploadAsset: RequestHandler = catchAsync(async (req, res) => {
 
   const file = req.files?.upload as UploadedFile;
 
-  const filePath = `./public/blogs/${id}/${file.name}`;
+  const uploadedPath = await uploadBlogImage(id, file);
+  await Blog.findByIdAndUpdate(id, { $push: { contentImages: uploadedPath } });
 
-  await mkdir(`./public/blogs/${id}/`, { recursive: true });
-  await writeFile(filePath, file.data);
-
-  res.status(200).json({ url: `http://localhost:3000/blogs/${id}/${file.name}` });
+  res.status(200).json({ url: `${process.env.ASSETS_BASE_URL}/${uploadedPath}` });
 });
 
 export const deleteBlog: RequestHandler = catchAsync(async (req, res) => {
@@ -105,7 +123,7 @@ export const deleteBlog: RequestHandler = catchAsync(async (req, res) => {
   if ((blog?.bannerAsset as IAsset)?.name) {
     await removeAsset((blog?.bannerAsset as IAsset)?.name);
   }
-  await rm(`./public/blogs/${id}/`, { recursive: true, force: true });
+  await clearBlogImages(id);
   await blog.deleteOne();
 
   res.status(204).send();

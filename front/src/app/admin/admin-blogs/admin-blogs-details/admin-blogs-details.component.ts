@@ -256,6 +256,7 @@ export class AdminBlogsDetailsComponent implements OnInit {
     },
     autosave: {
       save: editor => this.onBlogContentSave(editor.getData()),
+      waitingTime: 5000,
     },
   };
   protected readonly blogForm = new FormGroup({

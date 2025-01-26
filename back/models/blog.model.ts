@@ -6,10 +6,10 @@ export interface IBlog {
   title: string;
   tag: string;
   author: string;
-  content?: string;
+  content: string;
+  contentImages: string[];
   related?: IBlog[] | string[];
   bannerAsset?: IAsset | string;
-  contentImages?: string[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,10 +19,10 @@ export const BlogSchema = new Schema<IBlog>(
     title: { type: String, required: true },
     tag: { type: String, required: true },
     author: { type: String, required: true },
-    content: { type: String },
+    content: { type: String, default: '' },
+    contentImages: { type: [String], default: [] },
     related: [{ type: Types.ObjectId, ref: 'Blog' }],
     bannerAsset: { type: Types.ObjectId, ref: Asset },
-    contentImages: { type: [String] },
   },
   {
     timestamps: true,

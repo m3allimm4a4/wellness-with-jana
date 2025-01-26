@@ -56,3 +56,21 @@ export const removeAsset = async (id: string) => {
   await deleteObject(asset.path);
   await Asset.findByIdAndDelete(asset.id);
 };
+
+export const uploadBlogImage = async (id: string, file: UploadedFile) => {
+  if (!file.mimetype.startsWith('image/')) {
+    throw new InvalidAssetError();
+  }
+  const uploadPath = `blogs/${id}/${randomUUID()}.webp`;
+  const data = file.mimetype === 'image/webp' ? file.data : await convertToWebp(file.data);
+  await putObject(data, uploadPath, 'public-read');
+  return uploadPath;
+};
+
+export const deleteBlogImage = async (path: string) => {
+  await deleteObject(path);
+};
+
+export const clearBlogImages = async (id: string) => {
+  await deleteObject(`blogs/${id}`);
+};
