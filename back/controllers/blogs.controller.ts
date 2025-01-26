@@ -59,20 +59,20 @@ export const patchBlog: RequestHandler = catchAsync(async (req, res) => {
   if (!newBlog) {
     throw new NotFoundError();
   }
-  if (newBlog.contentImages.length) {
-    const jsdom = new JSDOM(blog.content);
-    const storageEndpoint = `${process.env.ASSETS_BASE_URL}`;
-    const imagePaths = Array.from(jsdom.window.document.querySelectorAll('img'))
-      .filter(img => img.src.includes(storageEndpoint))
-      .map(img => img.src.replace(storageEndpoint, ''));
-    const imagesToDelete = newBlog.contentImages.filter(path => !imagePaths.includes(path));
-    if (imagesToDelete.length) {
-      await Promise.all(imagesToDelete.map(path => deleteBlogImage(path)));
-      await Blog.findByIdAndUpdate(id, {
-        contentImages: newBlog.contentImages.filter(path => !imagesToDelete.includes(path)),
-      });
-    }
-  }
+  // if (newBlog.contentImages.length) {
+  //   const jsdom = new JSDOM(blog.content);
+  //   const storageEndpoint = `${process.env.ASSETS_BASE_URL}`;
+  //   const imagePaths = Array.from(jsdom.window.document.querySelectorAll('img'))
+  //     .filter(img => img.src.includes(storageEndpoint))
+  //     .map(img => img.src.replace(storageEndpoint, ''));
+  //   const imagesToDelete = newBlog.contentImages.filter(path => !imagePaths.includes(path));
+  //   if (imagesToDelete.length) {
+  //     await Promise.all(imagesToDelete.map(path => deleteBlogImage(path)));
+  //     await Blog.findByIdAndUpdate(id, {
+  //       contentImages: newBlog.contentImages.filter(path => !imagesToDelete.includes(path)),
+  //     });
+  //   }
+  // }
   res.status(200).json(newBlog.toObject());
 });
 
