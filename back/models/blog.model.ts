@@ -1,4 +1,4 @@
-import { IAsset } from './asset.model';
+import { Asset, IAsset } from './asset.model';
 import { model, Schema, Types } from 'mongoose';
 
 export interface IBlog {
@@ -8,7 +8,7 @@ export interface IBlog {
   author: string;
   content?: string;
   related?: IBlog[] | string[];
-  bannerAsset?: IAsset;
+  bannerAsset?: IAsset | string;
   contentImages?: string[];
   createdAt: Date;
   updatedAt: Date;
@@ -20,8 +20,8 @@ export const BlogSchema = new Schema<IBlog>(
     tag: { type: String, required: true },
     author: { type: String, required: true },
     content: { type: String },
-    related: { type: [Types.ObjectId] },
-    bannerAsset: { type: Types.ObjectId },
+    related: [{ type: Types.ObjectId, ref: 'Blog' }],
+    bannerAsset: { type: Types.ObjectId, ref: Asset },
     contentImages: { type: [String] },
   },
   {
