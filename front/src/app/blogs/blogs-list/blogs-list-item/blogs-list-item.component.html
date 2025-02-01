@@ -1,0 +1,10 @@
+<a [routerLink]="[blog()?.id]">
+  <div class="tag-container">
+    {{ blog()?.tag }}
+  </div>
+  <div class="image-container">
+    <app-asset [assetId]="blog()?.bannerAsset?.name || ''" />
+  </div>
+  <h5 class="blog-title">{{ blog()?.title }}</h5>
+  <div class="blog-content" [innerHTML]="summary()"></div>
+</a>

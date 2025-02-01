@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Blog } from '../interfaces/blog.interface';
 import { environment } from '../../../environments/environment';
 
@@ -7,8 +7,15 @@ import { environment } from '../../../environments/environment';
 export class BlogApiService {
   private readonly http = inject(HttpClient);
 
-  getBlogs() {
-    return this.http.get<Blog[]>(`${environment.apiUrl}/blogs`);
+  getBlogs(limit?: number, offset?: number) {
+    let params = new HttpParams();
+    if (limit) {
+      params = params.append('limit', limit);
+    }
+    if (offset) {
+      params = params.append('offset', offset);
+    }
+    return this.http.get<Blog[]>(`${environment.apiUrl}/blogs`, { params: params });
   }
 
   getBlogById(id: string) {

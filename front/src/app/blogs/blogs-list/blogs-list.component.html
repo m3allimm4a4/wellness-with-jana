@@ -1,1 +1,9 @@
-<section></section>
+<section class="blogs-list">
+  <div class="grid">
+    @for (blog of blogs(); track blog.id) {
+      <div class="col-12 md:col-6 lg:col-4">
+        <app-blogs-list-item [blog]="blog" />
+      </div>
+    }
+  </div>
+</section>

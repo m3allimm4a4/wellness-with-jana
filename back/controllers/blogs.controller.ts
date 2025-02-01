@@ -4,15 +4,8 @@ import { BadRequestError } from '../errors/bad-request.error';
 import { UploadedFile } from 'express-fileupload';
 import { Blog, IBlog } from '../models/blog.model';
 import { NotFoundError } from '../errors/not-found.error';
-import {
-  addOrUpdateAsset,
-  clearBlogImages,
-  deleteBlogImage,
-  removeAsset,
-  uploadBlogImage,
-} from '../shared/asset-manager';
+import { addOrUpdateAsset, clearBlogImages, removeAsset, uploadBlogImage } from '../shared/asset-manager';
 import { IAsset } from '../models/asset.model';
-import { JSDOM } from 'jsdom';
 
 export const getBlogs: RequestHandler = catchAsync(async (req, res) => {
   let query = Blog.find();
