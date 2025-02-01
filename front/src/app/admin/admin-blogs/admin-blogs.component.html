@@ -1,4 +1,22 @@
+<p-card styleClass="mb-2">
+  <h5>Settings</h5>
+  <div class="gird grid-nogutter ">
+    <div class="col-12 md:col-6 p-2">
+      <label>Choose or drop a file:</label>
+      <p-fileupload
+        accept="image/*,video/*"
+        mode="advanced"
+        name="file"
+        method="post"
+        [url]="url"
+        [maxFileSize]="20000000"
+        [multiple]="false" />
+    </div>
+  </div>
+</p-card>
+
 <p-table
+  class="pt-2"
   styleClass="p-datatable-striped"
   [scrollable]="true"
   [paginator]="true"

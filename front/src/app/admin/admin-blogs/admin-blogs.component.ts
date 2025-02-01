@@ -7,10 +7,13 @@ import { BlogApiService } from '../../shared/services/blog-api.service';
 import { Blog } from '../../shared/interfaces/blog.interface';
 import { ConfirmationService } from 'primeng/api';
 import { Subscription, switchMap, tap } from 'rxjs';
+import { Card } from 'primeng/card';
+import { FileUpload } from 'primeng/fileupload';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-admin-blogs',
-  imports: [RouterLink, TableModule, AssetComponent, Button],
+  imports: [RouterLink, TableModule, AssetComponent, Button, Card, FileUpload],
   templateUrl: './admin-blogs.component.html',
   styleUrl: './admin-blogs.component.scss',
 })
@@ -20,6 +23,7 @@ export class AdminBlogsComponent implements OnInit, OnDestroy {
   private readonly subscription = new Subscription();
 
   protected readonly blogs = signal<Blog[]>([]);
+  protected readonly url = `${environment.apiUrl}/assets/blogs/blogs-banner-background`;
 
   ngOnInit() {
     this.subscription.add(this.fetchBlogs().subscribe());

@@ -1,4 +1,4 @@
-.services-banner {
+.home-banner {
   min-height: 95vh;
   height: 100%;
   background-size: cover;
@@ -43,8 +43,7 @@
   }
 
   @media (max-width: 767px) {
-    min-height: 70vh;
-
+    min-height: 50vh;
     .spacer {
       display: none;
     }
