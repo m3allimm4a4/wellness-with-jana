@@ -1,14 +1,14 @@
 <p-tabs [value]="0">
   <p-tablist>
-    <p-tab [value]="0">Appointments</p-tab>
-    <p-tab [value]="1">Settings</p-tab>
+    <p-tab [value]="0">Settings</p-tab>
+    <p-tab [value]="1">Appointments</p-tab>
   </p-tablist>
   <p-tabpanels>
     <p-tabpanel [value]="0">
-      <app-admin-bookings-list />
+      <app-admin-bookings-configuration />
     </p-tabpanel>
     <p-tabpanel [value]="1">
-      <app-admin-bookings-configuration />
+      <app-admin-bookings-list />
     </p-tabpanel>
   </p-tabpanels>
 </p-tabs>
