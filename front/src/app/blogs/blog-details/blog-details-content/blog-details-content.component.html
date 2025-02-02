@@ -1,0 +1,23 @@
+<div class="content-container">
+  <div class="navbar-container">
+    <div class="navbar">
+      <h5>Navigation</h5>
+      <ol>
+        @for (item of navItems(); track item) {
+          <li (click)="scrollToHeader($index)">{{ item }}</li>
+        }
+      </ol>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="tag-container">{{ blog()?.tag }}</div>
+    <h4 #titleElement>{{ blog()?.title }}</h4>
+    <div>
+      <span class="pr-4">By: {{ blog()?.author }}</span>
+      <span>Date: {{ blog()?.createdAt | date }}</span>
+    </div>
+
+    <div [innerHTML]="blog()?.content" #contentElement></div>
+  </div>
+</div>

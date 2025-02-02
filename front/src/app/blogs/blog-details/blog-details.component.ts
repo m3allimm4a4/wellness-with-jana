@@ -6,10 +6,11 @@ import { Blog } from '../../shared/interfaces/blog.interface';
 import { HomeTrialComponent } from '../../home/home-trial/home-trial.component';
 import { HomeSocialShowcaseComponent } from '../../home/home-social-showcase/home-social-showcase.component';
 import { BlogDetailsBannerComponent } from './blog-details-banner/blog-details-banner.component';
+import { BlogDetailsContentComponent } from './blog-details-content/blog-details-content.component';
 
 @Component({
   selector: 'app-blog-details',
-  imports: [HomeTrialComponent, HomeSocialShowcaseComponent, BlogDetailsBannerComponent],
+  imports: [HomeTrialComponent, HomeSocialShowcaseComponent, BlogDetailsBannerComponent, BlogDetailsContentComponent],
   templateUrl: './blog-details.component.html',
   styleUrl: './blog-details.component.scss',
 })
