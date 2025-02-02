@@ -5,11 +5,12 @@
   .navbar-container {
     width: 35%;
     padding: 2rem;
-    height: calc(100% - 8rem);
+    position: relative;
+    top: -8rem;
 
     .navbar {
-      position: relative;
-      top: -8rem;
+      position: sticky;
+      top: 3rem;
       padding: 2rem;
       background-color: var(--p-primary-color);
       color: #ffffff;
@@ -47,6 +48,8 @@
 
     .content {
       width: 100%;
+      position: relative;
+      top: -8rem;
     }
   }
 }
