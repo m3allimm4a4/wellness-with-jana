@@ -1,0 +1,12 @@
+.blogs-list {
+  padding: 100px 150px;
+
+  h4 {
+    text-align: center;
+    padding-bottom: 2rem;
+  }
+
+  @media (max-width: 767px) {
+    padding: 60px 2rem;
+  }
+}

@@ -59,7 +59,7 @@ import {
 } from 'ckeditor5';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { firstValueFrom, of, switchMap, tap } from 'rxjs';
+import { firstValueFrom, forkJoin, of, switchMap, tap } from 'rxjs';
 import { Card } from 'primeng/card';
 import { InputText } from 'primeng/inputtext';
 import { MultiSelect } from 'primeng/multiselect';
@@ -267,6 +267,7 @@ export class AdminBlogsDetailsComponent implements OnInit {
   });
   protected readonly content = signal<string>('');
   protected readonly blog = signal<Blog | undefined>(undefined);
+  protected readonly relatedOptions = signal<Blog[]>([]);
   protected readonly uploadUrl = computed(() => `${environment.apiUrl}/blogs/${this.blog()?.id}`);
 
   ngOnInit() {
@@ -282,15 +283,15 @@ export class AdminBlogsDetailsComponent implements OnInit {
         switchMap(params => {
           const id = params.get('id');
           if (!id || id === 'new') {
-            return of(undefined);
+            return of([]);
           }
           if (this.config.simpleUpload) {
             this.config.simpleUpload.uploadUrl = this.blogApiService.getContentImageUploadUrl(id);
           }
 
-          return this.blogApiService.getBlogById(id);
+          return forkJoin([this.blogApiService.getBlogById(id), this.blogApiService.getBlogs()]);
         }),
-        tap(blog => {
+        tap(([blog, options]) => {
           if (!blog) return;
 
           this.blogForm.patchValue({
@@ -301,6 +302,8 @@ export class AdminBlogsDetailsComponent implements OnInit {
           });
           this.blog.set(blog);
           this.content.set(blog.content || '');
+
+          this.relatedOptions.set(options.filter(o => o.id !== blog.id));
         }),
       )
       .subscribe();

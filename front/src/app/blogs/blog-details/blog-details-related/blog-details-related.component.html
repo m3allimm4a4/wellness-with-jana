@@ -1,0 +1,10 @@
+<section class="blogs-list">
+  <h4>Related Posts</h4>
+  <div class="grid">
+    @for (blog of related(); track blog) {
+      <div class="col-12 md:col-6 lg:col-4">
+        <app-blogs-list-item [blog]="blog" />
+      </div>
+    }
+  </div>
+</section>

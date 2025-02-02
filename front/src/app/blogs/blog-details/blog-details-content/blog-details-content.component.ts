@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';
   styleUrl: './blog-details-content.component.scss',
 })
 export class BlogDetailsContentComponent {
-  blog = input<Blog | undefined>(undefined);
+  blog = input<Blog>();
 
   navItems = computed(() => {
     const result: string[] = [this.blog()?.title || ''];

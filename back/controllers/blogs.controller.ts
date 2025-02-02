@@ -26,7 +26,12 @@ export const getBlog: RequestHandler = catchAsync(async (req, res) => {
   if (!id) {
     throw new BadRequestError();
   }
-  const blog = await Blog.findById(id).populate('bannerAsset').populate('related');
+  const blog = await Blog.findById(id)
+    .populate('bannerAsset')
+    .populate({
+      path: 'related',
+      populate: { path: 'bannerAsset' },
+    });
   if (!blog) {
     throw new NotFoundError();
   }

@@ -3,7 +3,7 @@
     <div class="navbar">
       <h5>Navigation</h5>
       <ol>
-        @for (item of navItems(); track item) {
+        @for (item of navItems(); track $index) {
           <li (click)="scrollToHeader($index)">{{ item }}</li>
         }
       </ol>
