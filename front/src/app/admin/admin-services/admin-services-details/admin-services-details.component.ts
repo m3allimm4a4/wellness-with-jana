@@ -12,6 +12,7 @@ import { Button } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
 import { environment } from '../../../../environments/environment';
 import { AutoComplete } from 'primeng/autocomplete';
+import { AssetUploaderComponent } from '../../../shared/components/asset-uploader/asset-uploader.component';
 
 @Component({
   selector: 'app-admin-testemonials-details',
@@ -24,6 +25,7 @@ import { AutoComplete } from 'primeng/autocomplete';
     Button,
     FileUploadModule,
     AutoComplete,
+    AssetUploaderComponent,
   ],
   templateUrl: './admin-services-details.component.html',
   styleUrl: './admin-services-details.component.scss',

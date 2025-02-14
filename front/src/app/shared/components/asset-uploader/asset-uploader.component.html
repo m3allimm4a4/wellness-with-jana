@@ -1,0 +1,44 @@
+<p-fieldset legend="Choose Image or Video">
+  <div class="flex gap-2">
+    <p-button label="Choose Image" (onClick)="imageInput.showPicker()" />
+    <p-button label="Choose Video" (onClick)="videoInput.showPicker()" />
+    <p-button
+      label="Upload"
+      severity="secondary"
+      [disabled]="!croppedImage() && !selectedVideo()"
+      [loading]="isUploadLoading()"
+      (onClick)="uploadCroppedImage()" />
+  </div>
+
+  <input
+    #imageInput
+    type="file"
+    style="display: none"
+    accept="image/*"
+    [multiple]="false"
+    (change)="onImageFileChange($event)" />
+
+  <input
+    #videoInput
+    type="file"
+    style="display: none"
+    accept="video/*"
+    [multiple]="false"
+    (change)="onVideoFileChange($event)" />
+
+  @if (imageChangedEvent()) {
+    <image-cropper
+      format="webp"
+      [imageChangedEvent]="imageChangedEvent()"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="aspectRatio()"
+      (imageCropped)="imageCropped($event)"
+      (loadImageFailed)="loadImageFailed()" />
+  }
+
+  @if (selectedVideoUrl()) {
+    <video style="padding: 1rem; max-width: 100%; max-height: 100%" [autoplay]="true" [muted]="true" [loop]="true">
+      <source [src]="selectedVideoUrl()" />
+    </video>
+  }
+</p-fieldset>
