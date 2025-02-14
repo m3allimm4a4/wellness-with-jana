@@ -6,12 +6,12 @@ import { LabelsService } from '../../services/labels.service';
 import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { EditorModule } from 'primeng/editor';
-import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
+import { AssetUploaderComponent } from '../../../shared/components/asset-uploader/asset-uploader.component';
 
 @Component({
   selector: 'app-admin-services-banner',
-  imports: [Button, CardModule, EditorModule, FileUploadModule, InputTextModule, ReactiveFormsModule],
+  imports: [Button, CardModule, EditorModule, InputTextModule, ReactiveFormsModule, AssetUploaderComponent],
   templateUrl: './admin-services-banner.component.html',
   styleUrl: './admin-services-banner.component.scss',
 })

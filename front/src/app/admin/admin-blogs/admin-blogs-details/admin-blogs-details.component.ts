@@ -68,12 +68,12 @@ import { Blog } from '../../../shared/interfaces/blog.interface';
 import { BlogApiService } from '../../../shared/services/blog-api.service';
 import { Button } from 'primeng/button';
 import { Message } from 'primeng/message';
-import { FileUpload } from 'primeng/fileupload';
 import { environment } from '../../../../environments/environment';
+import { AssetUploaderComponent } from '../../../shared/components/asset-uploader/asset-uploader.component';
 
 @Component({
   selector: 'app-admin-blogs-details',
-  imports: [CKEditorModule, Card, InputText, MultiSelect, ReactiveFormsModule, Button, Message, FileUpload],
+  imports: [CKEditorModule, Card, InputText, MultiSelect, ReactiveFormsModule, Button, Message, AssetUploaderComponent],
   templateUrl: './admin-blogs-details.component.html',
   styleUrl: './admin-blogs-details.component.scss',
 })

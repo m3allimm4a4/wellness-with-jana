@@ -7,11 +7,19 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Subscription } from 'rxjs';
 import { LabelsService } from '../../services/labels.service';
 import { environment } from '../../../../environments/environment';
-import { FileUploadModule } from 'primeng/fileupload';
+import { AssetUploaderComponent } from '../../../shared/components/asset-uploader/asset-uploader.component';
 
 @Component({
   selector: 'app-admin-home-marketing-message',
-  imports: [Button, CardModule, EditorModule, FormsModule, InputTextModule, ReactiveFormsModule, FileUploadModule],
+  imports: [
+    Button,
+    CardModule,
+    EditorModule,
+    FormsModule,
+    InputTextModule,
+    ReactiveFormsModule,
+    AssetUploaderComponent,
+  ],
   templateUrl: './admin-home-marketing-message.component.html',
   styleUrl: './admin-home-marketing-message.component.scss',
 })

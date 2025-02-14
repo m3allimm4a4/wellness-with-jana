@@ -1,7 +1,6 @@
 import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
 import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
@@ -9,10 +8,11 @@ import { iif, of, Subscription, switchMap, throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IgPost } from '../../../shared/interfaces/ig-post.interface';
 import { IgPostsApiService } from '../../../shared/services/ig-posts-api.service';
+import { AssetUploaderComponent } from '../../../shared/components/asset-uploader/asset-uploader.component';
 
 @Component({
   selector: 'app-admin-ig-post-details',
-  imports: [Button, CardModule, FileUploadModule, InputTextModule, ReactiveFormsModule],
+  imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, AssetUploaderComponent],
   templateUrl: './admin-ig-post-details.component.html',
   styleUrl: './admin-ig-post-details.component.scss',
 })

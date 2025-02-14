@@ -1,5 +1,5 @@
 <p-card>
-  <h5 class="pb-4">About Summary</h5>
+  <h5 class="pb-4">About Description</h5>
   <form class="flex flex-column gap-2" [formGroup]="descriptionForm">
     <div>
       <label style="width: 100%">Title:</label>
@@ -11,15 +11,7 @@
     </div>
     <p-button label="SAVE" type="submit" [disabled]="!descriptionForm.valid" (onClick)="saveDescription()" />
     <div>
-      <label>Choose or drop a file:</label>
-      <p-fileupload
-        accept="image/*,video/*"
-        mode="advanced"
-        name="file"
-        method="post"
-        [url]="url"
-        [maxFileSize]="20000000"
-        [multiple]="false" />
+      <app-asset-uploader [uploadUrl]="url" />
     </div>
   </form>
 </p-card>

@@ -6,12 +6,20 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { InputTextModule } from 'primeng/inputtext';
 import { Subscription } from 'rxjs';
 import { LabelsService } from '../../services/labels.service';
-import { FileUploadModule } from 'primeng/fileupload';
 import { environment } from '../../../../environments/environment';
+import { AssetUploaderComponent } from '../../../shared/components/asset-uploader/asset-uploader.component';
 
 @Component({
   selector: 'app-admin-about-description',
-  imports: [Button, CardModule, EditorModule, FormsModule, InputTextModule, ReactiveFormsModule, FileUploadModule],
+  imports: [
+    Button,
+    CardModule,
+    EditorModule,
+    FormsModule,
+    InputTextModule,
+    ReactiveFormsModule,
+    AssetUploaderComponent,
+  ],
   templateUrl: './admin-about-description.component.html',
   styleUrl: './admin-about-description.component.scss',
 })

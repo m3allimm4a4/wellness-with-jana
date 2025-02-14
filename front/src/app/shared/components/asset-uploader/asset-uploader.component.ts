@@ -1,4 +1,4 @@
-import { Component, inject, input, OnDestroy, signal } from '@angular/core';
+import { Component, computed, inject, input, OnDestroy, signal } from '@angular/core';
 import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
 import { Button } from 'primeng/button';
 import { HttpClient } from '@angular/common/http';
@@ -19,7 +19,8 @@ export class AssetUploaderComponent implements OnDestroy {
   uploadUrl = input.required<string>();
   aspectRatio = input<number>();
 
-  protected isUploadLoading = signal<boolean>(false);
+  protected readonly maintainAspectRatio = computed(() => !!this.aspectRatio());
+  protected readonly isUploadLoading = signal<boolean>(false);
   protected readonly imageChangedEvent = signal<Event | undefined>(undefined);
   protected readonly croppedImage = signal<Blob | null | undefined>(undefined);
   protected readonly selectedVideo = signal<File | undefined>(undefined);

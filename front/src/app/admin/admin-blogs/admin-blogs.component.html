@@ -2,15 +2,7 @@
   <h5>Settings</h5>
   <div class="gird grid-nogutter ">
     <div class="col-12 md:col-6 p-2">
-      <label>Choose or drop a file:</label>
-      <p-fileupload
-        accept="image/*,video/*"
-        mode="advanced"
-        name="file"
-        method="post"
-        [url]="url"
-        [maxFileSize]="20000000"
-        [multiple]="false" />
+      <app-asset-uploader [uploadUrl]="url" />
     </div>
   </div>
 </p-card>

@@ -15,15 +15,7 @@
       [disabled]="!highlightedServiceForm.valid"
       (onClick)="saveHighlightedService()" />
     <div>
-      <label>Choose or drop a file:</label>
-      <p-fileupload
-        accept="image/*,video/*"
-        mode="advanced"
-        name="file"
-        method="post"
-        [url]="url"
-        [maxFileSize]="20000000"
-        [multiple]="false" />
+      <app-asset-uploader [uploadUrl]="url" [aspectRatio]="1" />
     </div>
   </form>
 </p-card>

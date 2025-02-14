@@ -6,12 +6,12 @@ import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { EditorModule } from 'primeng/editor';
-import { FileUploadModule } from 'primeng/fileupload';
 import { environment } from '../../../../environments/environment';
+import { AssetUploaderComponent } from '../../../shared/components/asset-uploader/asset-uploader.component';
 
 @Component({
   selector: 'app-admin-home-banner',
-  imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, EditorModule, FileUploadModule],
+  imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, EditorModule, AssetUploaderComponent],
   templateUrl: './admin-home-banner.component.html',
   styleUrl: './admin-home-banner.component.scss',
 })

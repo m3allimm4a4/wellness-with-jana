@@ -5,12 +5,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Button } from 'primeng/button';
 import { ContactInfo } from '../../shared/interfaces/contact-info.interface';
 import { ContactInfoService } from '../../shared/services/contact-info.service';
-import { FileUploadModule } from 'primeng/fileupload';
 import { environment } from '../../../environments/environment';
+import { AssetUploaderComponent } from '../../shared/components/asset-uploader/asset-uploader.component';
 
 @Component({
   selector: 'app-admin-contact',
-  imports: [CardModule, ReactiveFormsModule, InputTextModule, Button, FileUploadModule],
+  imports: [CardModule, ReactiveFormsModule, InputTextModule, Button, AssetUploaderComponent],
   templateUrl: './admin-contact.component.html',
   styleUrl: './admin-contact.component.scss',
 })

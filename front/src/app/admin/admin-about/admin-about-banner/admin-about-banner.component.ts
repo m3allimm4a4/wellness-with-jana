@@ -6,11 +6,11 @@ import { Button } from 'primeng/button';
 import { Subscription } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { LabelsService } from '../../services/labels.service';
-import { FileUploadModule } from 'primeng/fileupload';
+import { AssetUploaderComponent } from '../../../shared/components/asset-uploader/asset-uploader.component';
 
 @Component({
   selector: 'app-admin-about-banner',
-  imports: [CardModule, ReactiveFormsModule, EditorModule, Button, FileUploadModule],
+  imports: [CardModule, ReactiveFormsModule, EditorModule, Button, AssetUploaderComponent],
   templateUrl: './admin-about-banner.component.html',
   styleUrl: './admin-about-banner.component.scss',
 })

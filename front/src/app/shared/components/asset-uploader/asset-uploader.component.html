@@ -31,7 +31,7 @@
     <image-cropper
       format="webp"
       [imageChangedEvent]="imageChangedEvent()"
-      [maintainAspectRatio]="true"
+      [maintainAspectRatio]="maintainAspectRatio()"
       [aspectRatio]="aspectRatio()"
       (imageCropped)="imageCropped($event)"
       (loadImageFailed)="loadImageFailed()" />

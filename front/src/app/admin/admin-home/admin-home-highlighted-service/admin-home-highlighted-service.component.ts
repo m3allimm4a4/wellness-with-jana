@@ -6,12 +6,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Subscription } from 'rxjs';
 import { LabelsService } from '../../services/labels.service';
 import { EditorModule } from 'primeng/editor';
-import { FileUploadModule } from 'primeng/fileupload';
 import { environment } from '../../../../environments/environment';
+import { AssetUploaderComponent } from '../../../shared/components/asset-uploader/asset-uploader.component';
 
 @Component({
   selector: 'app-admin-home-highlighted-service',
-  imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, EditorModule, FileUploadModule],
+  imports: [Button, CardModule, InputTextModule, ReactiveFormsModule, EditorModule, AssetUploaderComponent],
   templateUrl: './admin-home-highlighted-service.component.html',
   styleUrl: './admin-home-highlighted-service.component.scss',
 })

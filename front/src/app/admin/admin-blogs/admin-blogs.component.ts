@@ -8,12 +8,12 @@ import { Blog } from '../../shared/interfaces/blog.interface';
 import { ConfirmationService } from 'primeng/api';
 import { Subscription, switchMap, tap } from 'rxjs';
 import { Card } from 'primeng/card';
-import { FileUpload } from 'primeng/fileupload';
 import { environment } from '../../../environments/environment';
+import { AssetUploaderComponent } from '../../shared/components/asset-uploader/asset-uploader.component';
 
 @Component({
   selector: 'app-admin-blogs',
-  imports: [RouterLink, TableModule, AssetComponent, Button, Card, FileUpload],
+  imports: [RouterLink, TableModule, AssetComponent, Button, Card, AssetUploaderComponent],
   templateUrl: './admin-blogs.component.html',
   styleUrl: './admin-blogs.component.scss',
 })

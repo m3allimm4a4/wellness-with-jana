@@ -30,15 +30,7 @@
       <input pInputText type="email" formControlName="youtube" [style]="{ width: '100%' }" />
     </div>
     <div class="col-12 md:col-6 p-2">
-      <label>Choose or drop a file:</label>
-      <p-fileupload
-        accept="image/*,video/*"
-        mode="advanced"
-        name="file"
-        method="post"
-        [url]="url"
-        [maxFileSize]="20000000"
-        [multiple]="false" />
+      <app-asset-uploader [uploadUrl]="url" />
     </div>
     <div class="col-12 p-2" style="text-align: end">
       <p-button type="submit" label="SAVE" (onClick)="onContactSave()" />
