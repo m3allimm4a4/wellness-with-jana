@@ -1,9 +1,10 @@
 <p-fieldset legend="Choose Image or Video">
   <div class="flex gap-2">
-    <p-button label="Choose Image" (onClick)="imageInput.showPicker()" />
-    <p-button label="Choose Video" (onClick)="videoInput.showPicker()" />
+    <p-button label="Image" icon="pi pi-image" (onClick)="imageInput.showPicker()" />
+    <p-button label="Video" icon="pi pi-video" (onClick)="videoInput.showPicker()" />
     <p-button
       label="Upload"
+      icon="pi pi-upload"
       severity="secondary"
       [disabled]="!croppedImage() && !selectedVideo()"
       [loading]="isUploadLoading()"
