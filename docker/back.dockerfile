@@ -1,4 +1,9 @@
 FROM node:18-alpine AS base
+RUN apk add --no-cache tzdata && \
+    cp /usr/share/zoneinfo/Asia/Beirut /etc/localtime && \
+    echo "Asia/Beirut" > /etc/timezone && \
+    apk del tzdata
+EXPOSE 80
 WORKDIR /app
 
 FROM node:18-alpine AS build
@@ -14,5 +19,4 @@ RUN cp -r /src/back/dist /publish
 FROM base AS final
 COPY --from=publish /publish/* /app
 RUN npm i --omit=dev
-EXPOSE 80
 ENTRYPOINT ["node","index.js"]
