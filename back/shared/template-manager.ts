@@ -1,7 +1,7 @@
-import layoutTemplate from '../templates/layout.template';
+import { Layout } from '../templates/templates.module';
 
 export const proccessTemplateHtml = (html: string, params: Record<string, string>) => {
-  let result = layoutTemplate.replace('{{body}}', html.trim());
+  let result = Layout.replace('{{body}}', html.trim());
   for (const [key, value] of Object.entries(params)) {
     result = result.replaceAll(`[${key}]`, value);
   }
