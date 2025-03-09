@@ -26,6 +26,7 @@ export class BookingService {
           this.bookingDialog = this.dialogService.open(BookingComponent, {
             header: 'Book A Session',
             modal: true,
+            position: 'top',
             closable: true,
             appendTo: 'body',
             width: '40rem',

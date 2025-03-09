@@ -53,6 +53,7 @@ export class AuthService {
     this.loginDialog = this.dialogService.open(LoginComponent, {
       header: fromRequirement ? 'You need to login before procceding' : 'Login',
       modal: true,
+      position: 'top',
       closable: true,
       appendTo: 'body',
     });
@@ -62,6 +63,7 @@ export class AuthService {
     this.closeDialogs();
     this.signUpDialog = this.dialogService.open(SignUpComponent, {
       header: 'Sign Up',
+      position: 'top',
       modal: true,
       closable: true,
       appendTo: 'body',
@@ -74,6 +76,7 @@ export class AuthService {
     this.closeDialogs();
     this.emailVerificationDialog = this.dialogService.open(EmailVerificationComponent, {
       header: 'Email Verification',
+      position: 'top',
       modal: true,
       closable: true,
       appendTo: 'body',
@@ -85,6 +88,7 @@ export class AuthService {
     this.closeDialogs();
     this.passwordResetDialog = this.dialogService.open(PasswordResetComponent, {
       header: 'Password Reset',
+      position: 'top',
       modal: true,
       closable: true,
       appendTo: 'body',
