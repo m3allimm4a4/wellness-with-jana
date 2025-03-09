@@ -4,7 +4,7 @@ import { catchAsync } from '../shared/catchAsync';
 import { IUser, User, UserRole } from '../models/user.model';
 import { generateVerificationToken, hashPassword, isValidPassword } from '../shared/hashing-manager';
 import { BadRequestError } from '../errors/bad-request.error';
-import { getStaticTemplate } from '../shared/template-manager';
+import { proccessTemplateHtml } from '../shared/template-manager';
 import { ContactInfo } from '../models/contact-info.model';
 import { sendEmail } from '../shared/mail-sender';
 import { UnauthorizedError } from '../errors/unauthorized.error';
@@ -12,6 +12,8 @@ import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '.
 import { NotFoundError } from '../errors/not-found.error';
 import { ForbiddenError } from '../errors/forbidden.error';
 import { RefreshToken } from '../models/refresh-token.model';
+import EmailVerificationTemplate from '../templates/email-verification.template';
+import PasswordResetTemplate from '../templates/password-reset.template';
 
 export const signUp: RequestHandler = catchAsync(async (req, res) => {
   const user: Partial<IUser> = req.body;
@@ -42,7 +44,7 @@ export const signUp: RequestHandler = catchAsync(async (req, res) => {
 
   const contactInfo = await ContactInfo.findOne();
   const verificationUrl = `${process.env.FRONT_BASE_URL}?email-verification=${verificationHash}`;
-  const html = await getStaticTemplate('email-verification', {
+  const html = proccessTemplateHtml(EmailVerificationTemplate, {
     name: user.name,
     verificationUrl,
     contactEmail: contactInfo?.email || '',
@@ -139,7 +141,7 @@ export const forgotPassword: RequestHandler = catchAsync(async (req, res) => {
     await user.save();
     const contactInfo = await ContactInfo.findOne();
     const verificationUrl = `${process.env.FRONT_BASE_URL}?password-reset=${verificationHash}`;
-    const html = await getStaticTemplate('password-reset', {
+    const html = proccessTemplateHtml(PasswordResetTemplate, {
       name: user.name,
       verificationUrl,
       contactEmail: contactInfo?.email || '',
