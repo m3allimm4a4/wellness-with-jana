@@ -3,7 +3,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Service } from '../../interfaces/service.interface';
 import { BookingService } from '../../services/booking.service';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { DeviceDetectorService } from 'ngx-device-detector';
 import { Timeslot } from '../../interfaces/timeslot.interface';
 import { finalize } from 'rxjs';
 import { Appointment } from '../../interfaces/appointment.interface';
@@ -42,12 +41,10 @@ import { User } from '../../interfaces/user.interface';
 })
 export class BookingComponent implements OnInit {
   private readonly config = inject(DynamicDialogConfig);
-  private readonly deviceService = inject(DeviceDetectorService);
   private readonly bookingService = inject(BookingService);
   private readonly authService = inject(AuthService);
 
   protected readonly service: Service = this.config?.data?.service;
-  protected readonly isMobile = this.deviceService.isMobile();
   protected readonly today = new Date();
 
   protected readonly user = signal<User | undefined>(undefined);
