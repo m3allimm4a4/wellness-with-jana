@@ -5,6 +5,7 @@
       <ng-template #content let-activateCallback="activateCallback">
         <p-date-picker
           appendTo="body"
+          [readonlyInput]="true"
           [minDate]="today"
           [(ngModel)]="date"
           [style]="{ width: '100%' }" />
