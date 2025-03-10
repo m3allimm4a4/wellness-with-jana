@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '../shared/guards/auth.guard';
 import { UserRole } from '../shared/interfaces/user.interface';
+import { adminBookingRoutes } from './admin-bookings/admin-booking.routes';
 
 export const adminRoutes: Routes = [
   {
@@ -43,6 +44,7 @@ export const adminRoutes: Routes = [
         path: 'bookings',
         title: 'Admin Bookings',
         loadComponent: () => import('./admin-bookings/admin-bookings.component').then(m => m.AdminBookingsComponent),
+        loadChildren: () => adminBookingRoutes,
       },
       {
         path: 'testemonials',

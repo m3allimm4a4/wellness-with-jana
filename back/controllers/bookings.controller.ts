@@ -8,6 +8,8 @@ import { BadRequestError } from '../errors/bad-request.error';
 import { NotFoundError } from '../errors/not-found.error';
 import { sendEmail } from '../shared/mail-sender';
 import { proccessTemplateHtml } from '../shared/template-manager';
+import { User, UserRole } from '../models/user.model';
+import AdminBookingNotificationTemplate from '../templates/admin-booking-notification.template';
 
 const generateTimeslots = async (date: Date) => {
   const config = await getAppointmentConfig();
@@ -74,14 +76,23 @@ export const createAppointment: RequestHandler = catchAsync(async (req, res) => 
 
   const config = await getAppointmentConfig();
 
-  const html = proccessTemplateHtml(config.email.template, {
+  const emailParams = {
     name: req.user.name,
     service: appointment.service?.name || '',
     day: appointment.start.toLocaleDateString(),
     startTime: appointment.start.toLocaleTimeString(),
     endTime: appointment.end.toLocaleTimeString(),
-  });
-  await sendEmail(config.email.subject, [req.user.email], html);
+    confirmationUrl: `${process.env.FRONT_BASE_URL}/admin/bookings/list`,
+  };
+  await sendEmail(config.email.subject, [req.user.email], proccessTemplateHtml(config.email.template, emailParams));
+
+  const adminUsers = await User.find({ roles: UserRole.ADMIN });
+
+  await sendEmail(
+    config.email.subject,
+    adminUsers.map(user => user.email),
+    proccessTemplateHtml(AdminBookingNotificationTemplate, emailParams),
+  );
 
   res.status(200).json(newBooking.toObject());
 });
