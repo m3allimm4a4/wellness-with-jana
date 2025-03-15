@@ -18,5 +18,6 @@ export class AdminHeaderComponent {
     { label: 'IG Posts', routerLink: '/admin/ig-posts' },
     { label: 'About', routerLink: '/admin/about' },
     { label: 'Contact', routerLink: '/admin/contact' },
+    { label: 'Logo', routerLink: '/admin/logo' },
   ];
 }

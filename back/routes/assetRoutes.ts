@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createOrUpdateAsset, deleteAsset, getAsset, getAssets } from '../controllers/assets.controller';
+import { createOrUpdateAsset, deleteAsset, getAsset, getAssets, uploadFavicon } from '../controllers/assets.controller';
 import { auth } from '../middlewares/auth.middleware';
 import { UserRole } from '../models/user.model';
 
@@ -13,5 +13,7 @@ router
   .route('/:id')
   .get(getAsset)
   .delete(auth([UserRole.ADMIN]), deleteAsset);
+
+router.route('/upload-favicon').post(uploadFavicon);
 
 export const assetRoutes = router;

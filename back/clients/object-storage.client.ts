@@ -9,7 +9,7 @@ export const deleteObject = (fileName: string) => {
   return s3Client().send(command);
 };
 
-export const putObject = (data: Buffer, fileName: string, acl: ObjectCannedACL) => {
+export const putObject = (data: string | Uint8Array | Buffer, fileName: string, acl: ObjectCannedACL) => {
   const command = new PutObjectCommand({
     Bucket: process.env.DO_BUCKET_NAME,
     Body: data,

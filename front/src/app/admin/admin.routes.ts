@@ -83,6 +83,11 @@ export const adminRoutes: Routes = [
         title: 'Admin About',
         loadComponent: () => import('./admin-about/admin-about.component').then(m => m.AdminAboutComponent),
       },
+      {
+        path: 'logo',
+        title: 'Admin Logo',
+        loadComponent: () => import('./admin-logo/admin-logo.component').then(m => m.AdminLogoComponent),
+      },
     ],
   },
 ];
